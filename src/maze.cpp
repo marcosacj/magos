@@ -33,4 +33,6 @@ void Maze::knockDown( const Nat & column, const Nat & line, const Nat & targetWa
 
 	board[ to_index(column,line) ] &= ~targetWall;
 
+	// todo: knockDown the neighboor cell wall
+
 }

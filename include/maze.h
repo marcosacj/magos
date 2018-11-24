@@ -57,8 +57,8 @@ public:
 	~Maze();
 
 	/// Knocks down a Wall.
-	/** Receives the coordinates of a cell and a target Wall (that is, the corresponding
-		state) to be knocked down.
+	/** Receives the coordinates of a cell and a target Wall (that is, the corresponding state)
+		to be knocked down. Note that corresponding walls of neighboor cells are also knocked down.
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
 		@param targetWall Target wall to be knocked down.
