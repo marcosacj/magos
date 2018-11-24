@@ -13,3 +13,8 @@ add_executable( maze
 	src/maze.cpp
 	test/driver_maze.cpp
 )
+
+add_executable( canvas
+	src/canvas.cpp
+	test/driver_canvas.cpp	
+)
