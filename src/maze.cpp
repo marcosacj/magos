@@ -25,7 +25,7 @@ Maze::~Maze(){
 void Maze::knock_down( const Coord & column, const Coord & line, const Wall & targetWall ){
 
 	// check if coordinates are inside the board
-	if( column >= width or column < 0 or line >= height or line < 0 ){
+	if( not valid_coord( column, line ) ){
 		throw std::invalid_argument("Coordinates should be inside the board!");
 	}
 
@@ -74,8 +74,20 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 
 }
 
-void Maze::set_state( const Coord & column, const Coord & line, const State & state ){
+void Maze::set_state( const Coord & column, const Coord & line, const State & targetState ){
 
-	// todo
+	// check if coordinates are inside the board
+	if( not valid_coord( column, line ) ){
+		throw std::invalid_argument("Coordinates should be inside the board!");
+	}
+
+}
+
+bool Maze::valid_coord( const Coord & column, const Coord & line ) const {
+
+	if( column >= width or column < 0 or line >= height or line < 0 )
+		return false;
+	else
+		return true;
 
 }

@@ -1,4 +1,4 @@
-##  Introduction
+## Introduction
 
 This project implements the programming project MAGOS, which is composed of some subprojects: Canvas, Maze, Render, Solver.
 

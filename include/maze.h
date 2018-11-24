@@ -31,6 +31,11 @@ private:
 		@param height Height of the maze (number of lines). */
 	inline Nat to_index( const Coord & column, const Coord & line ) const { return width*line + column; };
 
+	/// Checks if a coordinate pais points to inside the board.
+	/** @param width Width of the maze (number of columns).
+		@param height Height of the maze (number of lines). */
+	bool valid_coord( const Coord & column, const Coord & line ) const ;
+
 public:
 
 	/// Enumeration of cell states.
@@ -79,7 +84,12 @@ public:
 	void knock_down( const Coord & column, const Coord & line, const Wall & targetWall );
 
 	/// Sets the state of a target cell.
-	void set_state( const Coord & column, const Coord & line, const State & state );
+	/** ...
+		@param column Column of the target cell.
+		@param line Line of the targes cell.
+		@param targetState Target State to be set.
+		@throw std::invalid_argument If the coordinates are outside the board. */
+	void set_state( const Coord & column, const Coord & line, const State & targetState );
 
 	/// Overload of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
