@@ -26,6 +26,7 @@ The folder and files structure is the following:
 ## Compilation
 
 You can go to root directory of the project and:
+
 ```
 $ cd mkdir build
 $ cd build/
@@ -36,6 +37,7 @@ $ make
 ## Execution
 
 All executables will be placed in `run/` folder. So, you can run typing:
+
 ```
 $ ./run/[EXECUTABLE]
 ```
@@ -43,8 +45,9 @@ $ ./run/[EXECUTABLE]
 ## Doxygen
 
 A configuration file is set in the root directory. If you want to generate yours, you can type:
+
 ```
 $ doxygen -g [NAME]
 ```
 
-Its recommended to custom the following tags: PROJECT_NAME, OUTPUT_DIRECTORY and EXTRACT_PRIVATE.
+Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY and EXTRACT\_PRIVATE.
