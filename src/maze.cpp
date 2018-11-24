@@ -24,19 +24,33 @@ Maze::~Maze(){
 
 void Maze::knock_down( const Nat & column, const Nat & line, const Nat & targetWall ){
 
+	// check if coordinates are inside the board
 	if( column >= width or column < 0 or line >= height or line < 0 ){
 		throw std::invalid_argument("Coordinates should be inside the board!");
 	}
 
-	if( targetWall != Walls::Up and 
-		targetWall != Walls::Right and 
-		targetWall != Walls::Bottom and 
-		targetWall != Walls::Left ){
-		throw std::invalid_argument("Target Wall should correspond to the predefined ones!");
+	// todo: knockDown the neighboor cell wall
+
+	switch( targetWall ){
+		case Walls::Up:
+			break;
+		case Walls::Right:
+			break;
+		case Walls::Bottom:
+			break;
+		case Walls::Left:
+			break;
+		default:
+			throw std::invalid_argument("Target Wall should correspond to the predefined ones!");
 	}
 
+	// knocks down wall of target cell
 	board[ to_index(column,line) ] &= ~targetWall;
 
-	// todo: knockDown the neighboor cell wall
+}
+
+void Maze::set_state( const Nat & column, const Nat & line, const Nat & state ){
+
+	// todo
 
 }

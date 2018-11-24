@@ -25,6 +25,8 @@ private:
 	Cell * board{nullptr};
 
 	/// Converts coordinates to index in the board.
+	/** @param width Width of the maze (number of columns).
+		@param height Height of the maze (number of lines). */
 	inline Nat to_index( const Nat & column, const Nat & line ) const { return width*line + column; };
 
 public:
@@ -72,6 +74,9 @@ public:
 		@throw std::invalid_argument If the coordinates are outside the board.
 		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated. */
 	void knock_down( const Nat & column, const Nat & line, const Nat & targetWall );
+
+	/// Sets the state of a target cell.
+	void set_state( const Nat & column, const Nat & line, const Nat & state );
 
 	/// Overload of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
