@@ -18,3 +18,8 @@ add_executable( canvas
 	src/canvas.cpp
 	test/driver_canvas.cpp	
 )
+
+add_executable( render
+	src/render.cpp
+	test/driver_render.cpp	
+)
