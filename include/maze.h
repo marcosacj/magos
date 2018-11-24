@@ -74,7 +74,8 @@ public:
 		@param line Line of the targes cell.
 		@param targetWall Target wall to be knocked down.
 		@throw std::invalid_argument If the coordinates are outside the board.
-		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated. */
+		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated.
+		@throw std::invalid_argument If try to knock down a border wall. */
 	void knock_down( const Coord & column, const Coord & line, const Wall & targetWall );
 
 	/// Sets the state of a target cell.
