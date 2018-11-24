@@ -10,7 +10,7 @@ int main( int argc, char* argv[] ){
 	std::cout << std::endl;
 
 	m.knock_down(1, 1, Maze::Walls::Up);
-	m.knock_down(1, 1, Maze::Walls::Bottom);
+	// m.knock_down(1, 1, Maze::Walls::Bottom);
 
 	std::cout << m << std::endl;
 	std::cout << std::endl;

@@ -2,8 +2,10 @@
 #include <iomanip>
 #include <bitset>
 
-/// A simple natual number
-typedef std::size_t Nat;
+typedef std::size_t Nat;   //!< Simple natual number.
+typedef std::size_t State; //!< State of cell type.
+typedef std::size_t Wall;  //!< Wall of a cell type.
+typedef std::size_t Coord; //!< Coordinate of a cell type.
 
 /// Models the maze of the project.
 class Maze {
@@ -27,14 +29,14 @@ private:
 	/// Converts coordinates to index in the board.
 	/** @param width Width of the maze (number of columns).
 		@param height Height of the maze (number of lines). */
-	inline Nat to_index( const Nat & column, const Nat & line ) const { return width*line + column; };
+	inline Nat to_index( const Coord & column, const Coord & line ) const { return width*line + column; };
 
 public:
 
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
 		type (that is, an eight bits set). */
-	enum States : Nat {
+	enum States : State {
 		
 		Untested   = 8,   //!< Equivalent to 00001000
 		Visited    = 4,   //!< Equivalent to 00000100
@@ -46,7 +48,7 @@ public:
 	/// Enumeration of walls.
 	/** Walls are set as positive integers and, when assigned to a cell, are converted to Cell
 		type (that is, an eight bits set). */
-	enum Walls : Nat {
+	enum Walls : Wall {
 
 		Up     = 128, //!< Equivalent to 10000000
 		Right  = 64,  //!< Equivalent to 01000000
@@ -73,10 +75,10 @@ public:
 		@param targetWall Target wall to be knocked down.
 		@throw std::invalid_argument If the coordinates are outside the board.
 		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated. */
-	void knock_down( const Nat & column, const Nat & line, const Nat & targetWall );
+	void knock_down( const Coord & column, const Coord & line, const Wall & targetWall );
 
 	/// Sets the state of a target cell.
-	void set_state( const Nat & column, const Nat & line, const Nat & state );
+	void set_state( const Coord & column, const Coord & line, const State & state );
 
 	/// Overload of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
