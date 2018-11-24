@@ -34,15 +34,22 @@ public:
 		type (that is, an eight bits set). */
 	enum States : Nat {
 		
-		UpWall     = 128, //!< Equivalent to 10000000
-		RightWall  = 64,  //!< Equivalent to 01000000
-		BottomWall = 32,  //!< Equivalent to 00100000
-		LeftWall   = 16,  //!< Equivalent to 00010000
-		
 		Untested   = 8,   //!< Equivalent to 00001000
 		Visited    = 4,   //!< Equivalent to 00000100
 		Path       = 2,   //!< Equivalent to 00000010
 		Discarded  = 1    //!< Equivalent to 00000001
+
+	};
+
+	/// Enumeration of walls.
+	/** Walls are set as positive integers and, when assigned to a cell, are converted to Cell
+		type (that is, an eight bits set). */
+	enum Walls : Nat {
+
+		Up     = 128, //!< Equivalent to 10000000
+		Right  = 64,  //!< Equivalent to 01000000
+		Bottom = 32,  //!< Equivalent to 00100000
+		Left   = 16,  //!< Equivalent to 00010000
 
 	};
 
@@ -64,7 +71,7 @@ public:
 		@param targetWall Target wall to be knocked down.
 		@throw std::invalid_argument If the coordinates are outside the board.
 		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated. */
-	void knockDown( const Nat & column, const Nat & line, const Nat & targetWall );
+	void knock_down( const Nat & column, const Nat & line, const Nat & targetWall );
 
 	/// Overload of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {

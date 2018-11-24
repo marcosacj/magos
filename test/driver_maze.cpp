@@ -9,22 +9,23 @@ int main( int argc, char* argv[] ){
 	std::cout << m << std::endl;
 	std::cout << std::endl;
 
-	m.knockDown(1, 1, m.UpWall);
-	m.knockDown(1, 1, m.BottomWall);
+	m.knock_down(1, 1, Maze::Walls::Up);
+	m.knock_down(1, 1, Maze::Walls::Bottom);
 
 	std::cout << m << std::endl;
 	std::cout << std::endl;
+
 	std::cout << n << std::endl;
 	std::cout << std::endl;
 
 	try {
-		m.knockDown( 10, 2, m.UpWall);
+		m.knock_down( 10, 2, Maze::Walls::Up);
 	} catch( std::invalid_argument & e ){
 		std::cout << e.what() << std::endl;
 	}
 
 	try {
-		m.knockDown( 0, 2, m.Untested);
+		m.knock_down( 0, 2, Maze::States::Untested);
 	} catch( std::invalid_argument & e ){
 		std::cout << e.what() << std::endl;
 	}
