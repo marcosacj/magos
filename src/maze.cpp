@@ -81,6 +81,26 @@ void Maze::set_state( const Coord & column, const Coord & line, const State & ta
 		throw std::invalid_argument("Coordinates should be inside the board!");
 	}
 
+	// reset state bits
+	board[ to_index(column, line) ].reset(0);
+	board[ to_index(column, line) ].reset(1);
+	board[ to_index(column, line) ].reset(2);
+	board[ to_index(column, line) ].reset(3);
+
+	// set new state bits
+	switch( targetState ){
+
+		case States::Untested:
+		case States::Visited:
+		case States::Path:
+		case States::Discarded:
+			board[ to_index(column, line) ] |= targetState;
+			break;
+
+		default:
+			throw std::invalid_argument("Target State not valid!");
+	}
+
 }
 
 bool Maze::valid_coord( const Coord & column, const Coord & line ) const {

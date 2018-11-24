@@ -17,6 +17,9 @@ int main( int argc, char* argv[] ){
 	m.knock_down(2, 0, Maze::Walls::Right);
 	m.knock_down(2, 3, Maze::Walls::Left);
 
+	m.set_state(w-1, h-1, Maze::States::Visited);
+	m.set_state(w-2, h-2, Maze::States::Path);
+
 	std::cout << m << std::endl << std::endl;
 
 	// knock down border walls
@@ -54,6 +57,13 @@ int main( int argc, char* argv[] ){
 	// knock down invalid wall
 	try {
 		m.knock_down( 0, 2, Maze::States::Untested);
+	} catch( std::invalid_argument & e ){
+		std::cout << e.what() << std::endl;
+	}
+
+	// set states
+	try {
+		m.set_state( 0, 2, Maze::Walls::Up);
 	} catch( std::invalid_argument & e ){
 		std::cout << e.what() << std::endl;
 	}
