@@ -35,7 +35,7 @@ int main(void)
 
     // Invocando a função de gravação da biblioteca STB para gravar PNG.
     stbi_write_png_compression_level = 0;    // defaults to 8; set to higher for more compression
-    stbi_write_png( "../data/teste.png",      // file name
+    stbi_write_png( "./data/teste.png",      // file name
                 width, height,        // image dimensions
                 3,                    // # of channels per pixel
                 pixels,               // the pixels
@@ -48,7 +48,7 @@ int main(void)
     height = p.height();
     pixels = p.buffer();
 
-    stbi_write_png( "../data/teste_copia.png", width, height, 3, pixels, width*3);
+    stbi_write_png( "./data/teste_copia.png", width, height, 3, pixels, width*3);
 
     // Testando construtor atribuicao
     Canvas a;
@@ -59,7 +59,7 @@ int main(void)
     height = a.height();
     pixels = a.buffer();
 
-    stbi_write_png( "../data/teste_assign.png", width, height, 3, pixels, width*3);
+    stbi_write_png( "./data/teste_assign.png", width, height, 3, pixels, width*3);
 
     // Testando obtencao de cor de um pixel
     assert( c.pixel(10,15) == LIGHT_GREY );
