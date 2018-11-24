@@ -4,18 +4,18 @@
 
 Maze::Maze( const Nat & w , const Nat & h ){
 
-	std::cout << "Constructing maze..." << std::endl;
+	std::cout << "\nConstructing maze..." << std::endl;
 
 	width = w;
 	height = h;
 
-	board = new Nat[ width*height ];
+	board = new Cell[ width*height ];
 
-	std::fill( board, board + width*height, Unvisited );
+	std::fill( board, board + width*height, Untested | UpWall | RightWall | BottomWall | LeftWall );
 
 }
 
 Maze::~Maze(){
-	std::cout << "Destroying maze..." << std::endl;
+	std::cout << "\nDestroying maze..." << std::endl;
 	delete board;
 }

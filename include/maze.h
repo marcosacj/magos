@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <bitset>
 
 /// A simple natual number
 typedef std::size_t Nat;
@@ -15,9 +16,11 @@ private:
 		The four first bits mean if the Up, Right, Bottom and Left walls are stand up.
 		The last four bits mean the state of that cell during solving process:
 		untested, visited, visited-path, visited-discarded. */
-	typedef unsigned char Cell;
+	typedef std::bitset<8> Cell;
 
-	// enum de estados
+	/// Enumeration of cell states.
+	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
+		type (that is, an eight bits set). */
 	enum States : Nat {
 		
 		UpWall     = 128, //!< Equivalent to 10000000
@@ -25,36 +28,48 @@ private:
 		BottomWall = 32,  //!< Equivalent to 00100000
 		LeftWall   = 16,  //!< Equivalent to 00010000
 		
-		Unvisited  = 8,   //!< Equivalent to 00001000
+		Untested   = 8,   //!< Equivalent to 00001000
 		Visited    = 4,   //!< Equivalent to 00000100
 		Path       = 2,   //!< Equivalent to 00000010
 		Discarded  = 1    //!< Equivalent to 00000001
 
 	};
 
-	// dimensions of board
-	Nat width;
-	Nat height;
+	/// Dimensions of the board.
+	Nat width, height;
 
-	// board pointer
-	Nat * board{nullptr};
+	/// Pointer to the board of cells, which represents the maze.
+	Cell * board{nullptr};
 
 public:
 
-	// constructor
+	/// Constructor initialized with dimensions.
+	/** The constructor sets width and height passed, allocates memory to the board
+		and fills all cells with states Untested and all the walls up.
+		@param width Width of the maze (number of columns).
+		@param height Height of the maze (number of lines) */
 	Maze( const Nat & width = 0, const Nat & height = 0 );
 
-	// destructor
+	/// Destructor of the maze.
 	~Maze();
 
-	// overload <<
+	/// Knocks down a Wall.
+	/** Receives the coordinates of a cell and a target Wall (that is, the corresponding
+		state) to be knocked down.
+		@param column Column of the target cell.
+		@param line Line of the targes cell.
+		@param target Target wall to be knocked down. */
+	void KnockDown( const Nat & column, const Nat & line, const Nat & target );
+
+	/// Overloar of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
 
 		for ( Nat h{0} ; h < m.height ; h++ ){
 
 			for ( Nat w{0} ; w < m.width ; w++ ){
 
-				os << std::setw(3) << *(m.board + w*h) << " ";
+				// os << std::setw(3) << (*(m.board + w*h)).to_ulong() << " ";
+				os << *(m.board + w*h) << " ";
 
 			}
 
