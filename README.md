@@ -8,28 +8,13 @@ The folder and files structure is the following:
 
 * `include` folder contains the headers of classes
 
-* `helpers` folder contain other resources useful to implementation
+* `helpers` folder contains other resources useful to implementation
 
-* `src` folders contain the implementation of classes:
-	
-	* `src_canvas`
-	* `src_maze`
-	* `src_render`
-	* `src_solver`
+* `src` folder contains the implementation of the classes
 
-* `test` folders contain codes to test classes and other codes:
+* `test` folder contains codes to test classes and other codes
 
-	* `test_canvas`
-	* `test_maze`
-	* `test_render`
-	* `test_solver`
-
-* `build` folders will contain compilation files generated with help of CMake:
-
-	* `build_canvas`
-	* `build_maze`
-	* `build_render`
-	* `build_solver`
+* `build` folder will contain compilation files generated with help of CMake
 
 * `run` folder will contain the executables generated
 

@@ -9,7 +9,7 @@ include_directories( include helpers )
 
 # EXECUTABLES DEFINITION ==========================
 
-add_executable( driver_maze
+add_executable( maze
 	src/maze.cpp
 	test/driver_maze.cpp
 )

@@ -42,7 +42,7 @@ private:
 public:
 
 	// constructor
-	Maze( const Nat & width = 0, const Nat & height = 0);
+	Maze( const Nat & width = 0, const Nat & height = 0 );
 
 	// destructor
 	~Maze();
