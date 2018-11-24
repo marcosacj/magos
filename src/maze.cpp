@@ -19,3 +19,11 @@ Maze::~Maze(){
 	std::cout << "\nDestroying maze..." << std::endl;
 	delete board;
 }
+
+void Maze::knockDown( const Nat & column, const Nat & line, const Nat & targetWall ){
+
+	// todo: implement exceptions
+
+	board[ to_index(column,line) ] &= ~targetWall;
+
+}

@@ -18,6 +18,17 @@ private:
 		untested, visited, visited-path, visited-discarded. */
 	typedef std::bitset<8> Cell;
 
+	/// Dimensions of the board.
+	Nat width, height;
+
+	/// Pointer to the board of cells, which represents the maze.
+	Cell * board{nullptr};
+
+	/// Converts coordinates to index in the board.
+	inline Nat to_index( const Nat & column, const Nat & line ) const { return width*line + column; };
+
+public:
+
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
 		type (that is, an eight bits set). */
@@ -35,14 +46,6 @@ private:
 
 	};
 
-	/// Dimensions of the board.
-	Nat width, height;
-
-	/// Pointer to the board of cells, which represents the maze.
-	Cell * board{nullptr};
-
-public:
-
 	/// Constructor initialized with dimensions.
 	/** The constructor sets width and height passed, allocates memory to the board
 		and fills all cells with states Untested and all the walls up.
@@ -58,18 +61,18 @@ public:
 		state) to be knocked down.
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
-		@param target Target wall to be knocked down. */
-	void KnockDown( const Nat & column, const Nat & line, const Nat & target );
+		@param targetWall Target wall to be knocked down. */
+	void knockDown( const Nat & column, const Nat & line, const Nat & targetWall );
 
-	/// Overloar of stream operator.
+	/// Overload of stream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
 
 		for ( Nat h{0} ; h < m.height ; h++ ){
 
 			for ( Nat w{0} ; w < m.width ; w++ ){
 
-				// os << std::setw(3) << (*(m.board + w*h)).to_ulong() << " ";
-				os << *(m.board + w*h) << " ";
+				// os << std::setw(3) << (*(m.board + m.to_index(w, h) )).to_ulong() << " ";
+				os << *(m.board + m.to_index(w, h) ) << " ";
 
 			}
 
