@@ -2,15 +2,15 @@
 #include <iomanip>
 #include <bitset>
 
-typedef std::size_t Nat;   //!< Simple natual number.
-typedef std::size_t State; //!< State of cell type.
-typedef std::size_t Wall;  //!< Wall of a cell type.
-typedef std::size_t Coord; //!< Coordinate of a cell type.
-
 /// Models the maze of the project.
 class Maze {
 
 private:
+
+	typedef std::size_t Nat;   //!< Simple natural number.
+	typedef std::size_t State; //!< State of cell.
+	typedef std::size_t Wall;  //!< Wall of a cell.
+	typedef std::size_t Coord; //!< Coordinate of a cell.
 
 	/// Basic type of a cell in the maze.
 	/** A cell is modeled as a byte (unsigned char), that is, a sequence of eight bits, 
