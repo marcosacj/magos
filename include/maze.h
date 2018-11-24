@@ -28,12 +28,14 @@ private:
 
 	/// Converts coordinates to index in the board.
 	/** @param width Width of the maze (number of columns).
-		@param height Height of the maze (number of lines). */
+		@param height Height of the maze (number of lines).
+		@return Corresponding index of the coordinates. */
 	inline Nat to_index( const Coord & column, const Coord & line ) const { return width*line + column; };
 
 	/// Checks if a coordinate pais points to inside the board.
 	/** @param width Width of the maze (number of columns).
-		@param height Height of the maze (number of lines). */
+		@param height Height of the maze (number of lines).
+		@return True if corrdinate is valid and false otherwise. */
 	bool valid_coord( const Coord & column, const Coord & line ) const ;
 
 public:
@@ -93,13 +95,15 @@ public:
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
 
 	/// Overload of stream operator.
+	/** @param os The target std::ostream.
+		@param m The maze to be printed.
+		@return The board of the maze in bitset format. */
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
 
 		for ( Nat h{0} ; h < m.height ; h++ ){
 
 			for ( Nat w{0} ; w < m.width ; w++ ){
 
-				// os << std::setw(3) << (*(m.board + m.to_index(w, h) )).to_ulong() << " ";
 				os << *(m.board + m.to_index(w, h) ) << " ";
 
 			}
