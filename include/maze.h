@@ -50,7 +50,7 @@ public:
 	/** The constructor sets width and height passed, allocates memory to the board
 		and fills all cells with states Untested and all the walls up.
 		@param width Width of the maze (number of columns).
-		@param height Height of the maze (number of lines) */
+		@param height Height of the maze (number of lines). */
 	Maze( const Nat & width = 0, const Nat & height = 0 );
 
 	/// Destructor of the maze.
@@ -61,7 +61,9 @@ public:
 		state) to be knocked down.
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
-		@param targetWall Target wall to be knocked down. */
+		@param targetWall Target wall to be knocked down.
+		@throw std::invalid_argument If the coordinates are outside the board.
+		@throw std::invalid_argument If the target wall does not correspond to any of the enumerated. */
 	void knockDown( const Nat & column, const Nat & line, const Nat & targetWall );
 
 	/// Overload of stream operator.

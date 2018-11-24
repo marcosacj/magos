@@ -8,12 +8,26 @@ int main( int argc, char* argv[] ){
 
 	std::cout << m << std::endl;
 	std::cout << std::endl;
-	// std::cout << n << std::endl;
 
 	m.knockDown(1, 1, m.UpWall);
 	m.knockDown(1, 1, m.BottomWall);
 
 	std::cout << m << std::endl;
+	std::cout << std::endl;
+	std::cout << n << std::endl;
+	std::cout << std::endl;
+
+	try {
+		m.knockDown( 10, 2, m.UpWall);
+	} catch( std::invalid_argument & e ){
+		std::cout << e.what() << std::endl;
+	}
+
+	try {
+		m.knockDown( 0, 2, m.Untested);
+	} catch( std::invalid_argument & e ){
+		std::cout << e.what() << std::endl;
+	}
 
 	return 0;
 	
