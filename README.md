@@ -42,6 +42,10 @@ All executables will be placed in `run/` folder. So, you can run typing:
 $ ./run/[EXECUTABLE]
 ```
 
+Note: `driver_canvas` sets relative output folder from where `canvas` (inside `run/`) is runned.
+So, if you want result images be stored inside `data/`, you should run `canvas` from root directory
+of the project.
+
 ## Doxygen
 
 A configuration file is set in the root directory. If you want to generate yours, you can type:
