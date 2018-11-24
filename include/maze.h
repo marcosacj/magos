@@ -1,3 +1,6 @@
+#ifndef MAZE_H
+#define MAZE_H
+
 #include <iostream>
 #include <iomanip>
 #include <bitset>
@@ -120,3 +123,5 @@ public:
 	}
 
 };
+
+#endif
