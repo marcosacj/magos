@@ -8,6 +8,8 @@
 
 typedef std::size_t Nat; //!< Simple natural number.
 
+using namespace canvas;
+
 /// This class is responsible for read a Maze object, draw to an image and save it to a png file.
 class Render {
 
@@ -20,12 +22,18 @@ private:
 	Nat cell_width, cell_height;
 
 	/// Pointer to target maze.
-	const Maze * ptr_maze;
+	const Maze * ptr_maze{nullptr};
+
+	/// Pointer to a Canvas object which represents the image.
+	Canvas * img{nullptr};
 
 public:
 
 	/// Default constructor.
 	Render( const Maze * maze, const Nat & width, const Nat & height );
+
+	/// Default destructor.
+	~Render();
 
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
