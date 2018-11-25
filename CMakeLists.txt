@@ -16,11 +16,12 @@ add_executable( maze
 
 add_executable( canvas
 	src/canvas.cpp
-	test/driver_canvas.cpp	
+	test/driver_canvas.cpp
 )
 
 add_executable( render
 	src/render.cpp
 	src/maze.cpp
-	test/driver_render.cpp	
+	src/canvas.cpp
+	test/driver_render.cpp
 )
