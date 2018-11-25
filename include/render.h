@@ -38,8 +38,10 @@ public:
 	/// Default destructor.
 	~Render();
 
+	/// Draws all cells of the Maze to image Canvas object.
 	void draw_maze();
 
+	/// Saves the image Canvas object to a png file.
 	void save_image() const;
 
 	/// Overload of ostream operator.

@@ -41,10 +41,21 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Coord start_column{ column*cell_width };
 	Coord start_line{ line*cell_height };
 
-	img->hline( start_column, start_line, cell_width, BLACK );
-	img->vline( start_column, start_line, cell_height, BLACK );
-	img->hline( start_column, start_line + cell_height, cell_width, BLACK );
-	img->vline( start_column + cell_width, start_line, cell_height, BLACK );
+	// top wall
+	if( cell[7] )
+		img->hline( start_column, start_line, cell_width, BLACK );
+
+	// left wall
+	if( cell[4] )
+		img->vline( start_column, start_line, cell_height, BLACK );
+
+	// bottom wall
+	if( cell[5] )
+		img->hline( start_column, start_line + cell_height, cell_width, BLACK );
+
+	// right wall
+	if( cell[6] )
+		img->vline( start_column + cell_width, start_line, cell_height, BLACK );
 
 }
 
