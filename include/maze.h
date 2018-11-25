@@ -44,7 +44,7 @@ private:
 public:
 
 	inline Nat get_width() const { return width; };
-	inline Nat get_heigth() const { return height; };
+	inline Nat get_height() const { return height; };
 
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
