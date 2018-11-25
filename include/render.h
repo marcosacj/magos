@@ -7,25 +7,29 @@
 #include "canvas.h"
 
 typedef std::size_t Nat; //!< Simple natural number.
+typedef std::size_t Coord; //!< Coordinate of a cell.
 
 using namespace canvas;
 
-/// This class is responsible for read a Maze object, draw to an image and save it to a png file.
+/// Receives a Maze object and make a png file.
 class Render {
 
 private:
 
-	/// Dimensions of the image, in pixels.
-	Nat image_width, image_height;
+	Nat image_width;  //!< Width of the image, in pixels.
+	Nat image_height; //!< Height of the image, in pixels.
 
-	/// Dimensions of each cell on image, in pixels.
-	Nat cell_width, cell_height;
+	Nat cell_width;  //!< Width of each cell on image, in pixels.
+	Nat cell_height; //!< Height of each cell on image, in pixels.
 
 	/// Pointer to target maze.
 	const Maze * ptr_maze{nullptr};
 
 	/// Pointer to a Canvas object which represents the image.
 	Canvas * img{nullptr};
+
+	/// Draws a single cell on the image Canvas object.
+	void draw_cell( const Coord & column, const Coord & line );
 
 public:
 

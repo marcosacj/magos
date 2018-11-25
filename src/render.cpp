@@ -21,3 +21,9 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 Render::~Render(){
 	delete img;
 }
+
+void Render::draw_cell( const Coord & column, const Coord & line ){
+
+	// todo
+
+}
