@@ -47,7 +47,7 @@ int main( int argc, char* argv[] ){
 		std::cout << e.what() << std::endl;
 	}
 
-	// knock down outside board
+	// knock down outside matrix
 	try {
 		m.knock_down( 10, 2, Maze::Walls::Up);
 	} catch( std::invalid_argument & e ){

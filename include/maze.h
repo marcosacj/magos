@@ -23,19 +23,19 @@ private:
 		untested, visited, visited-path, visited-discarded. */
 	typedef std::bitset<8> Cell;
 
-	/// Dimensions of the board.
+	/// Dimensions of the matrix.
 	Nat width, height;
 
-	/// Pointer to the board of cells, which represents the maze.
-	Cell * board{nullptr};
+	/// Pointer to the matrix of cells, which represents the maze.
+	Cell * matrix{nullptr};
 
-	/// Converts coordinates to index in the board.
+	/// Converts coordinates to index in the matrix.
 	/** @param width Width of the maze (number of columns).
 		@param height Height of the maze (number of lines).
 		@return Corresponding index of the coordinates. */
 	inline Nat to_index( const Coord & column, const Coord & line ) const { return width*line + column; };
 
-	/// Checks if a coordinate pais points to inside the board.
+	/// Checks if a coordinate pais points to inside the matrix.
 	/** @param width Width of the maze (number of columns).
 		@param height Height of the maze (number of lines).
 		@return True if corrdinate is valid and false otherwise. */
@@ -71,7 +71,7 @@ public:
 	};
 
 	/// Constructor initialized with dimensions.
-	/** The constructor sets width and height passed, allocates memory to the board
+	/** The constructor sets width and height passed, allocates memory to the matrix
 		and fills all cells with states Untested and all the walls up.
 		@param width Width of the maze (number of columns).
 		@param height Height of the maze (number of lines). */
@@ -86,7 +86,7 @@ public:
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
 		@param targetWall Target wall to be knocked down.
-		@throw std::invalid_argument When the coordinates are outside the board.
+		@throw std::invalid_argument When the coordinates are outside the matrix.
 		@throw std::invalid_argument When the target wall does not correspond to any of the enumerated.
 		@throw std::invalid_argument When try to knock down a border wall. */
 	void knock_down( const Coord & column, const Coord & line, const Wall & targetWall );
@@ -96,21 +96,21 @@ public:
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
 		@param targetState Target State to be set.
-		@throw std::invalid_argument When the coordinates are outside the board.
+		@throw std::invalid_argument When the coordinates are outside the matrix.
 		@throw std::invalid_argument When try to set an invalid state. */
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
 
 	/// Overload of stream operator.
 	/** @param os The target std::ostream.
 		@param m The maze to be printed.
-		@return The board of the maze in bitset format. */
+		@return The matrix of the maze in bitset format. */
 	friend std::ostream & operator << ( std::ostream & os, const Maze & m ) {
 
 		for ( Nat h{0} ; h < m.height ; h++ ){
 
 			for ( Nat w{0} ; w < m.width ; w++ ){
 
-				os << *(m.board + m.to_index(w, h) ) << " ";
+				os << *(m.matrix + m.to_index(w, h) ) << " ";
 
 			}
 

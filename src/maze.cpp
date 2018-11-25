@@ -10,23 +10,23 @@ Maze::Maze( const Nat & w , const Nat & h ){
 	width = w;
 	height = h;
 
-	board = new Cell[ width*height ];
+	matrix = new Cell[ width*height ];
 
-	std::fill( board, board + width*height, States::Untested | Walls::Up | Walls::Right | Walls::Bottom | Walls::Left );
+	std::fill( matrix, matrix + width*height, States::Untested | Walls::Up | Walls::Right | Walls::Bottom | Walls::Left );
 
 }
 
 // Destructor
 Maze::~Maze(){
 	// std::cout << "\nDestroying maze..." << std::endl;
-	delete board;
+	delete matrix;
 }
 
 void Maze::knock_down( const Coord & column, const Coord & line, const Wall & targetWall ){
 
-	// check if coordinates are inside the board
+	// check if coordinates are inside the matrix
 	if( not valid_coord( column, line ) ){
-		throw std::invalid_argument("Coordinates should be inside the board!");
+		throw std::invalid_argument("Coordinates should be inside the matrix!");
 	}
 
 	// check if target wall is correct and 
@@ -37,7 +37,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 			if( line == 0 )
 				throw std::invalid_argument("Can't knock down top border wall!");
 			else
-				board[ to_index(column, line - 1) ] &= ~Walls::Bottom;
+				matrix[ to_index(column, line - 1) ] &= ~Walls::Bottom;
 
 			break;
 
@@ -45,7 +45,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 			if( column == width-1 )
 				throw std::invalid_argument("Can't knock down right border wall!");
 			else
-				board[ to_index(column + 1, line) ] &= ~Walls::Left;
+				matrix[ to_index(column + 1, line) ] &= ~Walls::Left;
 
 			break;
 
@@ -53,7 +53,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 			if( line == height-1 )
 				throw std::invalid_argument("Can't knock down bottom border wall!");
 			else
-				board[ to_index(column, line + 1) ] &= ~Walls::Up;
+				matrix[ to_index(column, line + 1) ] &= ~Walls::Up;
 
 			break;
 
@@ -61,7 +61,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 			if( column == 0 )
 				throw std::invalid_argument("Can't knock down left border wall!");
 			else
-				board[ to_index(column - 1, line) ] &= ~Walls::Right;
+				matrix[ to_index(column - 1, line) ] &= ~Walls::Right;
 			break;
 
 		default:
@@ -70,22 +70,22 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 	}
 
 	// knocks down target wall of target cell
-	board[ to_index(column, line) ] &= ~targetWall;
+	matrix[ to_index(column, line) ] &= ~targetWall;
 
 }
 
 void Maze::set_state( const Coord & column, const Coord & line, const State & targetState ){
 
-	// check if coordinates are inside the board
+	// check if coordinates are inside the matrix
 	if( not valid_coord( column, line ) ){
-		throw std::invalid_argument("Coordinates should be inside the board!");
+		throw std::invalid_argument("Coordinates should be inside the matrix!");
 	}
 
 	// reset state bits
-	board[ to_index(column, line) ].reset(0);
-	board[ to_index(column, line) ].reset(1);
-	board[ to_index(column, line) ].reset(2);
-	board[ to_index(column, line) ].reset(3);
+	matrix[ to_index(column, line) ].reset(0);
+	matrix[ to_index(column, line) ].reset(1);
+	matrix[ to_index(column, line) ].reset(2);
+	matrix[ to_index(column, line) ].reset(3);
 
 	// set new state bits
 	switch( targetState ){
@@ -94,7 +94,7 @@ void Maze::set_state( const Coord & column, const Coord & line, const State & ta
 		case States::Visited:
 		case States::Path:
 		case States::Discarded:
-			board[ to_index(column, line) ] |= targetState;
+			matrix[ to_index(column, line) ] |= targetState;
 			break;
 
 		default:
