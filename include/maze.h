@@ -45,6 +45,8 @@ public:
 
 	inline Nat get_width() const { return width; };
 	inline Nat get_height() const { return height; };
+	inline Cell get_cell( const Coord & column, const Coord & line ) const { 
+		return matrix[ to_index( column, line ) ]; };
 
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
