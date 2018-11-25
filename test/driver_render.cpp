@@ -16,7 +16,8 @@ int main(){
 	m.set_state( 7, 2, Maze::States::Path );
 	m.set_state( 8, 4, Maze::States::Discarded );
 
-	Render r{ & m, 1000, 600 };
+	Nat scale{100};
+	Render r{ & m, m.get_width() * scale, m.get_height() * scale };
 
 	std::cout << r << std::endl;
 

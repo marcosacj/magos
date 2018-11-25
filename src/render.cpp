@@ -60,8 +60,8 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
 
 	// coordinates of colored box of state information
-	Nat box_column{ start_column + cell_width/4 };
-	Nat box_line{ start_line + cell_height/4 };
+	Coord box_column{ start_column + cell_width/4 };
+	Coord box_line{ start_line + cell_height/4 };
 
 	// dimensions of colored box
 	Nat box_width{ cell_width/2 };
