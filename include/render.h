@@ -38,7 +38,7 @@ public:
 	/// Default destructor.
 	~Render();
 
-	void save_image() const;
+	void save_image( const Str & path = "./data/img.png" ) const;
 
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
