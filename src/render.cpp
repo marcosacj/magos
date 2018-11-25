@@ -16,6 +16,8 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 	image_width = width;
 	image_height = height;
 
+	border_size = std::min( image_width, image_height ) * 0.05;
+
 	cell_width = (image_width - border_size) / ptr_maze->get_width();
 	cell_height = (image_height - border_size) / ptr_maze->get_height();
 

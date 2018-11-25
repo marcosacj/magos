@@ -21,7 +21,7 @@ private:
 	Nat cell_width;  //!< Width of each cell on image, in pixels.
 	Nat cell_height; //!< Height of each cell on image, in pixels.
 
-	Nat border_size{30};
+	Nat border_size; //!< Lenght of the border on image, in pixels.
 
 	/// Pointer to target maze.
 	const Maze * ptr_maze{nullptr};
@@ -53,6 +53,7 @@ public:
 			<< "  < image_height , " << r.image_height << " >\n"
 			<< "  < cell_width   , " << r.cell_width   << " >\n"
 			<< "  < cell_height  , " << r.cell_height  << " >\n"
+			<< "  < border_size  , " << r.border_size  << " >\n"
 			<< "]";
 
 		return os;
