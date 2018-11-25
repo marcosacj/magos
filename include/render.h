@@ -1,13 +1,12 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "stb_image_write.h"
-
 #include "maze.h"
 #include "canvas.h"
 
-typedef std::size_t Nat; //!< Simple natural number.
+typedef std::size_t Nat;   //!< Simple natural number.
 typedef std::size_t Coord; //!< Coordinate of a cell.
+typedef std::string Str;   //!< String type.
 
 using namespace canvas;
 
@@ -38,6 +37,8 @@ public:
 
 	/// Default destructor.
 	~Render();
+
+	void save_image() const;
 
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
