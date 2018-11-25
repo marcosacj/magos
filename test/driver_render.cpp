@@ -5,11 +5,13 @@
 
 int main(){
 
-	Maze m{5, 8};
+	Maze m{10, 6};
 
 	Render r{ & m, 800, 500 };
 
 	std::cout << r << std::endl;
+
+	r.draw_maze();
 
 	r.save_image();
 

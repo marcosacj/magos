@@ -31,7 +31,27 @@ Render::~Render(){
 
 void Render::draw_cell( const Coord & column, const Coord & line ){
 
-	// todo
+	// Type of a Cell in the Maze
+	typedef std::bitset<8> Cell;
+
+	// Cell to be drawn
+	Cell cell{ ptr_maze->get_cell( column, line ) };
+
+	// Coordinates of start pixel in image
+	Coord start_column{ column*cell_width };
+	Coord start_line{ line*cell_height };
+
+	img->hline( start_column, start_line, cell_width, BLACK );
+	img->vline( start_column, start_line, cell_height, BLACK );
+	img->hline( start_column, start_line + cell_height, cell_width, BLACK );
+	img->vline( start_column + cell_width, start_line, cell_height, BLACK );
+
+}
+
+void Render::draw_maze(){
+
+	draw_cell( 1, 1 );
+	draw_cell( 2, 2 );
 
 }
 

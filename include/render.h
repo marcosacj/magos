@@ -38,6 +38,8 @@ public:
 	/// Default destructor.
 	~Render();
 
+	void draw_maze();
+
 	void save_image() const;
 
 	/// Overload of ostream operator.
