@@ -11,7 +11,7 @@ int main(){
 
 	std::cout << r << std::endl;
 
-	r.save_image();
+	r.save_image( "./data/image.png" );
 
 	return 0;
 	
