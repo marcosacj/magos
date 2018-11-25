@@ -50,8 +50,11 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 
 void Render::draw_maze(){
 
-	draw_cell( 1, 1 );
-	draw_cell( 2, 2 );
+	for ( Coord column{0u} ; column < ptr_maze->get_width() ; column++ ){
+		for ( Coord line{0u} ; line < ptr_maze->get_height() ; line++ ){
+			draw_cell( column, line );
+		}
+	}
 
 }
 

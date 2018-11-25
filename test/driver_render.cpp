@@ -12,7 +12,6 @@ int main(){
 	std::cout << r << std::endl;
 
 	r.draw_maze();
-
 	r.save_image();
 
 	return 0;
