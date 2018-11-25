@@ -33,13 +33,13 @@ Render::~Render(){
 
 void Render::draw_cell( const Coord & column, const Coord & line ){
 
-	// Type of a Cell in the Maze
+	// type of a Cell in the Maze
 	typedef std::bitset<8> Cell;
 
 	// Cell to be drawn
 	Cell cell{ ptr_maze->get_cell( column, line ) };
 
-	// Coordinates of start pixel in image
+	// coordinates of start pixel in image
 	Coord start_column{ column*cell_width };
 	Coord start_line{ line*cell_height };
 
@@ -58,6 +58,8 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	// right wall
 	if( cell[6] )
 		img->vline( start_column + border_size/2 + cell_width , start_line + border_size/2 , cell_height , BLACK );
+
+	// draw the state of cell information
 
 }
 
