@@ -20,7 +20,7 @@ int main(){
 	r.draw_maze();
 
 	std::cout << "Saving..." << std::endl;
-	r.save_image();
+	r.save_image( "./data/image.png" );
 
 	std::cout << "Done!" << std::endl;
 

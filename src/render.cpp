@@ -73,10 +73,10 @@ void Render::draw_maze(){
 
 }
 
-void Render::save_image() const {
+void Render::save_image( const Str & path ) const {
 
 	stbi_write_png_compression_level = 0;
 
-	stbi_write_png( "./data/img.png", image_width, image_height, 3, img->buffer(), image_width*3 );
+	stbi_write_png( path.c_str(), image_width, image_height, 3, img->buffer(), image_width*3 );
 
 }

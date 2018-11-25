@@ -46,7 +46,7 @@ public:
 	void draw_maze();
 
 	/// Saves the image Canvas object to a png file.
-	void save_image() const;
+	void save_image( const Str & path = "./data/img.png" ) const;
 
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
