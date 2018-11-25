@@ -59,9 +59,22 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	if( cell[6] )
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
 
-	// draw the state of cell information
+	// coordinates of colored box of state information
+	Nat box_column{ start_column + cell_width/4 };
+	Nat box_line{ start_line + cell_height/4 };
 
-	// img->box( start_column, start_line, cell_width, cell_height, YELLOW );
+	// dimensions of colored box
+	Nat box_width{ cell_width/2 };
+	Nat box_height{ cell_height/2 };
+
+	if( cell[2] ) // Visited
+		img->box( box_column, box_line, box_width, box_height, LIGHT_BLUE );
+
+	if( cell[1] ) // Path
+		img->box( box_column, box_line, box_width, box_height, RED );
+
+	if( cell[0] ) // Discarded
+		img->box( box_column, box_line, box_width, box_height, YELLOW );
 
 }
 
