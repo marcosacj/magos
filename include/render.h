@@ -1,6 +1,8 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#include <iomanip>
+
 #include "maze.h"
 #include "canvas.h"
 
@@ -49,11 +51,11 @@ public:
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
 		os 	<< "Render = [\n"
-			<< "  < image_width  , " << r.image_width  << " >\n"
-			<< "  < image_height , " << r.image_height << " >\n"
-			<< "  < cell_width   , " << r.cell_width   << " >\n"
-			<< "  < cell_height  , " << r.cell_height  << " >\n"
-			<< "  < border_size  , " << r.border_size  << " >\n"
+			<< "  < image_width  , " << std::setw(5) << r.image_width  << " >\n"
+			<< "  < image_height , " << std::setw(5) << r.image_height << " >\n"
+			<< "  < cell_width   , " << std::setw(5) << r.cell_width   << " >\n"
+			<< "  < cell_height  , " << std::setw(5) << r.cell_height  << " >\n"
+			<< "  < border_size  , " << std::setw(5) << r.border_size  << " >\n"
 			<< "]";
 
 		return os;
