@@ -28,10 +28,18 @@ The folder and files structure is the following:
 You can go to root directory of the project and:
 
 ```
-$ cd mkdir build
+$ mkdir build
 $ cd build/
 $ cmake ..
 $ make
+```
+
+Or, if you would like to do all from root:
+
+```
+$ mkdir build
+$ cmake -H. -Bbuild
+$ make -C build/ --no-print-directory
 ```
 
 ## Execution
@@ -46,9 +54,11 @@ Note: `driver_canvas` sets relative output folder from where `canvas` (inside `r
 So, if you want result images be stored inside `data/`, you should run `canvas` from root directory
 of the project.
 
+Note: you should `mkdir data` before run `canvas`, otherwise the images will not be generated.
+
 ## Doxygen
 
-A configuration file is set in the root directory. If you want to generate yours, you can type:
+A configuration file is set in the root directory, `doxygen.cfg`. If you want to generate yours, you can type:
 
 ```
 $ doxygen -g [NAME]
