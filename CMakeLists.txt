@@ -21,5 +21,6 @@ add_executable( canvas
 
 add_executable( render
 	src/render.cpp
+	src/maze.cpp
 	test/driver_render.cpp	
 )
