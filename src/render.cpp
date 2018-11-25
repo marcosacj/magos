@@ -16,8 +16,8 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 	image_width = width;
 	image_height = height;
 
-	cell_width = image_width / ptr_maze->get_width();
-	cell_height = image_height / ptr_maze->get_height();
+	cell_width = (image_width - border_size) / ptr_maze->get_width();
+	cell_height = (image_height - border_size) / ptr_maze->get_height();
 
 	img = new Canvas{ image_width, image_height };
 
@@ -43,19 +43,19 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 
 	// top wall
 	if( cell[7] )
-		img->hline( start_column, start_line, cell_width, BLACK );
+		img->hline( start_column + border_size/2 , start_line + border_size/2 , cell_width , BLACK );
 
 	// left wall
 	if( cell[4] )
-		img->vline( start_column, start_line, cell_height, BLACK );
+		img->vline( start_column + border_size/2 , start_line + border_size/2 , cell_height , BLACK );
 
 	// bottom wall
 	if( cell[5] )
-		img->hline( start_column, start_line + cell_height, cell_width, BLACK );
+		img->hline( start_column + border_size/2 , start_line + border_size/2 + cell_height , cell_width , BLACK );
 
 	// right wall
 	if( cell[6] )
-		img->vline( start_column + cell_width, start_line, cell_height, BLACK );
+		img->vline( start_column + border_size/2 + cell_width , start_line + border_size/2 , cell_height , BLACK );
 
 }
 
