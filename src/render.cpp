@@ -32,9 +32,6 @@ Render::~Render(){
 
 void Render::draw_cell( const Coord & column, const Coord & line ){
 
-	// type of a Cell in the Maze
-	typedef std::bitset<8> Cell;
-
 	// Cell to be drawn
 	Cell cell{ ptr_maze->get_cell( column, line ) };
 
@@ -87,10 +84,14 @@ void Render::draw_maze(){
 
 }
 
-void Render::save_image( const Str & path ) const {
+void Render::draw_image( const Str & path ){
+
+	std::cout << "Drawing..." << std::endl;
+	draw_maze();
 
 	stbi_write_png_compression_level = 0;
 
+	std::cout << "Saving..." << std::endl;
 	stbi_write_png( path.c_str(), image_width, image_height, 3, img->buffer(), image_width*3 );
 
 }

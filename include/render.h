@@ -31,6 +31,9 @@ private:
 	/// Draws a single cell on the image Canvas object.
 	void draw_cell( const Coord & column, const Coord & line );
 
+	/// Draws all cells of the Maze to image Canvas object.
+	void draw_maze();
+
 public:
 
 	/// Default constructor.
@@ -39,11 +42,8 @@ public:
 	/// Default destructor.
 	~Render();
 
-	/// Draws all cells of the Maze to image Canvas object.
-	void draw_maze();
-
 	/// Saves the image Canvas object to a png file.
-	void save_image( const Str & path = "./data/img.png" ) const;
+	void draw_image( const Str & path = "./data/img.png" );
 
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){

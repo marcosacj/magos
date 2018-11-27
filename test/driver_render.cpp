@@ -23,11 +23,7 @@ int main(){
 
 	std::cout << r << std::endl;
 
-	std::cout << "Drawing..." << std::endl;
-	r.draw_maze();
-
-	std::cout << "Saving..." << std::endl;
-	r.save_image();
+	r.draw_image();
 	// r.save_image( "./data/image.png" );
 
 	std::cout << "Done!" << std::endl;
