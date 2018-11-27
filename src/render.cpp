@@ -12,10 +12,15 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 
 	ptr_maze = maze;
 
-	border_size = std::min( width, height ) * 0.05;
+	border_wid = width  * 0.02;
+	border_hei = height * 0.02;
 
-	cell_width = (width - border_size) / ptr_maze->get_width();
-	cell_height = (height - border_size) / ptr_maze->get_height();
+	cell_width  = (width  - 2*border_wid) / ptr_maze->get_width ();
+	cell_height = (height - 2*border_hei) / ptr_maze->get_height();
+
+	// calculate gap and update border size
+	border_wid = ( width  - ptr_maze->get_width () * cell_width  ) / 2;
+	border_hei = ( height - ptr_maze->get_height() * cell_height ) / 2;
 
 	img = new Canvas{ width, height };
 
@@ -33,8 +38,8 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Cell cell{ ptr_maze->get_cell( column, line ) };
 
 	// coordinates of start pixel in image
-	Coord start_column{ column*cell_width + border_size/2 };
-	Coord start_line{ line*cell_height + border_size/2 };
+	Coord start_column{ column * cell_width  + border_wid };
+	Coord start_line  { line   * cell_height + border_hei };
 
 	// top wall
 	if( cell[7] )
@@ -53,11 +58,11 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
 
 	// coordinates of colored box of state information
-	Coord box_column{ start_column + cell_width/4 };
-	Coord box_line{ start_line + cell_height/4 };
+	Coord box_column{ start_column + cell_width /4 };
+	Coord box_line  { start_line   + cell_height/4 };
 
 	// dimensions of colored box
-	Nat box_width{ cell_width/2 };
+	Nat box_width { cell_width /2 };
 	Nat box_height{ cell_height/2 };
 
 	if( cell[2] ) // Visited

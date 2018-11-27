@@ -6,8 +6,8 @@
 int main(){
 
 	// Maze m{10, 6};
-	// Maze m{40, 20};
-	Maze m{50, 30};
+	Maze m{40, 30};
+	// Maze m{50, 45};
 
 	m.knock_down(1, 1, Maze::Walls::Up);
 	m.knock_down(2, 2, Maze::Walls::Right);
@@ -18,8 +18,8 @@ int main(){
 	m.set_state( 7, 2, Maze::States::Path );
 	m.set_state( 8, 4, Maze::States::Discarded );
 
-	// Nat scale{100};
-	Nat scale{20};
+	Nat scale{100};
+	// Nat scale{20};
 
 	Render r{ & m, m.get_width() * scale, m.get_height() * scale };
 

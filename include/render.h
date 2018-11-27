@@ -14,13 +14,11 @@ class Render {
 
 private:
 
-	// Nat image_width;  //!< Width of the image, in pixels.
-	// Nat image_height; //!< Height of the image, in pixels.
-
 	Nat cell_width;  //!< Width of each cell on image, in pixels.
 	Nat cell_height; //!< Height of each cell on image, in pixels.
 
-	Nat border_size; //!< Lenght of the border on image, in pixels.
+	Nat border_wid; //!< Lenght of the horizontal border on image, in pixels.
+	Nat border_hei; //!< Lenght of the vertical border on image, in pixels.
 
 	/// Pointer to target maze.
 	const Maze * ptr_maze{nullptr};
@@ -48,11 +46,14 @@ public:
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
 		os 	<< "Render = [\n"
-			<< "  < image_width  , " << std::setw(5) << r.img->width()  << " >\n"
-			<< "  < image_height , " << std::setw(5) << r.img->height() << " >\n"
-			<< "  < cell_width   , " << std::setw(5) << r.cell_width   << " >\n"
-			<< "  < cell_height  , " << std::setw(5) << r.cell_height  << " >\n"
-			<< "  < border_size  , " << std::setw(5) << r.border_size  << " >\n"
+			<< "  < maze_width    , " << std::setw(5) << r.ptr_maze->get_width()  << " >\n"
+			<< "  < maze_height   , " << std::setw(5) << r.ptr_maze->get_height() << " >\n"
+			<< "  < image_width   , " << std::setw(5) << r.img->width()  << " >\n"
+			<< "  < image_height  , " << std::setw(5) << r.img->height() << " >\n"
+			<< "  < cell_width    , " << std::setw(5) << r.cell_width    << " >\n"
+			<< "  < cell_height   , " << std::setw(5) << r.cell_height   << " >\n"
+			<< "  < border_width  , " << std::setw(5) << r.border_wid    << " >\n"
+			<< "  < border_height , " << std::setw(5) << r.border_hei    << " >\n"
 			<< "]";
 
 		return os;
