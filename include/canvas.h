@@ -6,8 +6,6 @@
 
 #include "common.h"
 
-using Nat = std::size_t;
-
 namespace canvas {
 
     //! Provides methods for drawing on an image.

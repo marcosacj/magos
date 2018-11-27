@@ -23,16 +23,27 @@ private:
 		@return Corresponding index of the coordinates. */
 	inline Nat to_index( const Coord & column, const Coord & line ) const { return width*line + column; };
 
-	/// Checks if a coordinate pais points to inside the matrix.
+	/// Checks if a coordinates pair points to inside the matrix.
 	/** @param width Width of the maze (number of columns).
 		@param height Height of the maze (number of lines).
 		@return True if corrdinate is valid and false otherwise. */
 	bool valid_coord( const Coord & column, const Coord & line ) const ;
 
 public:
-
+	/// Gets the width (number of cells) in the maze.
+	/** @return Number of cells, horizontal direction. */
 	inline Nat get_width() const { return width; };
+
+	/// Gets the height (number of cells) in the maze.
+	/** @return Number of cells, vertical direction. */
 	inline Nat get_height() const { return height; };
+
+	/// Consult the state of a cell.
+	/** Given the coordinates, the cell state is read and returned.
+		Useful for builder, solver and render operations.
+		@param column Horizontal coordinate of target cell.
+		@param line Vertical coordinate of target cell.
+		@return The cell state in the bitset format. */
 	inline Cell get_cell( const Coord & column, const Coord & line ) const { 
 		return matrix[ to_index( column, line ) ]; };
 

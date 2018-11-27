@@ -65,3 +65,8 @@ $ doxygen -g [NAME]
 ```
 
 Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY and EXTRACT\_PRIVATE.
+
+## TODO
+
+* On class Maze, introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
+* Document Render class detailed
