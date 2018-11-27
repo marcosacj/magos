@@ -3,12 +3,9 @@
 
 #include <iomanip>
 
+#include "common.h"
 #include "maze.h"
 #include "canvas.h"
-
-typedef std::size_t Nat;   //!< Simple natural number.
-typedef std::size_t Coord; //!< Coordinate of a cell.
-typedef std::string Str;   //!< String type.
 
 using namespace canvas;
 

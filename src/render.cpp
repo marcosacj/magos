@@ -3,11 +3,10 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
+#include "common.h"
 #include "maze.h"
 #include "canvas.h"
 #include "render.h"
-
-typedef std::string Str;
 
 Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 
