@@ -12,15 +12,12 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 
 	ptr_maze = maze;
 
-	image_width = width;
-	image_height = height;
+	border_size = std::min( width, height ) * 0.05;
 
-	border_size = std::min( image_width, image_height ) * 0.05;
+	cell_width = (width - border_size) / ptr_maze->get_width();
+	cell_height = (height - border_size) / ptr_maze->get_height();
 
-	cell_width = (image_width - border_size) / ptr_maze->get_width();
-	cell_height = (image_height - border_size) / ptr_maze->get_height();
-
-	img = new Canvas{ image_width, image_height };
+	img = new Canvas{ width, height };
 
 	img->clear( LIGHT_GREY );
 
@@ -92,6 +89,6 @@ void Render::draw_image( const Str & path ){
 	stbi_write_png_compression_level = 0;
 
 	std::cout << "Saving..." << std::endl;
-	stbi_write_png( path.c_str(), image_width, image_height, 3, img->buffer(), image_width*3 );
+	stbi_write_png( path.c_str(), img->width(), img->height(), 3, img->buffer(), img->width()*3 );
 
 }
