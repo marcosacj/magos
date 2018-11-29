@@ -82,10 +82,8 @@ void Maze::set_state( const Coord & column, const Coord & line, const State & ta
 	}
 
 	// reset state bits
-	matrix[ to_index(column, line) ].reset(4);
-	matrix[ to_index(column, line) ].reset(5);
-	matrix[ to_index(column, line) ].reset(6);
-	matrix[ to_index(column, line) ].reset(7);
+	Cell reseter{ 15 }; // equivalent to 00001111
+	matrix[ to_index(column, line) ] &= reseter;
 
 	// set new state bits
 	switch( targetState ){
