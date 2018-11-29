@@ -55,10 +55,10 @@ public:
 		type (that is, an eight bits set). */
 	enum States : State {
 		
-		Untested   = 8,   //!< Equivalent to 00001000
-		Visited    = 4,   //!< Equivalent to 00000100
-		Path       = 2,   //!< Equivalent to 00000010
-		Discarded  = 1    //!< Equivalent to 00000001
+		Untested   = 128, //!< Equivalent to 10000000
+		Visited    = 64,  //!< Equivalent to 01000000
+		Path       = 32,  //!< Equivalent to 00100000
+		Discarded  = 16,  //!< Equivalent to 00010000
 
 	};
 
@@ -67,10 +67,10 @@ public:
 		type (that is, an eight bits set). */
 	enum Walls : Wall {
 
-		Top    = 128, //!< Equivalent to 10000000
-		Right  = 64,  //!< Equivalent to 01000000
-		Bottom = 32,  //!< Equivalent to 00100000
-		Left   = 16,  //!< Equivalent to 00010000
+		Top    = 8,   //!< Equivalent to 00001000
+		Right  = 4,   //!< Equivalent to 00000100
+		Bottom = 2,   //!< Equivalent to 00000010
+		Left   = 1    //!< Equivalent to 00000001
 
 	};
 

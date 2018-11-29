@@ -71,9 +71,10 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 * On class Maze
 	* introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions [OK]
 	* implement methods to get states of cells and walls [OK]
-	* refactor order of bits: four first to be walls states
+	* refactor order of bits: four first to be walls states [OK]
 	* turn Cell type back to private [OK]
 	* refactor number of bits used, from 8 to 6
+	* refactor method to reset states in `set_state()`
 * On class Render
 	* document with details
 	* refactor draw_cell() to use methods provided by Maze [OK]
