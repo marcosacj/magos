@@ -41,15 +41,6 @@ private:
 		@return True if corrdinate is valid and false otherwise. */
 	bool valid_coord( const Coord & column, const Coord & line ) const ;
 
-	/// Consult the state of a cell.
-	/** Given the coordinates, the cell state is read and returned.
-		Useful for builder, solver and render operations.
-		@param column Horizontal coordinate of target cell.
-		@param line Vertical coordinate of target cell.
-		@return The cell state in the bitset format. */
-	Cell get_cell( const Coord & column, const Coord & line ) const { 
-		return matrix[ to_index( column, line ) ]; };
-
 public:
 	/// Gets the width (number of cells) in the maze.
 	/** @return Number of cells, horizontal direction. */

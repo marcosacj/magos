@@ -126,7 +126,7 @@ bool Maze::hasWall( const Coord & column, const Coord & line, const Wall & targe
 
 	Cell targetW{ targetWall };
 
-	if( ( get_cell( column, line ) & targetW ) == targetW ){
+	if( ( matrix[ to_index( column, line ) ] & targetW ) == targetW ){
 		return true;
 	} else {
 		return false;
@@ -138,7 +138,7 @@ bool Maze::isState( const Coord & column, const Coord & line, const State & targ
 
 	Cell targetS{ targetState };
 
-	if( ( get_cell( column, line ) & targetS ) == targetS ){
+	if( ( matrix[ to_index( column, line ) ] & targetS ) == targetS ){
 		return true;
 	} else {
 		return false;
