@@ -34,27 +34,24 @@ Render::~Render(){
 
 void Render::draw_cell( const Coord & column, const Coord & line ){
 
-	// Cell to be drawn
-	Cell cell{ ptr_maze->get_cell( column, line ) };
-
 	// coordinates of start pixel in image
 	Coord start_column{ column * cell_width  + border_wid };
 	Coord start_line  { line   * cell_height + border_hei };
 
 	// top wall
-	if( cell[7] )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Top ) )
 		img->hline( start_column , start_line , cell_width , BLACK );
 
 	// left wall
-	if( cell[4] )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Left ) )
 		img->vline( start_column , start_line , cell_height , BLACK );
 
 	// bottom wall
-	if( cell[5] )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) )
 		img->hline( start_column , start_line + cell_height , cell_width , BLACK );
 
 	// right wall
-	if( cell[6] )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Right ) )
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
 
 	// coordinates of colored box of state information
@@ -65,13 +62,13 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Nat box_width { cell_width /2 };
 	Nat box_height{ cell_height/2 };
 
-	if( cell[2] ) // Visited
+	if( ptr_maze->isState( column, line, Maze::States::Visited ) ) // Visited
 		img->box( box_column, box_line, box_width, box_height, LIGHT_BLUE );
 
-	if( cell[1] ) // Path
+	if( ptr_maze->isState( column, line, Maze::States::Path ) ) // Path
 		img->box( box_column, box_line, box_width, box_height, RED );
 
-	if( cell[0] ) // Discarded
+	if( ptr_maze->isState( column, line, Maze::States::Discarded ) ) // Discarded
 		img->box( box_column, box_line, box_width, box_height, YELLOW );
 
 }

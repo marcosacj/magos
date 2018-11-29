@@ -5,11 +5,11 @@
 
 int main(){
 
-	// Maze m{10, 6};
-	Maze m{40, 30};
+	Maze m{10, 6};
+	// Maze m{40, 30};
 	// Maze m{50, 45};
 
-	m.knock_down(1, 1, Maze::Walls::Up);
+	m.knock_down(1, 1, Maze::Walls::Top);
 	m.knock_down(2, 2, Maze::Walls::Right);
 	m.knock_down(0, 3, Maze::Walls::Right);
 	m.knock_down(1, 5, Maze::Walls::Left);

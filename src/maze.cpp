@@ -12,7 +12,7 @@ Maze::Maze( const Nat & w , const Nat & h ){
 
 	matrix = new Cell[ width*height ];
 
-	std::fill( matrix, matrix + width*height, States::Untested | Walls::Up | Walls::Right | Walls::Bottom | Walls::Left );
+	std::fill( matrix, matrix + width*height, States::Untested | Walls::Top | Walls::Right | Walls::Bottom | Walls::Left );
 
 }
 
@@ -33,7 +33,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 	// knocks down wall of corresponing neighboor cell
 	switch( targetWall ){
 
-		case Walls::Up:
+		case Walls::Top:
 			if( line == 0 )
 				throw std::invalid_argument("Can't knock down top border wall!");
 			else
@@ -53,7 +53,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 			if( line == height-1 )
 				throw std::invalid_argument("Can't knock down bottom border wall!");
 			else
-				matrix[ to_index(column, line + 1) ] &= ~Walls::Up;
+				matrix[ to_index(column, line + 1) ] &= ~Walls::Top;
 
 			break;
 
@@ -109,5 +109,39 @@ bool Maze::valid_coord( const Coord & column, const Coord & line ) const {
 		return false;
 	else
 		return true;
+
+}
+
+Nat Maze::to_index( const Coord & column, const Coord & line ) const {
+
+	if( valid_coord( column, line ) ){
+		return width*line + column;
+	} else {
+		throw std::invalid_argument("Coordinates should be inside the matrix!");
+	}
+
+}
+
+bool Maze::hasWall( const Coord & column, const Coord & line, const Wall & targetWall ) const {
+
+	Cell targetW{ targetWall };
+
+	if( ( get_cell( column, line ) & targetW ) == targetW ){
+		return true;
+	} else {
+		return false;
+	}
+
+}
+
+bool Maze::isState( const Coord & column, const Coord & line, const State & targetState ) const {
+
+	Cell targetS{ targetState };
+
+	if( ( get_cell( column, line ) & targetS ) == targetS ){
+		return true;
+	} else {
+		return false;
+	}
 
 }

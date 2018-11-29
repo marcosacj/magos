@@ -5,16 +5,6 @@
 #include <iostream>
 #include <bitset>
 
-/// Basic type of a cell in the maze.
-/** A cell is modeled as a byte (unsigned char), that is, a sequence of eight bits, 
-  each of then meaning an specific information.
-  The four first bits mean if the Up, Right, Bottom and Left walls are stand up.
-  The last four bits mean the state of that cell during solving process:
-  untested, visited, visited-path, visited-discarded. */
-typedef std::bitset<8> Cell;
-
-typedef std::size_t State; //!< State of cell.
-typedef std::size_t Wall;  //!< Wall of a cell.
 typedef std::size_t Coord; //!< Coordinate of a cell.
 
 typedef std::size_t Nat;   //!< Simple natural number.

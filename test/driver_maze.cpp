@@ -12,7 +12,7 @@ int main( int argc, char* argv[] ){
 
 	std::cout << m << std::endl << std::endl;
 
-	m.knock_down(0, 1, Maze::Walls::Up);
+	m.knock_down(0, 1, Maze::Walls::Top);
 	m.knock_down(0, 3, Maze::Walls::Bottom);
 	m.knock_down(2, 0, Maze::Walls::Right);
 	m.knock_down(2, 3, Maze::Walls::Left);
@@ -24,7 +24,7 @@ int main( int argc, char* argv[] ){
 
 	// knock down border walls
 	try {
-		m.knock_down(1, 0, Maze::Walls::Up);
+		m.knock_down(1, 0, Maze::Walls::Top);
 	} catch( std::invalid_argument & e) {
 		std::cout << e.what() << std::endl;
 	}
@@ -49,7 +49,7 @@ int main( int argc, char* argv[] ){
 
 	// knock down outside matrix
 	try {
-		m.knock_down( 10, 2, Maze::Walls::Up);
+		m.knock_down( 10, 2, Maze::Walls::Top);
 	} catch( std::invalid_argument & e ){
 		std::cout << e.what() << std::endl;
 	}
@@ -63,7 +63,7 @@ int main( int argc, char* argv[] ){
 
 	// set states
 	try {
-		m.set_state( 0, 2, Maze::Walls::Up);
+		m.set_state( 0, 2, Maze::Walls::Top);
 	} catch( std::invalid_argument & e ){
 		std::cout << e.what() << std::endl;
 	}
