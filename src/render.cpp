@@ -15,12 +15,12 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 	border_wid = width  * 0.02;
 	border_hei = height * 0.02;
 
-	cell_width  = (width  - 2*border_wid) / ptr_maze->get_width ();
-	cell_height = (height - 2*border_hei) / ptr_maze->get_height();
+	cell_width  = (width  - 2*border_wid) / ptr_maze->get_wid();
+	cell_height = (height - 2*border_hei) / ptr_maze->get_hei();
 
 	// calculate gap and update border size
-	border_wid = ( width  - ptr_maze->get_width () * cell_width  ) / 2;
-	border_hei = ( height - ptr_maze->get_height() * cell_height ) / 2;
+	border_wid = ( width  - ptr_maze->get_wid() * cell_width  ) / 2;
+	border_hei = ( height - ptr_maze->get_hei() * cell_height ) / 2;
 
 	img = new Canvas{ width, height };
 
@@ -75,8 +75,8 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 
 void Render::draw_maze(){
 
-	for ( Coord column{0u} ; column < ptr_maze->get_width() ; column++ ){
-		for ( Coord line{0u} ; line < ptr_maze->get_height() ; line++ ){
+	for ( Coord column{0u} ; column < ptr_maze->get_wid() ; column++ ){
+		for ( Coord line{0u} ; line < ptr_maze->get_hei() ; line++ ){
 			draw_cell( column, line );
 		}
 	}

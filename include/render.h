@@ -46,8 +46,8 @@ public:
 	/// Overload of ostream operator.
 	friend std::ostream & operator << ( std::ostream & os, const Render & r ){
 		os 	<< "Render = [\n"
-			<< "  < maze_width    , " << std::setw(5) << r.ptr_maze->get_width()  << " >\n"
-			<< "  < maze_height   , " << std::setw(5) << r.ptr_maze->get_height() << " >\n"
+			<< "  < maze_width    , " << std::setw(5) << r.ptr_maze->get_wid()  << " >\n"
+			<< "  < maze_height   , " << std::setw(5) << r.ptr_maze->get_hei() << " >\n"
 			<< "  < image_width   , " << std::setw(5) << r.img->width()  << " >\n"
 			<< "  < image_height  , " << std::setw(5) << r.img->height() << " >\n"
 			<< "  < cell_width    , " << std::setw(5) << r.cell_width    << " >\n"

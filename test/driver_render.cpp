@@ -21,7 +21,7 @@ int main(){
 	Nat scale{100};
 	// Nat scale{20};
 
-	Render r{ & m, m.get_width() * scale, m.get_height() * scale };
+	Render r{ & m, m.get_wid() * scale, m.get_hei() * scale };
 
 	std::cout << r << std::endl;
 

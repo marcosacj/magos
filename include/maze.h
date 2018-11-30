@@ -44,11 +44,11 @@ private:
 public:
 	/// Gets the width (number of cells) in the maze.
 	/** @return Number of cells, horizontal direction. */
-	inline Nat get_width() const { return width; };
+	inline Nat get_wid() const { return width; };
 
 	/// Gets the height (number of cells) in the maze.
 	/** @return Number of cells, vertical direction. */
-	inline Nat get_height() const { return height; };
+	inline Nat get_hei() const { return height; };
 
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
