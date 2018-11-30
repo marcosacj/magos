@@ -74,7 +74,8 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	* refactor order of bits: four first to be walls states [OK]
 	* turn Cell type back to private [OK]
 	* refactor number of bits used, from 8 to 6
-	* refactor method to reset states in `set_state()`
+	* refactor method to reset states in `set_state()` [OK]
 * On class Render
 	* document with details
 	* refactor draw_cell() to use methods provided by Maze [OK]
+* Implement MagosGame class
