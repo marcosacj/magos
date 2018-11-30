@@ -34,6 +34,9 @@ private:
 
 public:
 
+	inline Nat get_wid( void ) const { return img->width(); };
+	inline Nat get_hei( void ) const { return img->height(); };
+
 	/// Default constructor.
 	Render( const Maze * maze, const Nat & width, const Nat & height );
 
