@@ -36,12 +36,18 @@ int main(){
 		std::cout << "key of " << i+1 << " is = " << t.get_key( i + 1 ) << std::endl;
 	}
 
+	std::cout << "isEqualKey true = " << ( t.isEqualKey( 2, 3 ) ? "yes" : "no" ) << std::endl;
+	std::cout << "isEqualKey true = " << ( t.isEqualKey( 2, 4 ) ? "yes" : "no" ) << std::endl;
+
 	t.merge_by_key(3, 0);
 	std::cout << t << std::endl;
 
 	for ( int i(0) ; i < 5 ; i++ ){
 		std::cout << "key of " << i+1 << " is = " << t.get_key( i + 1 ) << std::endl;
 	}
+
+	std::cout << "isEqualKey true = " << ( t.isEqualKey( 2, 3 ) ? "yes" : "no" ) << std::endl;
+	std::cout << "isEqualKey true = " << ( t.isEqualKey( 2, 4 ) ? "yes" : "no" ) << std::endl;
 
 	return 0;
 	

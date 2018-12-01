@@ -172,9 +172,9 @@ public:
 
 	}
 
-	bool isEqualKey( const V & john, const V & mathew ){
+	bool isEqualKey( const V & john, const V & josh ){
 
-		// todo
+		return get_key( john ) == get_key( josh );
 
 	}
 
