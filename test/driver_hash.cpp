@@ -17,10 +17,16 @@ int main(){
 
 	std::cout << t << std::endl;
 
-	t.merge(2, 1);
+	t.merge_by_key(2, 1);
 	std::cout << t << std::endl;
 
-	t.merge(1, 0);
+	t.merge_by_key(1, 0);
+	std::cout << t << std::endl;
+
+	t.merge_by_key(4, 3);
+	std::cout << t << std::endl;
+
+	t.merge_by_key(3, 0);
 	std::cout << t << std::endl;
 
 	return 0;

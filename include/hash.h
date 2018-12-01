@@ -40,6 +40,7 @@ public:
 	friend std::ostream & operator << ( std::ostream & os, const HashNode & n ){
 
 		// os << "< key = " << n.get_key() <<  " , value = " << n.get_value() << " , next = ";
+		// os << & n << " ";
 		os << "< " << n.get_key() <<  " , " << n.get_value() << " , ";
 		
 		if( n.next == nullptr )
@@ -130,10 +131,13 @@ public:
 	}
 
 	/// Merges two TableNodes based on position in HashTable
-	void merge( const K & from, const K & to ){
+	void merge_by_key( const K & from, const K & to ){
 
-		TableNode * fromNode{ Nodes[ key2index(from) ] };
-		TableNode * toNode{ Nodes[ key2index(to) ] };
+		Nat fromIndex{ key2index(from) };
+		Nat toIndex{ key2index(to) };
+
+		TableNode * fromNode{ Nodes[ fromIndex ] };
+		TableNode * toNode{ Nodes[ toIndex ] };
 
 		// go to last linked node
 		while( toNode->get_next() != nullptr ){
@@ -150,22 +154,7 @@ public:
 			aux->set_key( toNode->get_key() );
 		}
 
-		// table.erase( table.cbegin() + key2index(from) );
-		// table.erase( std::begin(table) + key2index(from) );
-		// table.erase( key2index(from) );
-
-		/* anterior version based on index as parameter to the function */
-		// table[to]->set_next( table[from] );
-
-		// TableNode * aux{ table[from] };
-		// while( aux->get_next() != nullptr ){
-		// 	aux = aux->get_next();
-		// 	aux->set_key( table[to]->get_key() );
-		// }
-
-		// table[from] = table[to];
-
-		// table.erase( std::begin(table) + from );
+		Nodes.erase( Nodes.begin() + fromIndex );
 
 	}
 
