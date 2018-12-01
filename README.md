@@ -89,3 +89,4 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 
 * Implement Hash Table class
 	[ ] implement exceptions ( key2undex, merge\_by\_key )
+	[ ] document with details

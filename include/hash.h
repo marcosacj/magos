@@ -1,3 +1,7 @@
+// < https://medium.com/@aozturk/simple-hash-map-hash-table-implementation-in-c-931965904250 >
+// < https://www.geeksforgeeks.org/implementing-hash-table-open-addressing-linear-probing-cpp/ >
+// < https://www.hackerearth.com/pt-br/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/ >
+
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -83,7 +87,7 @@ public:
 
 	}
 
-	/// Insert and pair <key, value> to the HashTable
+	/// Insert a pair <key, value> to the HashTable
 	void insert( const K & key, const V & value ){
 
 		TableNode * n = new TableNode{ key, value };
@@ -165,6 +169,12 @@ public:
 		}
 
 		throw std::invalid_argument("The key does not exist in the HashTable!");
+
+	}
+
+	bool isEqualKey( const V & john, const V & mathew ){
+
+		// todo
 
 	}
 
