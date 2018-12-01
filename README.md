@@ -1,6 +1,7 @@
 ## Introduction
 
-This project implements the programming project MAGOS, which is composed of some subprojects: Canvas, Maze, Render, Solver.
+This project implements the programming project MAGOS, which is composed of some subprojects:
+Canvas, Maze, Render, Builder, Solver.
 
 ## Structure
 
@@ -69,13 +70,19 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 ## TODO
 
 * On class Maze
-	* introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions [OK]
-	* implement methods to get states of cells and walls [OK]
-	* refactor order of bits: four first to be walls states [OK]
-	* turn Cell type back to private [OK]
-	* refactor number of bits used, from 8 to 6
-	* refactor method to reset states in `set_state()` [OK]
+	[*] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
+	[*] implement methods to get states of cells and walls
+	[*] refactor order of bits: four first to be walls states
+	[*] turn Cell type back to private
+	[ ] refactor number of bits used, from 8 to 6
+	[*] refactor method to reset states in `set_state()`
+
 * On class Render
-	* document with details
-	* refactor draw_cell() to use methods provided by Maze [OK]
+	[ ] document with details
+	[*] refactor draw_cell() to use methods provided by Maze
+
 * Implement MagosGame class
+
+* Implement Builder classes
+	* each class name will refer to the method used to build
+	[ ] stub of class HashBuilder
