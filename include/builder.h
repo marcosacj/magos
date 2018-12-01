@@ -5,6 +5,7 @@
 
 #include "common.h"
 #include "maze.h"
+#include "hash.h"
 
 class HashBuilder {
 
@@ -12,6 +13,8 @@ private:
 
 	/// pointer to the initial maze to be built.
 	Maze * m;
+
+	HashTable< int, int > * h;
 
 	/// stack of indexes to be picked used during build process.
 	std::stack<int> shuffled;
