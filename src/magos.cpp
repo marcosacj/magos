@@ -17,16 +17,28 @@ Magos::~Magos(){
 
 void Magos::welcome() const {
 
-	// todo
+	// https://www.messletters.com/pt/big-text/
+
+	std::cout << "##     ##    ###     ######    #######   ######      ######      ###    ##     ## ########" << std::endl;
+	std::cout << "###   ###   ## ##   ##    ##  ##     ## ##    ##    ##    ##    ## ##   ###   ### ##      " << std::endl;
+	std::cout << "#### ####  ##   ##  ##        ##     ## ##          ##         ##   ##  #### #### ##      " << std::endl;
+	std::cout << "## ### ## ##     ## ##   #### ##     ##  ######     ##   #### ##     ## ## ### ## ######  " << std::endl;
+	std::cout << "##     ## ######### ##    ##  ##     ##       ##    ##    ##  ######### ##     ## ##      " << std::endl;
+	std::cout << "##     ## ##     ## ##    ##  ##     ## ##    ##    ##    ##  ##     ## ##     ## ##      " << std::endl;
+	std::cout << "##     ## ##     ##  ######    #######   ######      ######   ##     ## ##     ## ########" << std::endl;
 
 }
 
+
 void Magos::initializer( int argc, char* argv[] ){
+
+	game_state = STARTING;
 
 	// check number of input arguments (mininum is 4)
 	// [NAME OF PROGRAM] [MAZE WIDTH] [MAZE HEIGHT] [IMAGE WIDTH]
 	if( argc < 4 ){
-		throw std::invalid_argument( "Usage..." );
+		game_state = ERROR;
+		return;
 	}
  	
  	// initialize main attributes
@@ -49,6 +61,45 @@ void Magos::initializer( int argc, char* argv[] ){
 	r = new Render( m, img_wid, img_hei );
 
 	// check Maze object created
-	std::cout << *m << std::endl;
+	// std::cout << *m << std::endl;
+
+}
+
+void Magos::process_events(){
+
+	// std::cout << "Processing events..." << std::endl;
+
+}
+
+void Magos::update(){
+
+	// std::cout << "Updating Magos..." << std::endl;
+
+	// get state and go to apropriate action
+
+	/* BUILDING */ {
+		// next step of builder
+	}
+
+	/* SOLVING */ {
+		// next step of solver
+	}
+
+}
+
+void Magos::renderize(){
+
+	// std::cout << "Renderizing..." << std::endl;
+
+}
+
+bool Magos::game_over(){
+
+	// this code is just for test purpose...
+	srand(time(0));
+	if( rand() % 2 == 0 )
+    	return true;
+    else
+    	return false;
 
 }

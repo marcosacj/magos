@@ -13,24 +13,29 @@ private:
 
 	Render * r;
 
-	enum States{
+	Nat game_state;
+
+public:
+
+	enum States {
 
 		STARTING,
 		BUILDING,
 		SOLVING,
-		DONE
+		DONE,
+		ERROR
 
 	};
 
 	void welcome() const;
-
-public:
 
 	/// Default constructor.
 	Magos();
 
 	/// Default destructor.
 	~Magos();
+
+	inline Nat get_state() const { return game_state; };
 
 	void initializer( int argc, char* argv[] );
 
@@ -39,6 +44,8 @@ public:
 	void update();
 
 	void renderize();
+
+	bool game_over();
 
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 

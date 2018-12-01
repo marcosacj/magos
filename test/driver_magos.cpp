@@ -9,15 +9,25 @@ int main( int argc, char* argv[] ){
 	// validate inputs
 	mg.initializer( argc, argv );
 
-	if( true ){
-
-		std::cout << "Success..." << std::endl;	
-
-	} else {
+	if( mg.get_state() == Magos::States::ERROR ){
 
 		std::cout << "Something wrong..." << std::endl;
 
 		return EXIT_FAILURE;
+
+	} else {
+
+		std::cout << "Success..." << std::endl;	
+
+		mg.welcome();
+
+	}
+
+	while( not mg.game_over() ){
+
+		mg.process_events();
+		mg.update();
+		mg.renderize();
 
 	}
 
