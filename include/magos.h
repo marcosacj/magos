@@ -27,10 +27,7 @@ private:
 public:
 
 	/// Default constructor.
-	Magos( const Nat & maze_wid , const Nat & maze_hei , const Nat & img_wid , const Nat & img_hei );
-
-	/// Deductive constructor.
-	Magos( const Nat & maze_wid , const Nat & maze_hei , const Nat & img_wid );
+	Magos();
 
 	/// Default destructor.
 	~Magos();
@@ -41,9 +38,7 @@ public:
 
 	void update();
 
-	void render();
-
-	void done();
+	void renderize();
 
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 

@@ -4,23 +4,23 @@
 
 int main( int argc, char* argv[] ){
 
-	Magos * mg;
+	Magos mg;
 
 	// validate inputs
+	mg.initializer( argc, argv );
+
 	if( true ){
-		
-		mg->initializer( argc, argv );
+
+		std::cout << "Success..." << std::endl;	
 
 	} else {
 
-		std::cout << "something wrong..." << std::endl;
+		std::cout << "Something wrong..." << std::endl;
 
-		return 0;
+		return EXIT_FAILURE;
 
 	}
 
-	// std::cout << mg << std::endl;
-
-	return 0;
+	return EXIT_SUCCESS;
 	
 }
