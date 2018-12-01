@@ -67,11 +67,6 @@ private:
 	/// Table of HashNodes
 	std::vector< TableNode * > Nodes;
 
-	/// Number of HashNodes in the HashTable.
-	Nat size() const {
-		return Nodes.size();
-	};
-
 public:
 
 	/// Default constructor.
@@ -105,32 +100,22 @@ public:
 
 	Nat key2index( const K & key ){
 
-		// TableNode * runner { table.front() };
+		auto runner { std::begin(Nodes) };
 
-		// while( runner != table.back() ){
-		// 	if( runner->get_key() == key )
-		// 		break;
+		while( runner != std::end(Nodes) ){
 
-		// 	runner++;
-		// }
-
-		// std::cout << "aqui..." << std::endl;
-
-		// return runner;
-
-		for ( Nat i{0} ; i < Nodes.size() ; i++ ){
-
-			if( Nodes[i]->get_key() == key ){
-				return i;
-			}
+			if( (*runner)->get_key() == key )
+				return std::distance( std::begin(Nodes), runner );
+			else
+				runner++;
 
 		}
 
-		return Nodes.size();
+		return std::distance( std::begin(Nodes), std::end(Nodes) );
 
 	}
 
-	/// Merges two TableNodes based on position in HashTable
+	/// Merges two TableNodes based on keys.
 	void merge_by_key( const K & from, const K & to ){
 
 		Nat fromIndex{ key2index(from) };
@@ -160,7 +145,26 @@ public:
 
 	K get_key( const V & value ){
 
-		// todo
+		// for ( auto i{ std::begin(Nodes) } ; i < std::end(Nodes) ; i++ ){
+		for ( Nat i{0} ; i < (Nat) std::distance( std::begin(Nodes), std::end(Nodes) ) ; i++ ){
+
+			TableNode * checker{ Nodes[i] };
+
+			while( checker->get_next() != nullptr ){
+
+				if( checker->get_value() == value )
+					return checker->get_key();
+				else
+					checker = checker->get_next();
+
+			}
+
+			if( checker->get_value() == value )
+				return checker->get_key();
+
+		}
+
+		throw std::invalid_argument("The key does not exist in the HashTable!");
 
 	}
 
@@ -171,16 +175,10 @@ public:
 
 	}
 
-	void remove( const K & key ){
-
-		// todo
-
-	}
-
 	friend std::ostream & operator << ( std::ostream & os, const HashTable & H ){
 
 		os << "HashTable = [" << std::endl;
-		for ( Nat i{0} ; i < H.size() ; i++ ){
+		for ( Nat i{0} ; i < (Nat) std::distance( std::begin(H.Nodes), std::end(H.Nodes) ) ; i++ ){
 			os << "  " << *H.Nodes[i] << std::endl;
 		}
 		os << "]";

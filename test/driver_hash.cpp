@@ -9,6 +9,8 @@ int main(){
 
 	HashTable<int, int> t{ 10 };
 
+	std::cout << t << std::endl;
+
 	t.insert( & n );
 	t.insert( & m);
 	t.insert( 2, 3 );
@@ -23,11 +25,23 @@ int main(){
 	t.merge_by_key(1, 0);
 	std::cout << t << std::endl;
 
+	for ( int i(0) ; i < 5 ; i++ ){
+		std::cout << "key of " << i+1 << " is = " << t.get_key( i + 1 ) << std::endl;
+	}
+
 	t.merge_by_key(4, 3);
 	std::cout << t << std::endl;
 
+	for ( int i(0) ; i < 5 ; i++ ){
+		std::cout << "key of " << i+1 << " is = " << t.get_key( i + 1 ) << std::endl;
+	}
+
 	t.merge_by_key(3, 0);
 	std::cout << t << std::endl;
+
+	for ( int i(0) ; i < 5 ; i++ ){
+		std::cout << "key of " << i+1 << " is = " << t.get_key( i + 1 ) << std::endl;
+	}
 
 	return 0;
 	
