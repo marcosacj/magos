@@ -64,11 +64,11 @@ private:
 	typedef HashNode<K, V> TableNode;
 
 	/// Table of HashNodes
-	std::vector< TableNode * > table;
+	std::vector< TableNode * > Nodes;
 
 	/// Number of HashNodes in the HashTable.
 	Nat size() const {
-		return table.size();
+		return Nodes.size();
 	};
 
 public:
@@ -76,7 +76,7 @@ public:
 	/// Default constructor.
 	HashTable( const Nat & TABLE_SIZE ){
 
-		table.reserve( TABLE_SIZE );
+		Nodes.reserve( TABLE_SIZE );
 
 	}
 
@@ -92,13 +92,13 @@ public:
 
 		TableNode * n = new TableNode{ key, value };
 
-		table.push_back( n );
+		Nodes.push_back( n );
 
 	}
 
 	void insert( TableNode * n ){
 
-		table.push_back( n );
+		Nodes.push_back( n );
 
 	}
 
@@ -117,23 +117,23 @@ public:
 
 		// return runner;
 
-		for ( Nat i{0} ; i < table.size() ; i++ ){
+		for ( Nat i{0} ; i < Nodes.size() ; i++ ){
 
-			if( table[i]->get_key() == key ){
+			if( Nodes[i]->get_key() == key ){
 				return i;
 			}
 
 		}
 
-		return table.size();
+		return Nodes.size();
 
 	}
 
 	/// Merges two TableNodes based on position in HashTable
 	void merge( const K & from, const K & to ){
 
-		TableNode * fromNode{ table[ key2index(from) ] };
-		TableNode * toNode{ table[ key2index(to) ] };
+		TableNode * fromNode{ Nodes[ key2index(from) ] };
+		TableNode * toNode{ Nodes[ key2index(to) ] };
 
 		// go to last linked node
 		while( toNode->get_next() != nullptr ){
@@ -192,7 +192,7 @@ public:
 
 		os << "HashTable = [" << std::endl;
 		for ( Nat i{0} ; i < H.size() ; i++ ){
-			os << "  " << *H.table[i] << std::endl;
+			os << "  " << *H.Nodes[i] << std::endl;
 		}
 		os << "]";
 
