@@ -16,9 +16,6 @@ HashBuilder::HashBuilder( Maze * target ){
 	// determine size of maze indexes
 	Nat m_size{ m->get_wid() * m->get_hei() };
 
-	// create hash table
-	hasht = new std::pair<int,int> [ m_size ];
-
 	// auxiliar array to fill stack
 	std::vector<Nat> aux( m_size );
 
@@ -30,7 +27,6 @@ HashBuilder::HashBuilder( Maze * target ){
 
 	// fill hash table and stack with indexes
 	for ( Nat i{0} ; i < m_size ; i++ ){
-		hasht[i] = std::make_pair( i, i );
 		shuffled.push( aux[i] );
 	}
 
@@ -39,8 +35,6 @@ HashBuilder::HashBuilder( Maze * target ){
 HashBuilder::~HashBuilder(){
 
 	std::cout << "Destroying HashBuilder..." << std::endl;
-
-	delete hasht;
 
 }
 
