@@ -26,6 +26,10 @@ add_executable( render
 	test/driver_render.cpp
 )
 
+add_executable( hash
+	test/driver_hash
+)
+
 add_executable( magos
 	src/canvas.cpp
 	src/maze.cpp
