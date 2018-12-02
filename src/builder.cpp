@@ -29,10 +29,13 @@ HashBuilder::HashBuilder( Maze * target ){
 	std::shuffle( std::begin(aux), std::end(aux), std::mt19937{ std::random_device{}() } );
 
 	// fill hash table and stack
+	std::cout << "s = [ ";
 	for ( Nat i{0} ; i < m_size ; i++ ){
+		std::cout << aux[i] << " ";
 		s.push( aux[i] );
 		h->insert( i, i );
 	}
+	std::cout << "]" << std::endl;
 
 }
 
@@ -46,38 +49,84 @@ void HashBuilder::build_maze(){
 
 	std::cout << "Building maze..." << std::endl;
 
-	// srand( time( NULL ) );
+	// while( h->size() > 1 ){
 
-	// choose a random cell (just top from stack)
+		// shuffle walls to pick one from last element
+		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
+		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
 
-	// choose a random wall until find a non-connected cell or had tried all walls
+		// choose a random cell (index, from stack)
+		Nat cell{ s.top() };
 
-	std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
-	std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
+		// get coordinates of the cell
+		Coord col{ to_column( cell ) };
+		Coord lin{ to_line( cell ) };
 
-	Coord col{ to_column( s.top() ) };
-	Coord lin{ to_line( s.top() ) };
+		// choose a wall until pick one which is standing
+		while( not m->hasWall( col , lin, walls.back() ) ){
+			walls.pop_back();
+		}
 
-	while( not m->hasWall( col , lin, walls.back() ) ){
-		walls.pop_back();
+		// get neighbor cell
+		Nat nbor;
+
+		try{
+
+			nbor = neighbor( cell , walls.back() );
+
+		} catch( std::runtime_error & e ) {
+
+			std::cout << e.what() << std::endl;
+			walls.pop_back();
+
+			try {
+
+				nbor = neighbor( cell , walls.back() );
+
+			} catch( std::runtime_error & e ) {
+
+				std::cout << e.what() << std::endl;
+				walls.pop_back();
+				nbor = neighbor( cell , walls.back() );
+
+			}
+		}
+
+		std::cout << "wall = " << walls.back() << std::endl;
+
+		// std::cout << "cell = " << cell << " " << col             << " " << lin           << std::endl;
+		// std::cout << "nbor = " << nbor << " " << to_column(nbor) << " " << to_line(nbor) << std::endl;
+
+		// get keys
+		Nat cell_k{ h->get_key(cell) };
+		Nat nbor_k{ h->get_key(nbor) };
+
+		std::cout << "cell = " << cell << " " << col             << " " << lin           << " " << cell_k << std::endl;
+		std::cout << "nbor = " << nbor << " " << to_column(nbor) << " " << to_line(nbor) << " " << nbor_k << std::endl;
+ 
+		// std::cout << "cell_k = " << cell_k << std::endl;
+		// std::cout << "nbor_k = " << nbor_k << std::endl;
+
+		if( not h->isEqualKey( cell, nbor ) ){
+
+			std::cout << "merging nodes..." << std::endl;
+			h->merge_by_key( cell_k , nbor_k );
+			m->knock_down( col, lin , walls.back() );
+			std::cout << *h << std::endl;
+			s.pop();
+
+		} else {
+			std::cout << "equal keys..." << std::endl;
+		}
+
+		std::cout << "s = " << s.size() << std::endl;
+
+		// std::cin.ignore();
+
+	// }
+	if( h->size() > 1 ){
+		build_maze();
 	}
-
-	// std::cout << "index = " << s.top() << std::endl;
-	// std::cout << "col = " << col << std::endl;
-	// std::cout << "lin = " << lin << std::endl;
-	// std::cout << "wall = " << walls.back() << std::endl;
-
-	Nat nbor{ neighbor( col, lin, walls.back() ) };
-
-	// std::cout << "nbor = " << nbor << std::endl;
-	// std::cout << "col = " << to_column(nbor) << std::endl;
-	// std::cout << "lin = " << to_line(nbor) << std::endl;
-
-	// get neighbor cell
-
-	// if found a wall, knock down it and connect cells on hash table
-
-	// if not found a wall, choose another cell (remember: shuffle)
 
 }
 
@@ -92,23 +141,35 @@ Nat HashBuilder::neighbor( const Coord & column, const Coord & line, const Nat &
 	switch( targetWall ){
 
 		case Maze::Walls::Top:
-			return to_index( column, line - 1 );
+			if( line == 0 )
+				throw std::runtime_error( "Can't get top neighbor, the cell is on border!" );
+			else
+				return to_index( column, line - 1 );
 			break;
 
 		case Maze::Walls::Right:
-			return to_index( column + 1, line );
+			if( column == m->get_wid() - 1 )
+				throw std::runtime_error( "Can't get right neighbor, the cell is on border!" );
+			else
+				return to_index( column + 1, line );
 			break;
 
 		case Maze::Walls::Bottom:
-			return to_index( column, line + 1 );
+			if( line == m->get_hei() - 1)
+				throw std::runtime_error( "Can't get bottom neighbor, the cell is on border!" );
+			else
+				return to_index( column, line + 1 );
 			break;
 
 		case Maze::Walls::Left:
-			return to_index( column - 1 , line );
+			if( column == 0 )
+				throw std::runtime_error( "Can't get left neighbor, the cell is on border!" );
+			else
+				return to_index( column - 1 , line );
 			break;
 
 		default:
-			throw std::runtime_error( "Something very wrong happened..." );
+			throw std::runtime_error( "The choosen wall is not valid!" );
 
 	}
 
