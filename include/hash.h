@@ -188,6 +188,29 @@ public:
 
 	}
 
+	void show( void ) const {
+
+		for ( Nat i{0} ; i < (Nat) std::distance( std::begin(Nodes), std::end(Nodes) ) ; i++ ){
+
+			TableNode * runner{ Nodes[i] };
+
+			std::cout << "{ " << runner->get_value() << " ";
+
+			while( runner->get_next() != nullptr ){
+
+				runner = runner->get_next();
+				std::cout << runner->get_value() << " ";
+
+			}
+
+			std::cout << "} ";
+
+		}
+
+		std::cout << std::endl;
+
+	}
+
 	friend std::ostream & operator << ( std::ostream & os, const HashTable & H ){
 
 		os << "HashTable = [" << std::endl;
