@@ -71,7 +71,27 @@ private:
 	/// Table of HashNodes
 	std::vector< TableNode * > Nodes;
 
+	Nat key2index( const K & key ){
+
+		auto runner { std::begin(Nodes) };
+
+		while( runner != std::end(Nodes) ){
+
+			if( (*runner)->get_key() == key )
+				return std::distance( std::begin(Nodes), runner );
+			else
+				runner++;
+
+		}
+
+		// return std::distance( std::begin(Nodes), std::end(Nodes) );
+		throw std::runtime_error( "The key was not found!" );
+
+	}
+
 public:
+
+	inline Nat size( void ) const { return Nodes.size(); };
 
 	/// Default constructor.
 	HashTable( const Nat & TABLE_SIZE ){
@@ -99,23 +119,6 @@ public:
 	void insert( TableNode * n ){
 
 		Nodes.push_back( n );
-
-	}
-
-	Nat key2index( const K & key ){
-
-		auto runner { std::begin(Nodes) };
-
-		while( runner != std::end(Nodes) ){
-
-			if( (*runner)->get_key() == key )
-				return std::distance( std::begin(Nodes), runner );
-			else
-				runner++;
-
-		}
-
-		return std::distance( std::begin(Nodes), std::end(Nodes) );
 
 	}
 
@@ -191,7 +194,7 @@ public:
 		for ( Nat i{0} ; i < (Nat) std::distance( std::begin(H.Nodes), std::end(H.Nodes) ) ; i++ ){
 			os << "  " << *H.Nodes[i] << std::endl;
 		}
-		os << "]";
+		os << "] = " << H.size();
 
 		return os;
 
