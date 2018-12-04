@@ -51,6 +51,7 @@ void HashBuilder::build_maze(){
 	std::cout << "Building maze..." << std::endl;
 
 	while( h->size() > 1 ){
+		
 		h->show();
 
 		// cells
@@ -72,14 +73,13 @@ void HashBuilder::build_maze(){
 		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
 		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
 
-		// for ( int i{ std::distance( std::begin(walls), std::end(walls) ) } ; i > 0  ; i++ ){
-		// for( auto i{ std::end(walls) - 1 } ; i > std::begin(walls) - 1 ; i-- ){
 		for( auto i{ std::begin(walls) } ; i < std::end(walls) ; i++ ){
 
 			try {
 				nbor = neighbor( cell, *i );
 			} catch ( std::runtime_error & e ){
 				// std::cout << e.what() << std::endl;
+				// mark wall as invalid because neighbor does not exist
 				*i = 0;
 				continue;
 			}
@@ -88,7 +88,8 @@ void HashBuilder::build_maze(){
 			nbor_k = h->get_key(nbor);
 
 			if( h->isEqualKey( cell_k, nbor_k ) ){
-				std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
+				// std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
+				// mark wall as invalid because its not knockable
 				*i = 0;
 			} else {
 				targets.push_back( nbor );
@@ -122,9 +123,9 @@ void HashBuilder::build_maze(){
 		}
 		std::cout << "]" << std::endl;
 		
-		std::cout << "walls =   [ ";
-		std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
-		std::cout << "]" << std::endl;
+		// std::cout << "walls =   [ ";
+		// std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
+		// std::cout << "]" << std::endl;
 
 		std::cout << "targets = [ ";
 		std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
@@ -133,30 +134,25 @@ void HashBuilder::build_maze(){
 		// if there is linkable neighbors
 		if( targets.size() > 0 ){
 
+			// get target neighbor information
 			nbor = targets.front();
+			nbor_k = h->get_key(nbor);
 
 			// get coordinates of the cell
 			Coord col{ to_column( cell ) };
 			Coord lin{ to_line( cell ) };
 			
 			// knock down the target wall
-			// std::cout << "target = " << to_column( targets.back() ) << " " << to_line( targets.back() ) << " " << walls.back() << std::endl;
 			m->knock_down( col, lin, walls.front() );
 
 			// std::cout << "knock down... " << std::endl;
-
-			// std::cout << "cell_k = " << cell_k << " , nbor_k = " << nbor_k << std::endl;
-
-			// get keys
-			cell_k = h->get_key(cell);
-			nbor_k = h->get_key(nbor);
 
 			// merge cells in HashTable
 			h->merge_by_key( cell_k , nbor_k );
 
 			// std::cout << "merged..." << std::endl;
 
-			std::cout << *h << std::endl;
+			// std::cout << *h << std::endl;
 
 		} else {
 			std::cout << "no wall to knock down..." << std::endl;
