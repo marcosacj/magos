@@ -29,12 +29,13 @@ HashBuilder::HashBuilder( Maze * target ){
 	std::shuffle( std::begin(aux), std::end(aux), std::mt19937{ std::random_device{}() } );
 
 	// fill hash table and stack
-	std::cout << "s = [ ";
 	for ( Nat i{0} ; i < m_size ; i++ ){
-		std::cout << aux[i] << " ";
 		s.push( aux[i] );
 		h->insert( i, i );
 	}
+
+	std::cout << "s = [ ";
+	std::copy( std::begin(aux) , std::end(aux) , std::ostream_iterator<Nat>( std::cout, " ") );
 	std::cout << "]" << std::endl;
 
 }
@@ -48,6 +49,97 @@ HashBuilder::~HashBuilder(){
 void HashBuilder::build_maze(){
 
 	std::cout << "Building maze..." << std::endl;
+
+	// while( h->size() > 14 ){
+
+	// cells
+	Nat cell, nbor;
+
+	// keys
+	Nat cell_k, nbor_k;
+
+	// choose a random cell
+	cell = s.top();
+
+	// get coordinates of the cell
+	// Coord col{ to_column( cell ) };
+	// Coord lin{ to_line( cell ) };
+
+	// possible target neighbors
+	std::vector<Nat> targets;
+
+	// shuffle walls
+	std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
+	std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
+
+	// for ( int i{ std::distance( std::begin(walls), std::end(walls) ) } ; i > 0  ; i++ ){
+	for( auto i{ std::end(walls) - 1 } ; i > std::begin(walls) - 1 ; i-- ){
+
+		try {
+			nbor = neighbor( cell, *i );
+		} catch ( std::runtime_error & e ){
+			std::cout << e.what() << std::endl;
+			walls.erase(i);
+			continue;
+		}
+
+		// get keys
+		cell_k = h->get_key(cell);
+		nbor_k = h->get_key(nbor);
+
+		if( h->isEqualKey( cell_k, nbor_k ) ){
+			std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
+		} else {
+			targets.push_back( nbor );
+		}
+
+	}
+
+	std::cout << "cell = " << to_column(cell) << " " << to_line(cell) << std::endl;
+
+	std::cout << "walls =   [ ";
+	for ( Nat i(0) ; i < walls.size() ; i++ ){
+		switch( walls[i] ){
+			case Maze::Walls::Top:
+				std::cout << "t ";
+				break;
+			case Maze::Walls::Right:
+				std::cout << "r ";
+				break;
+			case Maze::Walls::Bottom:
+				std::cout << "b ";
+				break;
+			case Maze::Walls::Left:
+				std::cout << "l ";
+				break;
+			default:
+				std::cout << "x ";
+		}
+	}
+	// std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
+	std::cout << "]" << std::endl;
+
+	std::cout << "targets = [ ";
+	std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
+	std::cout << "]" << std::endl;
+	
+	// if there is linkable neighbors
+	if( targets.size() > 0 ){
+		// knock down the target wall
+		m->knock_down( to_column(cell), to_line(cell), walls.back() );
+
+		std::cout << "knock down..." << std::endl;
+
+		// merge cells in HashTable
+
+	}
+
+	// dircard currente cell and go to next
+	s.pop();
+
+	// }
+
+/*
 
 	// while( h->size() > 1 ){
 
@@ -129,6 +221,17 @@ void HashBuilder::build_maze(){
 		build_maze();
 	}
 
+*/
+
+}
+
+bool HashBuilder::valid_coord( const Coord & column, const Coord & line ) const {
+
+	if( column >= m->get_wid() or column < 0 or line >= m->get_hei() or line < 0 )
+		return false;
+	else
+		return true;
+
 }
 
 Nat HashBuilder::neighbor( const Nat & index, const Nat & targetWall ){
@@ -138,6 +241,10 @@ Nat HashBuilder::neighbor( const Nat & index, const Nat & targetWall ){
 }
 
 Nat HashBuilder::neighbor( const Coord & column, const Coord & line, const Nat & targetWall ){
+
+	if( not valid_coord( column, line ) ){
+		throw std::invalid_argument("Coordinates/index is outside the maze!");
+	}
 
 	switch( targetWall ){
 
