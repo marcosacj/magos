@@ -87,6 +87,10 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	* each class name will refer to the method used to build
 	[*] stub of class HashBuilder
 
+* On class HashBuilder
+	[ ] introduce render object
+	[ ] save snapshots of maze
+
 * Implement HashTable class
-	[ ] implement exceptions ( key2undex, merge\_by\_key )
+	[ ] implement exceptions ( `key2index`, `merge\_by\_key` )
 	[ ] document with details

@@ -112,7 +112,8 @@ void HashBuilder::build_maze(){
 			std::cout << "merging nodes..." << std::endl;
 			h->merge_by_key( cell_k , nbor_k );
 			m->knock_down( col, lin , walls.back() );
-			std::cout << *h << std::endl;
+			// std::cout << *h << std::endl;
+			h->show();
 			s.pop();
 
 		} else {
