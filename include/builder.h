@@ -36,6 +36,12 @@ private:
 	// receives a cell (index) and a wall and returns the index of the neighbor cell.
 	Nat neighbor( const Nat & index, const Nat & targetWall );
 
+	/// Checks if a coordinates pair points to inside the matrix.
+	/** @param width Width of the maze (number of columns).
+		@param height Height of the maze (number of lines).
+		@return True if corrdinate is valid and false otherwise. */
+	bool valid_coord( const Coord & column, const Coord & line ) const ;
+
 public:
 
 	/// Default constructor.

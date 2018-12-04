@@ -125,6 +125,10 @@ public:
 	/// Merges two TableNodes based on keys.
 	void merge_by_key( const K & from, const K & to ){
 
+		if( from == to ){
+			throw std::runtime_error( "Not possible to merge iqual keys!" );
+		}
+
 		Nat fromIndex{ key2index(from) };
 		Nat toIndex{ key2index(to) };
 
