@@ -50,178 +50,124 @@ void HashBuilder::build_maze(){
 
 	std::cout << "Building maze..." << std::endl;
 
-	// while( h->size() > 14 ){
+	while( h->size() > 1 ){
+		h->show();
 
-	// cells
-	Nat cell, nbor;
+		// cells
+		Nat cell, nbor;
 
-	// keys
-	Nat cell_k, nbor_k;
+		// keys
+		Nat cell_k, nbor_k;
 
-	// choose a random cell
-	cell = s.top();
+		// choose a random cell
+		cell = s.top();
 
-	// get coordinates of the cell
-	// Coord col{ to_column( cell ) };
-	// Coord lin{ to_line( cell ) };
-
-	// possible target neighbors
-	std::vector<Nat> targets;
-
-	// shuffle walls
-	std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
-	std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
-
-	// for ( int i{ std::distance( std::begin(walls), std::end(walls) ) } ; i > 0  ; i++ ){
-	for( auto i{ std::end(walls) - 1 } ; i > std::begin(walls) - 1 ; i-- ){
-
-		try {
-			nbor = neighbor( cell, *i );
-		} catch ( std::runtime_error & e ){
-			std::cout << e.what() << std::endl;
-			walls.erase(i);
-			continue;
-		}
-
-		// get keys
+		// this key do not change during the iteration
 		cell_k = h->get_key(cell);
-		nbor_k = h->get_key(nbor);
 
-		if( h->isEqualKey( cell_k, nbor_k ) ){
-			std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
-		} else {
-			targets.push_back( nbor );
-		}
+		// possible target neighbors
+		std::vector<Nat> targets;
 
-	}
-
-	std::cout << "cell = " << to_column(cell) << " " << to_line(cell) << std::endl;
-
-	std::cout << "walls =   [ ";
-	for ( Nat i(0) ; i < walls.size() ; i++ ){
-		switch( walls[i] ){
-			case Maze::Walls::Top:
-				std::cout << "t ";
-				break;
-			case Maze::Walls::Right:
-				std::cout << "r ";
-				break;
-			case Maze::Walls::Bottom:
-				std::cout << "b ";
-				break;
-			case Maze::Walls::Left:
-				std::cout << "l ";
-				break;
-			default:
-				std::cout << "x ";
-		}
-	}
-	// std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
-	std::cout << "]" << std::endl;
-
-	std::cout << "targets = [ ";
-	std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
-	std::cout << "]" << std::endl;
-	
-	// if there is linkable neighbors
-	if( targets.size() > 0 ){
-		// knock down the target wall
-		m->knock_down( to_column(cell), to_line(cell), walls.back() );
-
-		std::cout << "knock down..." << std::endl;
-
-		// merge cells in HashTable
-
-	}
-
-	// dircard currente cell and go to next
-	s.pop();
-
-	// }
-
-/*
-
-	// while( h->size() > 1 ){
-
-		// shuffle walls to pick one from last element
+		// shuffle walls
 		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
 		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
 
-		// choose a random cell (index, from stack)
-		Nat cell{ s.top() };
-
-		// get coordinates of the cell
-		Coord col{ to_column( cell ) };
-		Coord lin{ to_line( cell ) };
-
-		// choose a wall until pick one which is standing
-		while( not m->hasWall( col , lin, walls.back() ) ){
-			walls.pop_back();
-		}
-
-		// get neighbor cell
-		Nat nbor;
-
-		try{
-
-			nbor = neighbor( cell , walls.back() );
-
-		} catch( std::runtime_error & e ) {
-
-			std::cout << e.what() << std::endl;
-			walls.pop_back();
+		// for ( int i{ std::distance( std::begin(walls), std::end(walls) ) } ; i > 0  ; i++ ){
+		// for( auto i{ std::end(walls) - 1 } ; i > std::begin(walls) - 1 ; i-- ){
+		for( auto i{ std::begin(walls) } ; i < std::end(walls) ; i++ ){
 
 			try {
+				nbor = neighbor( cell, *i );
+			} catch ( std::runtime_error & e ){
+				// std::cout << e.what() << std::endl;
+				*i = 0;
+				continue;
+			}
 
-				nbor = neighbor( cell , walls.back() );
+			// get keys
+			nbor_k = h->get_key(nbor);
 
-			} catch( std::runtime_error & e ) {
+			if( h->isEqualKey( cell_k, nbor_k ) ){
+				std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
+				*i = 0;
+			} else {
+				targets.push_back( nbor );
+			}
 
-				std::cout << e.what() << std::endl;
-				walls.pop_back();
-				nbor = neighbor( cell , walls.back() );
+		}
 
+		// erase invalid walls
+		walls.erase(std::remove(walls.begin(), walls.end(), 0), walls.end());
+
+		std::cout << "cell = " << cell << " " << to_column(cell) << " " << to_line(cell) << std::endl;
+
+		std::cout << "walls =   [ ";
+		for ( Nat i(0) ; i < walls.size() ; i++ ){
+			switch( walls[i] ){
+				case Maze::Walls::Top:
+					std::cout << "t ";
+					break;
+				case Maze::Walls::Right:
+					std::cout << "r ";
+					break;
+				case Maze::Walls::Bottom:
+					std::cout << "b ";
+					break;
+				case Maze::Walls::Left:
+					std::cout << "l ";
+					break;
+				default:
+					std::cout << "x ";
 			}
 		}
+		std::cout << "]" << std::endl;
+		
+		std::cout << "walls =   [ ";
+		std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
+		std::cout << "]" << std::endl;
 
-		std::cout << "wall = " << walls.back() << std::endl;
+		std::cout << "targets = [ ";
+		std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
+		std::cout << "]" << std::endl;
+		
+		// if there is linkable neighbors
+		if( targets.size() > 0 ){
 
-		// std::cout << "cell = " << cell << " " << col             << " " << lin           << std::endl;
-		// std::cout << "nbor = " << nbor << " " << to_column(nbor) << " " << to_line(nbor) << std::endl;
+			nbor = targets.front();
 
-		// get keys
-		Nat cell_k{ h->get_key(cell) };
-		Nat nbor_k{ h->get_key(nbor) };
+			// get coordinates of the cell
+			Coord col{ to_column( cell ) };
+			Coord lin{ to_line( cell ) };
+			
+			// knock down the target wall
+			// std::cout << "target = " << to_column( targets.back() ) << " " << to_line( targets.back() ) << " " << walls.back() << std::endl;
+			m->knock_down( col, lin, walls.front() );
 
-		std::cout << "cell = " << cell << " " << col             << " " << lin           << " " << cell_k << std::endl;
-		std::cout << "nbor = " << nbor << " " << to_column(nbor) << " " << to_line(nbor) << " " << nbor_k << std::endl;
- 
-		// std::cout << "cell_k = " << cell_k << std::endl;
-		// std::cout << "nbor_k = " << nbor_k << std::endl;
+			// std::cout << "knock down... " << std::endl;
 
-		if( not h->isEqualKey( cell, nbor ) ){
+			// std::cout << "cell_k = " << cell_k << " , nbor_k = " << nbor_k << std::endl;
 
-			std::cout << "merging nodes..." << std::endl;
+			// get keys
+			cell_k = h->get_key(cell);
+			nbor_k = h->get_key(nbor);
+
+			// merge cells in HashTable
 			h->merge_by_key( cell_k , nbor_k );
-			m->knock_down( col, lin , walls.back() );
-			// std::cout << *h << std::endl;
-			h->show();
-			s.pop();
+
+			// std::cout << "merged..." << std::endl;
+
+			std::cout << *h << std::endl;
 
 		} else {
-			std::cout << "equal keys..." << std::endl;
+			std::cout << "no wall to knock down..." << std::endl;
 		}
 
-		std::cout << "s = " << s.size() << std::endl;
+		// dircard current cell and go to next
+		s.pop();
 
-		// std::cin.ignore();
+		std::cout << "s = (" << s.size() << ")" << std::endl;
 
-	// }
-	if( h->size() > 1 ){
-		build_maze();
 	}
-
-*/
 
 }
 
