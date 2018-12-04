@@ -85,6 +85,8 @@ void Render::draw_maze(){
 
 void Render::draw_image( const Str & path ){
 
+	img->clear( LIGHT_GREY );
+
 	std::cout << "Drawing..." << std::endl;
 	draw_maze();
 
