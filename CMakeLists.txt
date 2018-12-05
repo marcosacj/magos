@@ -19,6 +19,11 @@ add_executable( maze
 	test/driver_maze.cpp
 )
 
+add_executable( roullete
+	test/driver_roullete.cpp
+)
+
+
 add_executable( builder
 	src/canvas.cpp
 	src/maze.cpp
