@@ -87,12 +87,12 @@ void Render::draw_image( const Str & path ){
 
 	img->clear( LIGHT_GREY );
 
-	std::cout << "Drawing..." << std::endl;
+	// std::cout << "Drawing..." << std::endl;
 	draw_maze();
 
 	stbi_write_png_compression_level = 0;
 
-	std::cout << "Saving..." << std::endl;
+	// std::cout << "Saving..." << std::endl;
 	stbi_write_png( path.c_str(), img->width(), img->height(), 3, img->buffer(), img->width()*3 );
 
 }

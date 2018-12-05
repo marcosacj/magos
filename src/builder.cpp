@@ -55,13 +55,13 @@ void HashBuilder::build_maze(){
 
 	Nat img_idx{ 0 };
 
+	// draw initial version of maze
+	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+
 	while( h->size() > 1 ){
 
-		std::cout << "h = " << h->size() << std::endl;
+		// std::cout << "h = " << h->size() << std::endl;
 		h->show();
-
-		// draw current version of maze
-		// r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
 
 		// cells
 		Nat cell, nbor;
@@ -82,6 +82,7 @@ void HashBuilder::build_maze(){
 		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
 		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
 
+		// this loop fills the targets vector with possible neighbor cells
 		for( auto i{ std::begin(walls) } ; i < std::end(walls) ; i++ ){
 
 			try {
@@ -107,42 +108,42 @@ void HashBuilder::build_maze(){
 		}
 
 		// erase invalid walls
-		walls.erase(std::remove(walls.begin(), walls.end(), 0), walls.end());
+		walls.erase( std::remove( walls.begin(), walls.end(), 0 ), walls.end() );
 
-		std::cout << "cell = " << cell << " " << to_column(cell) << " " << to_line(cell) << std::endl;
+		// std::cout << "cell = " << cell << " " << to_column(cell) << " " << to_line(cell) << std::endl;
 
-		std::cout << "walls =   [ ";
-		for ( Nat i(0) ; i < walls.size() ; i++ ){
-			switch( walls[i] ){
-				case Maze::Walls::Top:
-					std::cout << "t ";
-					break;
-				case Maze::Walls::Right:
-					std::cout << "r ";
-					break;
-				case Maze::Walls::Bottom:
-					std::cout << "b ";
-					break;
-				case Maze::Walls::Left:
-					std::cout << "l ";
-					break;
-				default:
-					std::cout << "x ";
-			}
-		}
-		std::cout << "]" << std::endl;
+		// std::cout << "walls =   [ ";
+		// for ( Nat i(0) ; i < walls.size() ; i++ ){
+			// switch( walls[i] ){
+			// 	case Maze::Walls::Top:
+			// 		std::cout << "t ";
+			// 		break;
+			// 	case Maze::Walls::Right:
+			// 		std::cout << "r ";
+			// 		break;
+			// 	case Maze::Walls::Bottom:
+			// 		std::cout << "b ";
+			// 		break;
+			// 	case Maze::Walls::Left:
+			// 		std::cout << "l ";
+			// 		break;
+			// 	default:
+			// 		std::cout << "x ";
+			// }
+		// }
+		// std::cout << "]" << std::endl;
 		
 		// std::cout << "walls =   [ ";
 		// std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
 		// std::cout << "]" << std::endl;
 
-		std::cout << "targets = [ ";
-		std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
-		std::cout << "]" << std::endl;
+		// std::cout << "targets = [ ";
+		// std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
+		// std::cout << "]" << std::endl;
 
 		for ( auto nbor{ std::begin(targets) } ; nbor < std::end(targets) ; nbor++ ){
 
-			std::cout << *nbor << std::endl;
+			// std::cout << *nbor << std::endl;
 
 			nbor_k = h->get_key(*nbor);
 
@@ -158,14 +159,21 @@ void HashBuilder::build_maze(){
 				// merge cells in HashTable
 				h->merge_by_key( nbor_k , cell_k );
 
+				// draw current step of building process
+				m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
+				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
+				r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+				m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
+				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
+
 					// h->show();
 
 					// for TEST
-					m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-					m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
-					r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-					m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-					m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
+					// m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
+					// m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
+					// r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+					// m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
+					// m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
 					// std::cin.ignore();
 
 			}
@@ -173,52 +181,11 @@ void HashBuilder::build_maze(){
 			// std::cin.ignore();
 
 		}
-		
-		// if there is linkable neighbors
-		if( targets.size() > 0 and false ){
-
-			// get target neighbor information
-			nbor = targets.front();
-			nbor_k = h->get_key(nbor);
-
-			// get coordinates of the cell
-			Coord col{ to_column( cell ) };
-			Coord lin{ to_line( cell ) };
-			
-			// knock down the target wall
-			m->knock_down( col, lin, walls.front() );
-
-			// std::cout << "knock down... " << std::endl;
-
-			// merge cells in HashTable
-			h->merge_by_key( cell_k , nbor_k );
-
-					// for TEST
-					m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-					m->set_state( to_column(nbor), to_line(nbor), Maze::States::Path );
-					r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
-					m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-					m->set_state( to_column(nbor), to_line(nbor), Maze::States::Untested );
-					// std::cin.ignore();
-
-			// std::cout << "merged..." << std::endl;
-
-			// std::cout << *h << std::endl;
-
-		} else {
-			// std::cout << "no wall to knock down..." << std::endl;
-
-					// for TEST
-					// m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-					// r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
-					// m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-					// std::cin.ignore();
-		}
 
 		// dircard current cell and go to next
 		s.pop();
 
-		std::cout << "s = (" << s.size() << ")" << std::endl;
+		// std::cout << "s = (" << s.size() << ")" << std::endl;
 
 		// img_idx++;
 
@@ -226,8 +193,10 @@ void HashBuilder::build_maze(){
 
 	}
 
+	h->show();
+
 	// draw final version of maze
-	r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
+	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
 
 }
 

@@ -10,8 +10,6 @@ int main(){
 
 	builder.build_maze();
 
-	std::cout << m << std::endl;
-
 	return 0;
 	
 }
