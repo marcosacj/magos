@@ -7,6 +7,7 @@
 
 #include "common.h"
 #include "maze.h"
+#include "render.h"
 #include "hash.h"
 
 class HashBuilder {
@@ -20,6 +21,9 @@ private:
 
 	/// stack of indexes to be picked used during build process.
 	std::stack<Nat> s;
+
+	/// Pointer to a render object.
+	Render * r;
 
 	// Convert from coordinates to index of a cell
 	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; }

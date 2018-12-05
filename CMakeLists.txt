@@ -20,7 +20,9 @@ add_executable( maze
 )
 
 add_executable( builder
+	src/canvas.cpp
 	src/maze.cpp
+	src/render.cpp
 	src/builder.cpp
 	test/driver_builder.cpp
 )
