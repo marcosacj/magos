@@ -53,6 +53,7 @@ void HashBuilder::build_maze(){
 
 	std::cout << "Building maze..." << std::endl;
 
+	// counter to file names
 	Nat img_idx{ 0 };
 
 	// draw initial version of maze
@@ -60,7 +61,6 @@ void HashBuilder::build_maze(){
 
 	while( h->size() > 1 ){
 
-		// std::cout << "h = " << h->size() << std::endl;
 		h->show();
 
 		// cells
@@ -88,20 +88,19 @@ void HashBuilder::build_maze(){
 			try {
 				nbor = neighbor( cell, *i );
 			} catch ( std::runtime_error & e ){
-				// std::cout << e.what() << std::endl;
 				// mark wall as invalid because neighbor does not exist
 				*i = 0;
 				continue;
 			}
 
-			// get keys
+			// get neighbor key
 			nbor_k = h->get_key(nbor);
 
 			if( h->isEqualKey( cell_k, nbor_k ) ){
-				// std::cout << cell << " and " << nbor << " has equal keys..." << std::endl;
 				// mark wall as invalid because its not knockable
 				*i = 0;
 			} else {
+				// this neighbor is valid
 				targets.push_back( nbor );
 			}
 
@@ -110,40 +109,8 @@ void HashBuilder::build_maze(){
 		// erase invalid walls
 		walls.erase( std::remove( walls.begin(), walls.end(), 0 ), walls.end() );
 
-		// std::cout << "cell = " << cell << " " << to_column(cell) << " " << to_line(cell) << std::endl;
-
-		// std::cout << "walls =   [ ";
-		// for ( Nat i(0) ; i < walls.size() ; i++ ){
-			// switch( walls[i] ){
-			// 	case Maze::Walls::Top:
-			// 		std::cout << "t ";
-			// 		break;
-			// 	case Maze::Walls::Right:
-			// 		std::cout << "r ";
-			// 		break;
-			// 	case Maze::Walls::Bottom:
-			// 		std::cout << "b ";
-			// 		break;
-			// 	case Maze::Walls::Left:
-			// 		std::cout << "l ";
-			// 		break;
-			// 	default:
-			// 		std::cout << "x ";
-			// }
-		// }
-		// std::cout << "]" << std::endl;
-		
-		// std::cout << "walls =   [ ";
-		// std::copy( std::begin(walls) , std::end(walls) , std::ostream_iterator<Nat>( std::cout, " ") );
-		// std::cout << "]" << std::endl;
-
-		// std::cout << "targets = [ ";
-		// std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
-		// std::cout << "]" << std::endl;
-
+		// this loop operates on each target neighbor to link them on HashTable
 		for ( auto nbor{ std::begin(targets) } ; nbor < std::end(targets) ; nbor++ ){
-
-			// std::cout << *nbor << std::endl;
 
 			nbor_k = h->get_key(*nbor);
 
@@ -160,39 +127,23 @@ void HashBuilder::build_maze(){
 				h->merge_by_key( nbor_k , cell_k );
 
 				// draw current step of building process
+				// the set_state() methods should be removed on final version
 				m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
 				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
 				r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
 				m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
 				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
 
-					// h->show();
-
-					// for TEST
-					// m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-					// m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
-					// r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-					// m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-					// m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
-					// std::cin.ignore();
-
 			}
-
-			// std::cin.ignore();
 
 		}
 
 		// dircard current cell and go to next
 		s.pop();
 
-		// std::cout << "s = (" << s.size() << ")" << std::endl;
-
-		// img_idx++;
-
-		// std::cin.ignore();
-
 	}
 
+	// show final hashes configuration
 	h->show();
 
 	// draw final version of maze
