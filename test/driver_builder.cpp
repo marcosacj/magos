@@ -4,7 +4,7 @@
 
 int main(){
 
-	Maze m{5, 3};
+	Maze m{8, 5};
 
 	HashBuilder builder{ & m };
 

@@ -19,6 +19,9 @@ HashBuilder::HashBuilder( Maze * target ){
 	// create the HashTable used during build process
 	h = new HashTable< Nat, Nat > ( m_size );
 
+	// create render object to draw maze image file
+	r = new Render( m, m->get_wid() * 100 , m->get_hei() * 100 );
+
 	// auxiliar array to fill stack
 	std::vector<Nat> aux( m_size );
 
@@ -50,9 +53,15 @@ void HashBuilder::build_maze(){
 
 	std::cout << "Building maze..." << std::endl;
 
+	Nat img_idx{ 0 };
+
 	while( h->size() > 1 ){
-		
+
+		std::cout << "h = " << h->size() << std::endl;
 		h->show();
+
+		// draw current version of maze
+		// r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
 
 		// cells
 		Nat cell, nbor;
@@ -130,9 +139,43 @@ void HashBuilder::build_maze(){
 		std::cout << "targets = [ ";
 		std::copy( std::begin(targets) , std::end(targets) , std::ostream_iterator<Nat>( std::cout, " ") );
 		std::cout << "]" << std::endl;
+
+		for ( auto nbor{ std::begin(targets) } ; nbor < std::end(targets) ; nbor++ ){
+
+			std::cout << *nbor << std::endl;
+
+			nbor_k = h->get_key(*nbor);
+
+			if( not h->isEqualKey( cell_k, nbor_k ) ){
+
+				// get coordinates of the cell
+				Coord col{ to_column( cell ) };
+				Coord lin{ to_line( cell ) };
+
+				// knock down the target wall
+				m->knock_down( col, lin, walls[ std::distance( std::begin(targets) , nbor ) ] );
+
+				// merge cells in HashTable
+				h->merge_by_key( nbor_k , cell_k );
+
+					// h->show();
+
+					// for TEST
+					m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
+					m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
+					r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+					m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
+					m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
+					// std::cin.ignore();
+
+			}
+
+			// std::cin.ignore();
+
+		}
 		
 		// if there is linkable neighbors
-		if( targets.size() > 0 ){
+		if( targets.size() > 0 and false ){
 
 			// get target neighbor information
 			nbor = targets.front();
@@ -150,12 +193,26 @@ void HashBuilder::build_maze(){
 			// merge cells in HashTable
 			h->merge_by_key( cell_k , nbor_k );
 
+					// for TEST
+					m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
+					m->set_state( to_column(nbor), to_line(nbor), Maze::States::Path );
+					r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
+					m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
+					m->set_state( to_column(nbor), to_line(nbor), Maze::States::Untested );
+					// std::cin.ignore();
+
 			// std::cout << "merged..." << std::endl;
 
 			// std::cout << *h << std::endl;
 
 		} else {
-			std::cout << "no wall to knock down..." << std::endl;
+			// std::cout << "no wall to knock down..." << std::endl;
+
+					// for TEST
+					// m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
+					// r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
+					// m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
+					// std::cin.ignore();
 		}
 
 		// dircard current cell and go to next
@@ -163,7 +220,14 @@ void HashBuilder::build_maze(){
 
 		std::cout << "s = (" << s.size() << ")" << std::endl;
 
+		// img_idx++;
+
+		// std::cin.ignore();
+
 	}
+
+	// draw final version of maze
+	r->draw_image( "./data/maze_" + std::to_string( img_idx ) + ".png" );
 
 }
 
