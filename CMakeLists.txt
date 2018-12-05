@@ -3,7 +3,7 @@
 cmake_minimum_required( VERSION 3.5 )
 project( magos )
 
-add_compile_options( -Wall -std=c++11 )
+add_compile_options( -Wall -std=c++11 -g )
 set( EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/run )
 include_directories( include helpers )
 
@@ -19,11 +19,23 @@ add_executable( maze
 	test/driver_maze.cpp
 )
 
+add_executable( builder
+	src/canvas.cpp
+	src/maze.cpp
+	src/render.cpp
+	src/builder.cpp
+	test/driver_builder.cpp
+)
+
 add_executable( render
 	src/canvas.cpp
 	src/maze.cpp
 	src/render.cpp
 	test/driver_render.cpp
+)
+
+add_executable( hash
+	test/driver_hash
 )
 
 add_executable( magos

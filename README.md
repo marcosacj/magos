@@ -79,10 +79,19 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 
 * On class Render
 	[ ] document with details
-	[*] refactor draw_cell() to use methods provided by Maze
+	[*] refactor `draw_cell()` to use methods provided by Maze
 
 * Implement MagosGame class
 
 * Implement Builder classes
 	* each class name will refer to the method used to build
-	[ ] stub of class HashBuilder
+	[*] stub of class `HashBuilder`
+
+* On class HashBuilder
+	[*] introduce render object
+	[*] save snapshots of maze
+
+* Implement HashTable class
+	[*] implement exceptions ( `key2index()`, `merge\_by\_key()` )
+	[*] document with details
+	[ ] separate `build\_maze()` to `build\_maze()` + `build\_step()`
