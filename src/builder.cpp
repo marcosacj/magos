@@ -27,28 +27,7 @@ HashBuilder::HashBuilder( Maze * param_m, Render * param_r ){
 		h->insert( i, i );
 	}
 
-	img_idx = 0;
-
 	c.shuffle();
-
-	// auxiliar array to fill stack
-	std::vector<Nat> aux( m_size );
-
-	// fill auxiliar array from 0 to m_size
-	std::iota( std::begin(aux), std::end(aux), 0 );
-
-	// shuffle elements to be pushed to stack
-	std::shuffle( std::begin(aux), std::end(aux), std::mt19937{ std::random_device{}() } );
-
-	// fill hash table and stack
-	for ( Nat i{0} ; i < m_size ; i++ ){
-		s.push( aux[i] );
-		
-	}
-
-	std::cout << "s = [ ";
-	std::copy( std::begin(aux) , std::end(aux) , std::ostream_iterator<Nat>( std::cout, " ") );
-	std::cout << "]" << std::endl;
 
 }
 
@@ -70,93 +49,17 @@ void HashBuilder::build_maze( void ){
 
 	while( not is_built() ){
 
-		h->show();
+		if( build_step() ){
 
-		// cells
-		Nat cell, nbor;
-
-		// keys
-		Nat cell_k, nbor_k;
-
-		// choose a random cell
-		cell = s.top();
-
-		// this key do not change during the iteration
-		cell_k = h->get_key(cell);
-
-		// possible target neighbors
-		std::vector<Nat> targets;
-
-		// shuffle walls
-		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
-		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
-
-		// this loop fills the targets vector with possible neighbor cells
-		for( auto i{ std::begin(walls) } ; i < std::end(walls) ; i++ ){
-
-			try {
-				nbor = neighbor( cell, *i );
-			} catch ( std::runtime_error & e ){
-				// mark wall as invalid because neighbor does not exist
-				*i = 0;
-				continue;
-			}
-
-			// get neighbor key
-			nbor_k = h->get_key(nbor);
-
-			if( h->isEqualKey( cell_k, nbor_k ) ){
-				// mark wall as invalid because its not knockable
-				*i = 0;
-			} else {
-				// this neighbor is valid
-				targets.push_back( nbor );
-			}
+			// draw currente version of maze
+			r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
 
 		}
-
-		// erase invalid walls
-		walls.erase( std::remove( walls.begin(), walls.end(), 0 ), walls.end() );
-
-		// this loop operates on each target neighbor to link them on HashTable
-		for ( auto nbor{ std::begin(targets) } ; nbor < std::end(targets) ; nbor++ ){
-
-			nbor_k = h->get_key(*nbor);
-
-			if( not h->isEqualKey( cell_k, nbor_k ) ){
-
-				// get coordinates of the cell
-				Coord col{ to_column( cell ) };
-				Coord lin{ to_line( cell ) };
-
-				// knock down the target wall
-				m->knock_down( col, lin, walls[ std::distance( std::begin(targets) , nbor ) ] );
-
-				// merge cells in HashTable
-				h->merge_by_key( nbor_k , cell_k );
-
-				// draw current step of building process
-				// the set_state() methods should be removed on final version
-				m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
-				r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-				m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
-
-			}
-
-		}
-
-		// dircard current cell and go to next
-		s.pop();
 
 	}
 
 	// show final hashes configuration
-	h->show();
-
-	// draw final version of maze
-	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+	// h->show();
 
 }
 
@@ -218,13 +121,9 @@ Nat HashBuilder::neighbor( const Coord & column, const Coord & line, const Nat &
 
 }
 
-void HashBuilder::build_step( void ){
+bool HashBuilder::build_step( void ){
 
-	// draw initial version of the maze
-	if( not img_idx )
-		r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-
-	h->show();
+	// h->show();
 
 	// cells
 	Nat cell, nbor;
@@ -291,22 +190,12 @@ void HashBuilder::build_step( void ){
 			// merge cells in HashTable
 			h->merge_by_key( nbor_k , cell_k );
 
-			// draw current step of building process
-			// the set_state() methods should be removed on final version
-			// m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-			// m->set_state( to_column(nbor), to_line(nbor), Maze::States::Path );
-			r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-			// m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-			// m->set_state( to_column(nbor), to_line(nbor), Maze::States::Untested );
+			return true;
 
 		}
 
 	}
 
-	// draw final version of the maze
-	if( is_built() ){
-		r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-		std::cout << img_idx << " images generated" << std::endl;
-	}
+	return false;
 
 }

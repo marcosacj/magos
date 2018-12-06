@@ -24,13 +24,7 @@ private:
 	/// Roulette to store shuffle cell indexes
 	Roulette<Nat> c;
 
-	// counter to file names
-	Nat img_idx;
-
 	HashTable< Nat, Nat > * h;
-
-	/// stack of indexes to be picked used during build process.
-	std::stack<Nat> s;
 
 	// Convert from coordinates to index of a cell
 	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; };
@@ -67,7 +61,7 @@ public:
 	void build_maze( void );
 
 	// Comment
-	void build_step( void );
+	bool build_step( void );
 
 };
 
