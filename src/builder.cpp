@@ -6,12 +6,15 @@
 
 #include "builder.h"
 
-HashBuilder::HashBuilder( Maze * target ){
+HashBuilder::HashBuilder( Maze * param_m, Render * param_r ){
 
 	std::cout << "Constructing HashBuilder..." << std::endl;
 
 	// set builder pointer to target maze
-	m = target;
+	m = param_m;
+
+	// set render object to draw maze image file
+	r = param_r;
 
 	// determine size of maze indexes
 	Nat m_size{ m->get_wid() * m->get_hei() };
@@ -19,27 +22,12 @@ HashBuilder::HashBuilder( Maze * target ){
 	// create the HashTable used during build process
 	h = new HashTable< Nat, Nat > ( m_size );
 
-	// create render object to draw maze image file
-	r = new Render( m, m->get_wid() * 100 , m->get_hei() * 100 );
-
-	// auxiliar array to fill stack
-	std::vector<Nat> aux( m_size );
-
-	// fill auxiliar array from 0 to m_size
-	std::iota( std::begin(aux), std::end(aux), 0 );
-
-	// shuffle elements to be pushed to stack
-	std::shuffle( std::begin(aux), std::end(aux), std::mt19937{ std::random_device{}() } );
-
-	// fill hash table and stack
 	for ( Nat i{0} ; i < m_size ; i++ ){
-		s.push( aux[i] );
+		c.add( i );
 		h->insert( i, i );
 	}
 
-	std::cout << "s = [ ";
-	std::copy( std::begin(aux) , std::end(aux) , std::ostream_iterator<Nat>( std::cout, " ") );
-	std::cout << "]" << std::endl;
+	c.shuffle();
 
 }
 
@@ -49,7 +37,7 @@ HashBuilder::~HashBuilder(){
 
 }
 
-void HashBuilder::build_maze(){
+void HashBuilder::build_maze( void ){
 
 	std::cout << "Building maze..." << std::endl;
 
@@ -59,95 +47,19 @@ void HashBuilder::build_maze(){
 	// draw initial version of maze
 	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
 
-	while( h->size() > 1 ){
+	while( not is_built() ){
 
-		h->show();
+		if( build_step() ){
 
-		// cells
-		Nat cell, nbor;
-
-		// keys
-		Nat cell_k, nbor_k;
-
-		// choose a random cell
-		cell = s.top();
-
-		// this key do not change during the iteration
-		cell_k = h->get_key(cell);
-
-		// possible target neighbors
-		std::vector<Nat> targets;
-
-		// shuffle walls
-		std::vector<Nat> walls { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
-		std::shuffle( std::begin(walls), std::end(walls), std::mt19937{ std::random_device{}() } );
-
-		// this loop fills the targets vector with possible neighbor cells
-		for( auto i{ std::begin(walls) } ; i < std::end(walls) ; i++ ){
-
-			try {
-				nbor = neighbor( cell, *i );
-			} catch ( std::runtime_error & e ){
-				// mark wall as invalid because neighbor does not exist
-				*i = 0;
-				continue;
-			}
-
-			// get neighbor key
-			nbor_k = h->get_key(nbor);
-
-			if( h->isEqualKey( cell_k, nbor_k ) ){
-				// mark wall as invalid because its not knockable
-				*i = 0;
-			} else {
-				// this neighbor is valid
-				targets.push_back( nbor );
-			}
+			// draw currente version of maze
+			r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
 
 		}
-
-		// erase invalid walls
-		walls.erase( std::remove( walls.begin(), walls.end(), 0 ), walls.end() );
-
-		// this loop operates on each target neighbor to link them on HashTable
-		for ( auto nbor{ std::begin(targets) } ; nbor < std::end(targets) ; nbor++ ){
-
-			nbor_k = h->get_key(*nbor);
-
-			if( not h->isEqualKey( cell_k, nbor_k ) ){
-
-				// get coordinates of the cell
-				Coord col{ to_column( cell ) };
-				Coord lin{ to_line( cell ) };
-
-				// knock down the target wall
-				m->knock_down( col, lin, walls[ std::distance( std::begin(targets) , nbor ) ] );
-
-				// merge cells in HashTable
-				h->merge_by_key( nbor_k , cell_k );
-
-				// draw current step of building process
-				// the set_state() methods should be removed on final version
-				m->set_state( to_column(cell), to_line(cell), Maze::States::Visited );
-				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Path );
-				r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
-				m->set_state( to_column(cell), to_line(cell), Maze::States::Untested );
-				m->set_state( to_column(*nbor), to_line(*nbor), Maze::States::Untested );
-
-			}
-
-		}
-
-		// dircard current cell and go to next
-		s.pop();
 
 	}
 
 	// show final hashes configuration
-	h->show();
-
-	// draw final version of maze
-	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+	// h->show();
 
 }
 
@@ -206,5 +118,84 @@ Nat HashBuilder::neighbor( const Coord & column, const Coord & line, const Nat &
 			throw std::runtime_error( "The choosen wall is not valid!" );
 
 	}
+
+}
+
+bool HashBuilder::build_step( void ){
+
+	// h->show();
+
+	// cells
+	Nat cell, nbor;
+
+	// keys
+	Nat cell_k, nbor_k;
+
+	// choose a random cell
+	cell = c.step_value();
+
+	// this key do not change during the iteration
+	cell_k = h->get_key(cell);
+
+	// possible target neighbors
+	std::vector<Nat> target_neighbor;
+
+	// shuffle walls
+	std::vector<Nat> target_wall { Maze::Walls::Top, Maze::Walls::Right, Maze::Walls::Bottom, Maze::Walls::Left };
+	std::shuffle( std::begin(target_wall), std::end(target_wall), std::mt19937{ std::random_device{}() } );
+
+	// this loop fills the targets vector with possible neighbor cells
+	for( auto w{ std::begin(target_wall) } ; w < std::end(target_wall) ; w++ ){
+
+		try {
+			nbor = neighbor( cell, *w );
+		} catch ( std::runtime_error & e ){
+			// mark wall as invalid because neighbor does not exist
+			*w = 0;
+			continue;
+		}
+
+		// get neighbor key
+		nbor_k = h->get_key(nbor);
+
+		if( h->isEqualKey( cell_k, nbor_k ) ){
+			// mark wall as invalid because its not knockable
+			*w = 0;
+		} else {
+			// this neighbor is valid
+			target_neighbor.push_back( nbor );
+		}
+
+	}
+
+	// erase invalid walls
+	target_wall.erase( std::remove( target_wall.begin(), target_wall.end(), 0 ), target_wall.end() );
+
+	// if there is at least one neighbor to be linked, link it
+	if( target_wall.size() ){
+
+		nbor = target_neighbor.front();
+		
+		nbor_k = h->get_key(nbor);
+
+		if( not h->isEqualKey( cell_k, nbor_k ) ){
+
+			// get coordinates of the cell
+			Coord col{ to_column( cell ) };
+			Coord lin{ to_line( cell ) };
+
+			// knock down the target wall
+			m->knock_down( col, lin, target_wall.front() );
+
+			// merge cells in HashTable
+			h->merge_by_key( nbor_k , cell_k );
+
+			return true;
+
+		}
+
+	}
+
+	return false;
 
 }

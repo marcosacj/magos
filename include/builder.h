@@ -9,24 +9,25 @@
 #include "maze.h"
 #include "render.h"
 #include "hash.h"
+#include "roulette.h"
 
 class HashBuilder {
 
 private:
 
-	/// pointer to the initial maze to be built.
+	/// Pointer to maze to be built.
 	Maze * m;
-
-	HashTable< Nat, Nat > * h;
-
-	/// stack of indexes to be picked used during build process.
-	std::stack<Nat> s;
 
 	/// Pointer to a render object.
 	Render * r;
 
+	/// Roulette to store shuffle cell indexes
+	Roulette<Nat> c;
+
+	HashTable< Nat, Nat > * h;
+
 	// Convert from coordinates to index of a cell
-	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; }
+	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; };
 
 	/// Convert from index to column of a cell.
 	inline Coord to_column( const Nat & index ) { return index % m->get_wid(); };
@@ -49,13 +50,18 @@ private:
 public:
 
 	/// Default constructor.
-	HashBuilder( Maze * target );
+	HashBuilder( Maze * m, Render * r );
 
 	/// Default destructor.
 	~HashBuilder();
 
+	inline bool is_built( void ) const { return h->size() == 1; };
+
 	/// Receives a pointer to a Maze object and turns it into a perfect Maze.
-	void build_maze();
+	void build_maze( void );
+
+	// Comment
+	bool build_step( void );
 
 };
 
