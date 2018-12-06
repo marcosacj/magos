@@ -90,6 +90,7 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 * On class HashBuilder
 	[*] introduce render object
 	[*] save snapshots of maze
+	[ ] remove internal render and receive it by parameter
 
 * Implement HashTable class
 	[*] implement exceptions ( `key2index()`, `merge\_by\_key()` )

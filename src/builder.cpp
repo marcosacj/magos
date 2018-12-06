@@ -6,12 +6,12 @@
 
 #include "builder.h"
 
-HashBuilder::HashBuilder( Maze * target ){
+HashBuilder::HashBuilder( Maze * param_m, Render * param_r ){
 
 	std::cout << "Constructing HashBuilder..." << std::endl;
 
 	// set builder pointer to target maze
-	m = target;
+	m = param_m;
 
 	// determine size of maze indexes
 	Nat m_size{ m->get_wid() * m->get_hei() };
@@ -19,8 +19,8 @@ HashBuilder::HashBuilder( Maze * target ){
 	// create the HashTable used during build process
 	h = new HashTable< Nat, Nat > ( m_size );
 
-	// create render object to draw maze image file
-	r = new Render( m, m->get_wid() * 100 , m->get_hei() * 100 );
+	// set render object to draw maze image file
+	r = param_r;
 
 	// auxiliar array to fill stack
 	std::vector<Nat> aux( m_size );

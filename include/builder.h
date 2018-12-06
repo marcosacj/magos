@@ -49,7 +49,7 @@ private:
 public:
 
 	/// Default constructor.
-	HashBuilder( Maze * target );
+	HashBuilder( Maze * m, Render * r );
 
 	/// Default destructor.
 	~HashBuilder();
