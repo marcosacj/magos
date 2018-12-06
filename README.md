@@ -98,3 +98,5 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	[*] document with details
 	[*] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
 	[ ] delete statement on destructor
+
+* On class Solver
