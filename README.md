@@ -74,18 +74,17 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	[*] implement methods to get states of cells and walls
 	[*] refactor order of bits: four first to be walls states
 	[*] turn Cell type back to private
-	[ ] refactor number of bits used, from 8 to 6
 	[*] refactor method to reset states in `set_state()`
+	[ ] refactor number of bits used, from 8 to 6
 
 * On class Render
 	[ ] document with details
 	[*] refactor `draw_cell()` to use methods provided by Maze
 
-* Implement MagosGame class
+* On class MagosGame
 
-* Implement Builder classes
-	* each class name will refer to the method used to build
-	[*] stub of class `HashBuilder`
+* Implement Builder classes (each class name will refer to the method used to build)
+	[*] class `HashBuilder`
 
 * On class HashBuilder
 	[*] introduce render object
