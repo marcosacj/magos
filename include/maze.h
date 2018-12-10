@@ -13,9 +13,9 @@ private:
 
 	/// Basic type of a cell in the maze.
 	/** A cell is modeled as a byte (unsigned char), that is, a sequence of eight bits, 
-	  each of then meaning an specific information.
-	  The four first bits mean if the Up, Right, Bottom and Left walls are stand up.
-	  The last four bits mean the state of that cell during solving process:
+	  each of then meaning an specific information.\n
+	  The four first bits mean if the Up, Right, Bottom and Left walls are stand up.\n
+	  The last four bits mean the state of that cell during solving process:\n
 	  untested, visited, visited-path, visited-discarded. */
 	typedef std::bitset<8> Cell;
 
@@ -86,7 +86,8 @@ public:
 
 	/// Knocks down a Wall.
 	/** Receives the coordinates of a cell and a target Wall (that is, the corresponding Wall enumerator)
-		to be knocked down. Note that corresponding walls of neighbor cells are also knocked down.
+		to be knocked down.\n
+		Note that corresponding walls of neighbor cells are also knocked down.
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
 		@param targetWall Target wall to be knocked down.
@@ -105,9 +106,25 @@ public:
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
 
 	// method to get state of wall
+	/// Checks if a target wall is standing.
+	/** This method receives a target cell and a target wall to check if this one is standing.\n
+		As it converts the cell location from coordinates to index, it does bounds checking.\n
+		If an invalid wall is passed, the method returns false, does not throws an exception.
+		@param column Column of the target cell.
+		@param line Line of the target cell.
+		@param targetWall Code of the target wall. Should be one from Walls public enum.
+		@throw std::runtime_error When the coordinates are outside the maze. */
 	bool hasWall( const Coord & column, const Coord & line, const Wall & targetWall ) const;
 
 	// methods to get state of cell
+	/// Checks the state of a target cell.
+	/** This method receives a target cell and a target state, and checks if that cell is set to
+		that state.\n
+		As it converts the cell location from coordinates to index, it does bounds checking.\n
+		If an invalid state is passed, the method returns false, does not throws an exception.
+		@param column Column of the target cell.
+		@param line Line of the target cell.
+		@param targetState Code of the target state. Should be one from States public enum. */
 	bool isState( const Coord & column, const Coord & line, const State & targetState ) const;
 
 	/// Overload of stream operator.

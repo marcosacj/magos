@@ -122,6 +122,8 @@ Nat Maze::to_index( const Coord & column, const Coord & line ) const {
 
 bool Maze::hasWall( const Coord & column, const Coord & line, const Wall & targetWall ) const {
 
+	// yes, it is correct to assign a wall to a cell type!
+	// this assignment is used for binary comparison to retrieve the information of the wall
 	Cell targetW{ targetWall };
 
 	if( ( matrix[ to_index( column, line ) ] & targetW ) == targetW ){
@@ -134,6 +136,8 @@ bool Maze::hasWall( const Coord & column, const Coord & line, const Wall & targe
 
 bool Maze::isState( const Coord & column, const Coord & line, const State & targetState ) const {
 
+	// yes, it is correct to assign a state to a cell type!
+	// this assignment is used for binary comparison to retrieve the information of the state
 	Cell targetS{ targetState };
 
 	if( ( matrix[ to_index( column, line ) ] & targetS ) == targetS ){
