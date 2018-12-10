@@ -9,10 +9,8 @@ int main(){
 	// Maze m{40, 30};
 	// Maze m{50, 45};
 
-	Nat scale{100};
-	// Nat scale{20};
-
-	Render r{ & m, m.get_wid() * scale, m.get_hei() * scale };
+	// Render r{ & m, m.get_wid() * scale, m.get_hei() * scale };
+	Render r{ & m, 800 };
 
 	std::cout << r << std::endl;
 

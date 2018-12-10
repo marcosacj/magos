@@ -40,6 +40,8 @@ public:
 	/// Default constructor.
 	Render( const Maze * maze, const Nat & width, const Nat & height );
 
+	Render( const Maze * maze, const Nat & width );
+
 	/// Default destructor.
 	~Render();
 

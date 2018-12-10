@@ -28,6 +28,28 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 
 }
 
+Render::Render( const Maze * maze, const Nat & width ){
+
+	Nat height{ width * maze->get_hei() / maze->get_wid() };
+
+	ptr_maze = maze;
+
+	border_wid = width  * 0.02;
+	border_hei = height * 0.02;
+
+	cell_width  = (width  - 2*border_wid) / ptr_maze->get_wid();
+	cell_height = (height - 2*border_hei) / ptr_maze->get_hei();
+
+	// calculate gap and update border size
+	border_wid = ( width  - ptr_maze->get_wid() * cell_width  ) / 2;
+	border_hei = ( height - ptr_maze->get_hei() * cell_height ) / 2;
+
+	img = new Canvas{ width, height };
+
+	img->clear( LIGHT_GREY );
+
+}
+
 Render::~Render(){
 	delete img;
 }
