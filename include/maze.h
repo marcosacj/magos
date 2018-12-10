@@ -105,7 +105,6 @@ public:
 		@throw std::invalid_argument When try to set an invalid state. */
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
 
-	// method to get state of wall
 	/// Checks if a target wall is standing.
 	/** This method receives a target cell and a target wall to check if this one is standing.\n
 		As it converts the cell location from coordinates to index, it does bounds checking.\n
@@ -116,7 +115,6 @@ public:
 		@throw std::runtime_error When the coordinates are outside the maze. */
 	bool hasWall( const Coord & column, const Coord & line, const Wall & targetWall ) const;
 
-	// methods to get state of cell
 	/// Checks the state of a target cell.
 	/** This method receives a target cell and a target state, and checks if that cell is set to
 		that state.\n
