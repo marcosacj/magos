@@ -51,12 +51,6 @@ All executables will be placed in `run/` folder. So, you can run typing:
 $ ./run/[EXECUTABLE]
 ```
 
-Note: `driver_canvas` sets relative output folder from where `canvas` (inside `run/`) is runned.
-So, if you want result images be stored inside `data/`, you should run `canvas` from root directory
-of the project.
-
-Note: you should `mkdir data` before run `canvas`, otherwise the images will not be generated.
-
 ## Doxygen
 
 A configuration file is set in the root directory, `doxygen.cfg`. If you want to generate yours, you can type:
@@ -69,7 +63,7 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 
 ## TODO
 
-* On class Maze
+* On class `Maze`
 	[*] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
 	[*] implement methods to get states of cells and walls
 	[*] refactor order of bits: four first to be walls states
@@ -77,26 +71,30 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	[*] refactor method to reset states in `set_state()`
 	[ ] refactor number of bits used, from 8 to 6
 
-* On class Render
-	[ ] document with details
+* On class `Render`
 	[*] refactor `draw_cell()` to use methods provided by Maze
+	[ ] document with details
 
-* On class MagosGame
+* On class `MagosGame`
 
-* Implement Builder classes (each class name will refer to the method used to build)
+* Implement `Builder` and `Solver` classes (each class name will refer to the method used)
 	[*] class `HashBuilder`
 
-* On class HashBuilder
+* On class `HashBuilder`
 	[*] introduce render object
 	[*] save snapshots of maze
 	[*] remove internal render and receive it by parameter
 	[*] create `step()` method
-	[ ] implement Hash Table as a `std::vector`
+	[ ] rename class `roulette` and port it to inside `HashBuilder`
+	[ ] implement Hash Table as a `std::vector` (internal class)
 
-* Implement HashTable class
+* On class `HashTable`
 	[*] implement exceptions ( `key2index()`, `merge\_by\_key()` )
 	[*] document with details
 	[*] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
 	[ ] delete statement on destructor
 
-* On class Solver
+* On class `Solver`
+
+* General
+	[ ] improve comments

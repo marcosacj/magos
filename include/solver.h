@@ -1,0 +1,7 @@
+class Solver {
+
+private:
+
+public:
+
+};

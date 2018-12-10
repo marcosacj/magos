@@ -40,7 +40,15 @@ add_executable( render
 )
 
 add_executable( hash
-	test/driver_hash
+	test/driver_hash.cpp
+)
+
+add_executable( solver
+	src/maze.cpp
+	src/canvas.cpp
+	src/render.cpp
+	src/builder.cpp
+	test/driver_solver.cpp
 )
 
 add_executable( magos

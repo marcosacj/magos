@@ -57,7 +57,7 @@ void Magos::initializer( int argc, char* argv[] ){
 	// create new Maze object
 	m = new Maze( maze_wid, maze_hei );
 
-	// create new Render object
+	// create new Render object -- REMEMBER TO UPDATE THIS CONSTRUCTION WITH NEW RENDER CONSTRUCTOR
 	r = new Render( m, img_wid, img_hei );
 
 	// check Maze object created
