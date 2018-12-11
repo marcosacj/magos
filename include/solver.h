@@ -1,3 +1,5 @@
+#include <stack>
+
 #include "common.h"
 #include "maze.h"
 
@@ -11,6 +13,9 @@ private:
 	/// Pointer to the maze to be solved.
 	Maze * m;
 
+	/// Pointer to the render object which will draw each step of solving process.
+	Render * r;
+
 	/// Stack of indexes which compose the solution path of the maze.
 	std::stack<index_t> path;
 
@@ -22,10 +27,10 @@ private:
 
 	/// Directions that can be taken from the current cell.
 	enum Directions : Nat {
-		TOP,
-		RIGHT,
-		BOTTOM,
-		LEFT
+		Top,
+		Right,
+		Bottom,
+		Left
 	};
 
 	/// Returns a vector with directions which can be taken.
@@ -33,26 +38,31 @@ private:
 		Otherwise (if target neighbor is discarded or is a wall), it is not part of the vector. */
 	std::vector<Nat> check_directions( const index_t & index ) const ;
 
-	/// Returns if a cell is and end of corridor.
-	/** An end of corridor is a cell whose unique possible moviment is to come back. */
-	bool end_corridor( const index_t & index ) const ;
-
 	/// Checks if the current position is the end point of the maze.
 	bool is_end( void ) const ;
 
+	/// Converts the location of a cell from coordinates to index.
 	inline index_t to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; };
 
-	inline Coord to_column( const index_t & index ) { return index % m->get_wid(); };
+	/// Retrieves the column coordinate of a cell from its index.
+	inline Coord to_col( const index_t & index ) const { return index % m->get_wid(); };
 
-	inline Coord to_line( const index_t & index ) { return floor( index / m->get_wid() ); };
+	/// Retrieves the line coordinate of a cell from its index.
+	inline Coord to_lin( const index_t & index ) const { return floor( index / m->get_wid() ); };
 
 public:
 
 	/// Default constructor.
-	Solver( Maze * param_m );
+	Solver( Maze * param_m, Render * param_r );
+
+	/// Constructor with start point.
+	Solver( Maze * param_m, Render * param_r, const index_t & start );
+
+	/// Constructor with start and end points.
+	Solver( Maze * param_m, Render * param_r, const index_t & start, const index_t & end );
 
 	/// Default destructor.
-	~Solver( void );
+	// ~Solver( void );
 
 	/// Retrives the state of the maze, which can be Solved or Unsolved.
 	bool is_solved( void );

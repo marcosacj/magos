@@ -1,8 +1,6 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
-#include <stack>
-
 #include <math.h> // floor
 
 #include "common.h"

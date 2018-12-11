@@ -23,7 +23,6 @@ add_executable( roullete
 	test/driver_roullete.cpp
 )
 
-
 add_executable( builder
 	src/canvas.cpp
 	src/maze.cpp
@@ -48,6 +47,7 @@ add_executable( solver
 	src/canvas.cpp
 	src/render.cpp
 	src/builder.cpp
+	src/solver.cpp
 	test/driver_solver.cpp
 )
 
