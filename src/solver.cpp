@@ -121,14 +121,27 @@ std::vector<Nat> Solver::check_directions( const index_t & index ) const {
 
 void Solver::solve_maze( void ){
 
+	std::cout << "Solving maze..." << std::endl;
+
+	// counter to file names
+	Nat img_idx{ 0 };
+
+	std::string solve_path { "./data/solving_" };
+
+	// draw initial version of maze
+	r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+
 	while( not is_solved() ){
 
+		// advance one step in solutio search
 		solve_step();
-		// r->draw_image();
+
+		// draw currente version of maze
+		r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
 
 	}
 
-	r->draw_image();
+	std::cout << "Maze is solved..." << std::endl;
 
 }
 

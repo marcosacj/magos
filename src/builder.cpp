@@ -41,18 +41,20 @@ void HashBuilder::build_maze( void ){
 
 	std::cout << "Building maze..." << std::endl;
 
+	std::string build_path { "./data/building_" };
+
 	// counter to file names
 	Nat img_idx{ 0 };
 
 	// draw initial version of maze
-	r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+	r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
 
 	while( not is_built() ){
 
 		if( build_step() ){
 
 			// draw currente version of maze
-			r->draw_image( "./data/maze_" + std::to_string( img_idx++ ) + ".png" );
+			r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
 
 		}
 
@@ -60,6 +62,8 @@ void HashBuilder::build_maze( void ){
 
 	// show final hashes configuration
 	// h->show();
+
+	std::cout << "Maze is built..." << std::endl;
 
 }
 
