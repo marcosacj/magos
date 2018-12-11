@@ -14,7 +14,7 @@ int main(){
 
 	HashBuilder b{ & m, & r };
 
-	b.build_maze();
+	// b.build_maze();
 
 
 
