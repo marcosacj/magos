@@ -74,12 +74,13 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 * On class `Render`
 	[*] refactor `draw_cell()` to use methods provided by Maze
 	[*] document with details
+	[ ] draw cell and path of solution
 
 * On class `MagosGame`
 
 * Implement `Builder` and `Solver` classes (each class name will refer to the method used)
 	[*] class `HashBuilder`
-	[ ] class `Solver`
+	[*] class `Solver`
 
 * On class `HashBuilder`
 	[*] introduce render object
