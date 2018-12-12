@@ -20,8 +20,6 @@ Solver::Solver( Maze * param_m, Render * param_r ){
 
 	path.push( start_point );
 
-	m->set_state( to_col( path.top() ), to_lin( path.top() ), Maze::States::Path );
-
 }
 
 void Solver::solve_step( void ){
@@ -127,6 +125,9 @@ void Solver::solve_maze( void ){
 	Nat img_idx{ 0 };
 
 	std::string solve_path { "./data/solving_" };
+
+	// mark initial posision as path
+	m->set_state( to_col( path.top() ), to_lin( path.top() ), Maze::States::Path );
 
 	// draw initial version of maze
 	r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
