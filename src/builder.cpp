@@ -31,7 +31,7 @@ HashBuilder::HashBuilder( Maze * param_m, Render * param_r ){
 
 }
 
-HashBuilder::~HashBuilder(){
+HashBuilder::~HashBuilder( void ){
 
 	std::cout << "Destroying HashBuilder..." << std::endl;
 

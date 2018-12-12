@@ -42,13 +42,14 @@ private:
 	bool valid_coord( const Coord & column, const Coord & line ) const ;
 
 public:
+
 	/// Gets the width (number of cells) in the maze.
 	/** @return Number of cells, horizontal direction. */
-	inline Nat get_wid() const { return width; };
+	inline Nat get_wid( void ) const { return width; };
 
 	/// Gets the height (number of cells) in the maze.
 	/** @return Number of cells, vertical direction. */
-	inline Nat get_hei() const { return height; };
+	inline Nat get_hei( void ) const { return height; };
 
 	/// Enumeration of cell states.
 	/** States are set as positive integers and, when assigned to a cell, are converted to Cell
@@ -82,7 +83,7 @@ public:
 	Maze( const Nat & width = 0, const Nat & height = 0 );
 
 	/// Destructor of the maze.
-	~Maze();
+	~Maze( void );
 
 	/// Knocks down a Wall.
 	/** Receives the coordinates of a cell and a target Wall (that is, the corresponding Wall enumerator)

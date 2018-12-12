@@ -1,25 +1,76 @@
 #include <iostream>
 
-#include "maze.h"
-#include "canvas.h"
-#include "render.h"
 #include "builder.h"
 #include "solver.h"
 
-int main(){
+int main( int argc, char* argv[] ){
 
-	Maze m { 8, 5 };
+	if( argc < 4 ){
 
-	Render r { & m , 800 };
+		std::cout << "Invalid arguments!" << std::endl;
 
-	HashBuilder b { & m, & r };
+		std::cout 	<< "Try " << argv[0]
+					<< " [MAZE WIDTH] [MAZE HEIGHT] [RENDER WIDTH] [optional RENDER HEIGHT]"
+					<< std::endl;
 
-	b.build_maze();
+	} else {
 
-	Solver s { & m, & r };
+		// Pointers to maze, render, builder and solver objects
+		Maze * m;
+		Render * r;
+		HashBuilder * b;
+		Solver * s;
 
-	s.solve_maze();
+		// initialize maze and render dimensions from command line arguments
+		Nat m_wid, m_hei;
+		Nat r_wid, r_hei;
 
-	return 0;
+		try {
+
+			m_wid = static_cast<Nat> ( std::stoi( argv[1] ) );
+			m_hei = static_cast<Nat> ( std::stoi( argv[2] ) );
+
+			// create maze object
+			m = new Maze { m_wid, m_hei };
+
+			r_wid = static_cast<Nat> ( std::stoi( argv[3] ) );
+
+			if( argc > 4 ){
+
+				r_hei = static_cast<Nat> ( std::stoi( argv[4] ) );
+
+				// create render object with default constructor
+				r = new Render { m, r_wid, r_hei };
+
+			} else {
+
+				// create render object with deductive constructor
+				r = new Render { m, r_wid };
+
+			}
+
+		} catch ( std::invalid_argument & e ) {
+
+			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
+
+			std::cout 	<< "Try " << argv[0]
+					<< " [MAZE WIDTH] [MAZE HEIGHT] [RENDER WIDTH] [optional RENDER HEIGHT]"
+					<< std::endl;
+
+			return EXIT_FAILURE;
+
+		}
+
+		// create builder and solver objects
+		b = new HashBuilder { m, r };
+		s = new Solver { m, r };
+
+		// build and solve the maze
+		b->build_maze();
+		s->solve_maze();
+
+	}
+
+	return EXIT_SUCCESS;
 	
 }

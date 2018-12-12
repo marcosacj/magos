@@ -1,32 +1,70 @@
 #include <iostream>
 
-#include "render.h"
 #include "builder.h"
 
 int main( int argc, char* argv[] ){
 
-	// initialize main attributes
-	Nat m_wid { static_cast<Nat> ( std::atoi( argv[1] ) ) };
-	Nat m_hei { static_cast<Nat> ( std::atoi( argv[2] ) ) };
-	Nat h_wid { static_cast<Nat> ( std::atoi( argv[3] ) ) };
+	if( argc < 4 ){
 
-	// depending on input, image heigth will be passed or calculated
-	Nat h_hei;
+		std::cout << "Invalid arguments!" << std::endl;
 
-	if( argc > 4 )
-		h_hei = static_cast<Nat> ( std::atoi( argv[4] ) );
-	else
-		h_hei = m_hei * h_wid / m_wid;
+		std::cout 	<< "Try " << argv[0]
+					<< " [MAZE WIDTH] [MAZE HEIGHT] [RENDER WIDTH] [optional RENDER HEIGHT]"
+					<< std::endl;
 
+	} else {
 
-	Maze m{ m_wid , m_hei };
+		// Pointers to maze, render and builder objects
+		Maze * m;
+		Render * r;
+		HashBuilder * b;
 
-	Render r{ & m, h_wid , h_hei };
+		// initialize maze and render dimensions from command line arguments
+		Nat m_wid, m_hei;
+		Nat r_wid, r_hei;
 
-	HashBuilder builder{ & m, & r };
+		try {
 
-	builder.build_maze();
+			m_wid = static_cast<Nat> ( std::stoi( argv[1] ) );
+			m_hei = static_cast<Nat> ( std::stoi( argv[2] ) );
 
-	return 0;
+			// create maze object
+			m = new Maze { m_wid, m_hei };
+
+			r_wid = static_cast<Nat> ( std::stoi( argv[3] ) );
+
+			if( argc > 4 ){
+
+				r_hei = static_cast<Nat> ( std::stoi( argv[4] ) );
+
+				// create render object with default constructor
+				r = new Render { m, r_wid, r_hei };
+
+			} else {
+
+				// create render object with deductive constructor
+				r = new Render { m, r_wid };
+
+			}
+
+		} catch ( std::invalid_argument & e ) {
+
+			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
+
+			std::cout 	<< "Try " << argv[0]
+					<< " [MAZE WIDTH] [MAZE HEIGHT] [RENDER WIDTH] [optional RENDER HEIGHT]"
+					<< std::endl;
+
+			return EXIT_FAILURE;
+
+		}
+
+		b = new HashBuilder { m, r };
+
+		b->build_maze();
+
+	}
+
+	return EXIT_SUCCESS;
 	
 }

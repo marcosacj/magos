@@ -21,10 +21,10 @@ private:
 	Nat border_hei; //!< Lenght of the vertical border on image, in pixels.
 
 	/// Pointer to target maze.
-	const Maze * ptr_maze{ nullptr };
+	const Maze * ptr_maze { nullptr };
 
 	/// Pointer to a Canvas object which represents the image.
-	Canvas * img{ nullptr };
+	Canvas * img { nullptr };
 
 	/// Draws a single cell on the image Canvas object.
 	/** This method is responsible for drawing a single cell on the Canvas object.
@@ -41,7 +41,7 @@ private:
 	/** This method uses two loops (horizontal and vertical) to draw all the cells of the maze.
 		Make use of the method `draw_cell()`.
 		It is used by `draw_image()` method. */
-	void draw_maze();
+	void draw_maze( void );
 
 public:
 
@@ -71,7 +71,7 @@ public:
 	Render( const Maze * maze, const Nat & width );
 
 	/// Default destructor.
-	~Render();
+	~Render( void );
 
 	/// Saves the image Canvas object to a png file.
 	/** This method receives a destination file name and save the maze as a png image file.
