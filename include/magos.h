@@ -66,9 +66,10 @@ public:
 	/// Check the state of the game and draw the image file.
 	void renderize( void );
 
-	/// Check if the game is over (built and solver).
+	/// Check if the game is over (built and solver).	
 	bool game_over( void );
 
+	/// Overload of ostream operator to show inforamtion about maze and render.
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 
 		os 	<< "Magos = [" << std::endl

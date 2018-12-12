@@ -45,9 +45,15 @@ private:
 	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; };
 
 	/// Retrieves the column coordinate of a cell from its index.
+	/** This method suppose the index is valid (inside the maze) and does not check bounds.
+		@param index Index of the cell.
+		@return Corresponding column of the cell. */
 	inline Coord to_column( const Nat & index ) { return index % m->get_wid(); };
 
 	/// Retrieves the line coordinate of a cell from its index.
+	/** This method suppose the index is valid (inside the maze) and does not check bounds.
+		@param index Index of the cell.
+		@return Corresponding line of the cell. */
 	inline Coord to_line( const Nat & index ) { return floor( index / m->get_wid() ); };
 
 	/// Calculates the index of the neighbor cell of a given cell and given wall.

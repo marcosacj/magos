@@ -29,7 +29,6 @@ void Magos::welcome( void ) const {
 
 }
 
-
 void Magos::initializer( int argc, char* argv[] ){
 
 	game_state = STARTING;
