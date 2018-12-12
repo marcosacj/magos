@@ -26,7 +26,7 @@ int main( int argc, char* argv[] ){
 
 			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
 			std::cout << "Try " << argv[0] << " [MAZE WIDTH] [MAZE HEIGHT]" << std::endl;
-			
+
 			return EXIT_FAILURE;
 
 		}
