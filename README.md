@@ -97,7 +97,10 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	[ ] delete statement on destructor
 
 * On class `Solver`
-	[ ] comment with details
+	[*] comment with details
 
-* General
+* General/Missing
 	[*] improve comments
+	[ ] implement `delete` statements
+	[ ] update `draw_cell()`
+	[ ] comment Magos game class

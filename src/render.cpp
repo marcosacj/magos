@@ -10,6 +10,8 @@
 
 Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 
+	std::cout << "Constructing Render..." << std::endl;
+
 	ptr_maze = maze;
 
 	border_wid = width  * 0.02;
@@ -29,6 +31,8 @@ Render::Render( const Maze * maze, const Nat & width, const Nat & height ){
 }
 
 Render::Render( const Maze * maze, const Nat & width ){
+
+	std::cout << "Constructing Render..." << std::endl;
 
 	Nat height{ width * maze->get_hei() / maze->get_wid() };
 
@@ -51,6 +55,8 @@ Render::Render( const Maze * maze, const Nat & width ){
 }
 
 Render::~Render( void ){
+
+	std::cout << "Destroying Render..." << std::endl;
 
 	delete img;
 	

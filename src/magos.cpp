@@ -10,8 +10,10 @@ Magos::~Magos( void ){
 
 	std::cout << "Destroying Magos Game..." << std::endl;
 
-	// delete m;
-	// delete r;
+	delete m;
+	delete r;
+	delete b;
+	delete s;
 
 }
 
