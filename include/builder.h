@@ -87,7 +87,7 @@ public:
 	HashBuilder( Maze * m, Render * r );
 
 	/// Default destructor.
-	~HashBuilder();
+	~HashBuilder( void );
 
 	/// Returns the state of the maze acording to the building process.
 	/** This method may be use by an external controller of the building process.
