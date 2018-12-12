@@ -41,7 +41,7 @@ private:
 		If necessary, the method `valid_coord()` may be used before calling this method.
 		@param column Column of the targer cell.
 		@param line Line of the target cell.
-		@return Index of the targed cell. */
+		@return Index of the target cell. */
 	inline Nat to_index( const Coord & column, const Coord & line ){ return m->get_wid() * line + column; };
 
 	/// Retrieves the column coordinate of a cell from its index.
