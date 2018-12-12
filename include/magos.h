@@ -2,21 +2,33 @@
 #define MAGOS_H
 
 #include "common.h"
-#include "maze.h"
-#include "render.h"
+// #include "maze.h"
+// #include "render.h"
+#include "builder.h"
+#include "solver.h"
 
 class Magos {
 
 private:
 
+	/// Pointer to the maze object of the game.
 	Maze * m;
 
+	/// Pointer to the render object which will draw the image files.
 	Render * r;
 
+	/// Pointer the the HashBuilder object, which will construct the maze using Hash Table strategy.
+	HashBuilder * b;
+
+	/// Pointer to the Solver object, which will solve the maze using Backtracking strategy.
+	Solver * s;
+
+	/// Flag to represent the state of the game.
 	Nat game_state;
 
 public:
 
+	/// States of the game.
 	enum States {
 
 		STARTING,
@@ -27,25 +39,29 @@ public:
 
 	};
 
-	void welcome() const;
+	/// Show an welcome message to the user.
+	void welcome( void ) const;
 
 	/// Default constructor.
-	Magos();
+	// Magos( Maze * param_m, Render * param_r, HashBuilder * param_b, Solver * param_s );
+	Magos( void );
 
 	/// Default destructor.
-	~Magos();
+	~Magos( void );
 
 	inline Nat get_state() const { return game_state; };
 
+	/// Process and validate input arguments
 	void initializer( int argc, char* argv[] );
 
-	void process_events();
+	/// Process all input events from the user (none in this game).
+	void process_events( void );
 
-	void update();
+	void update( void );
 
-	void renderize();
+	void renderize( void );
 
-	bool game_over();
+	bool game_over( void );
 
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 
