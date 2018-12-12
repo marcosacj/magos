@@ -50,8 +50,10 @@ Render::Render( const Maze * maze, const Nat & width ){
 
 }
 
-Render::~Render(){
+Render::~Render( void ){
+
 	delete img;
+	
 }
 
 void Render::draw_cell( const Coord & column, const Coord & line ){
@@ -95,7 +97,7 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 
 }
 
-void Render::draw_maze(){
+void Render::draw_maze( void ){
 
 	for ( Coord column{0u} ; column < ptr_maze->get_wid() ; column++ ){
 		for ( Coord line{0u} ; line < ptr_maze->get_hei() ; line++ ){
