@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include <math.h> // floor
+
 #include "common.h" // includes definition of a Cell and other useful types
 
 /// Models the maze of the project.
@@ -19,8 +21,9 @@ private:
 	  untested, visited, visited-path, visited-discarded. */
 	typedef std::bitset<8> Cell;
 
-	typedef std::size_t State; //!< State of cell.
-	typedef std::size_t Wall;  //!< Wall of a cell.
+	typedef std::size_t State;   //!< State of cell.
+	typedef std::size_t Wall;    //!< Wall of a cell.
+	typedef std::size_t index_t; //!< Index of a cell.
 
 	/// Dimensions of the matrix.
 	Nat width, height;
@@ -34,6 +37,12 @@ private:
 		@return Corresponding index of the coordinates.
 		@throw std::invalid_argument When the coordinates are outside the matrix. */
 	Nat to_index( const Coord & column, const Coord & line ) const;
+
+	/// Retrieves the column coordinate of a cell from its index.
+	inline Coord to_col( const index_t & index ) const { return index % width; };
+
+	/// Retrieves the line coordinate of a cell from its index.
+	inline Coord to_lin( const index_t & index ) const { return floor( index / width ); };
 
 	/// Checks if a coordinates pair points to inside the matrix.
 	/** @param width Width of the maze (number of columns).
@@ -105,6 +114,9 @@ public:
 		@throw std::invalid_argument When the coordinates are outside the matrix.
 		@throw std::invalid_argument When try to set an invalid state. */
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
+
+
+	void set_state( const index_t & index, const State & targetState );
 
 	/// Checks if a target wall is standing.
 	/** This method receives a target cell and a target wall to check if this one is standing.\n

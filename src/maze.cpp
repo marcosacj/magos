@@ -5,7 +5,7 @@
 // Constructor
 Maze::Maze( const Nat & w , const Nat & h ){
 
-	// std::cout << "\nConstructing maze..." << std::endl;
+	std::cout << "Constructing maze..." << std::endl;
 
 	width = w;
 	height = h;
@@ -19,7 +19,7 @@ Maze::Maze( const Nat & w , const Nat & h ){
 // Destructor
 Maze::~Maze( void ){
 
-	// std::cout << "\nDestroying maze..." << std::endl;
+	std::cout << "Destroying maze..." << std::endl;
 	delete matrix;
 
 }
@@ -100,6 +100,12 @@ void Maze::set_state( const Coord & column, const Coord & line, const State & ta
 		default:
 			throw std::invalid_argument("Target State not valid!");
 	}
+
+}
+
+void Maze::set_state( const index_t & index, const State & targetState ){
+
+	set_state( to_col( index ), to_lin( index ), targetState );
 
 }
 
