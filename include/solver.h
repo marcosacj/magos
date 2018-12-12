@@ -92,6 +92,9 @@ public:
 		@param end Index os the end point cell. */
 	Solver( Maze * param_m, Render * param_r, const index_t & start, const index_t & end );
 
+	/// Default constructor.
+	~Solver( void );
+
 	/// Retrives the state of the maze
 	/** @return The state of the maze, which can be Solved or Unsolved. */
 	bool is_solved( void );

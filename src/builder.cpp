@@ -35,6 +35,8 @@ HashBuilder::~HashBuilder( void ){
 
 	std::cout << "Destroying HashBuilder..." << std::endl;
 
+	delete h;
+
 }
 
 void HashBuilder::build_maze( void ){

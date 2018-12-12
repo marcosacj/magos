@@ -10,6 +10,8 @@
 
 Solver::Solver( Maze * param_m, Render * param_r ){
 
+	std::cout << "Constructing Solver..." << std::endl;
+
 	m = param_m;
 
 	r = param_r;
@@ -19,6 +21,12 @@ Solver::Solver( Maze * param_m, Render * param_r ){
 	end_point = m->get_wid()*m->get_hei() - 1;
 
 	path.push( start_point );
+
+}
+
+Solver::~Solver( void ){
+
+	std::cout << "Destroying Solver..." << std::endl;
 
 }
 

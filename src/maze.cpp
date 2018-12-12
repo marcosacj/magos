@@ -5,7 +5,7 @@
 // Constructor
 Maze::Maze( const Nat & w , const Nat & h ){
 
-	std::cout << "Constructing maze..." << std::endl;
+	std::cout << "Constructing Maze..." << std::endl;
 
 	width = w;
 	height = h;
@@ -19,7 +19,8 @@ Maze::Maze( const Nat & w , const Nat & h ){
 // Destructor
 Maze::~Maze( void ){
 
-	std::cout << "Destroying maze..." << std::endl;
+	std::cout << "Destroying Maze..." << std::endl;
+
 	delete matrix;
 
 }
