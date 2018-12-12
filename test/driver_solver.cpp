@@ -1,8 +1,5 @@
 #include <iostream>
 
-#include "maze.h"
-#include "canvas.h"
-#include "render.h"
 #include "builder.h"
 #include "solver.h"
 
