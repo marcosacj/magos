@@ -4,14 +4,7 @@
 
 int main( int argc, char* argv[] ){
 
-	// pointers to objects to be used in the game
-	// Maze * m;
-	// Render * r;
-	// HashBuilder * b;
-	// Solver * s;
-
 	// instatiating magos game object
-	// Magos mg { m, r, b, s } ;
 	Magos mg;
 
 	// validate inputs
@@ -29,15 +22,13 @@ int main( int argc, char* argv[] ){
 
 	}
 
-	mg.update();
+	while( not mg.game_over() ){
 
-	// while( not mg.game_over() ){
+		mg.process_events();
+		mg.update();
+		mg.renderize();
 
-	// 	mg.process_events();
-	// 	mg.update();
-	// 	mg.renderize();
-
-	// }
+	}
 
 	return EXIT_SUCCESS;
 	

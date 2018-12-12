@@ -2,8 +2,6 @@
 #define MAGOS_H
 
 #include "common.h"
-// #include "maze.h"
-// #include "render.h"
 #include "builder.h"
 #include "solver.h"
 
@@ -26,6 +24,9 @@ private:
 	/// Flag to represent the state of the game.
 	Nat game_state;
 
+	/// counter to file names
+	Nat img_idx;
+
 public:
 
 	/// States of the game.
@@ -33,7 +34,9 @@ public:
 
 		STARTING,
 		BUILDING,
+		BUILT,
 		SOLVING,
+		SOLVED,
 		OVER,
 		ERROR
 
@@ -43,12 +46,12 @@ public:
 	void welcome( void ) const;
 
 	/// Default constructor.
-	// Magos( Maze * param_m, Render * param_r, HashBuilder * param_b, Solver * param_s );
 	Magos( void );
 
 	/// Default destructor.
 	~Magos( void );
 
+	/// Returns the state of the game.
 	inline Nat get_state() const { return game_state; };
 
 	/// Process and validate input arguments
@@ -57,11 +60,13 @@ public:
 	/// Process all input events from the user (none in this game).
 	void process_events( void );
 
-	/// Check the state of the game and do the proper action.
+	/// Check the state of the game and do the proper action (build or solve).
 	void update( void );
 
+	/// Check the state of the game and draw the image file.
 	void renderize( void );
 
+	/// Check if the game is over (built and solver).
 	bool game_over( void );
 
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
