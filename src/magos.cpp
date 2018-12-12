@@ -82,6 +82,10 @@ void Magos::initializer( int argc, char* argv[] ){
 
 			}
 
+			// creare builder and solver objects
+			b = new HashBuilder { m, r };
+			s = new Solver { m, r };
+
 		} catch ( std::invalid_argument & e ) {
 
 			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
@@ -91,6 +95,8 @@ void Magos::initializer( int argc, char* argv[] ){
 					<< std::endl;
 
 		}
+
+		game_state = BUILDING;
 
 	}
 
@@ -104,16 +110,33 @@ void Magos::process_events( void ){
 
 void Magos::update( void ){
 
-	// std::cout << "Updating Magos..." << std::endl;
+	switch( game_state ){
 
-	// get state and go to apropriate action
+		case STARTING:
+			break;
+			
+		case BUILDING:
+			std::cout << "building..." << std::endl;
+			b->build_step();
+			if( b->is_built() )
+				game_state = SOLVING;
+			break;
+			
+		case SOLVING:
+			std::cout << "solving..." << std::endl;
+			s->solve_step();
+			if( s->is_solved() )
+				game_state = OVER;
+			break;
+			
+		case OVER:
+			break;
+			
+		case ERROR:
+			break;
 
-	/* BUILDING */ {
-		// next step of builder
-	}
-
-	/* SOLVING */ {
-		// next step of solver
+		default:
+			throw std::runtime_error( "An error occurred during game execution!" ) ;
 	}
 
 }
@@ -127,10 +150,12 @@ void Magos::renderize( void ){
 bool Magos::game_over( void ){
 
 	// this code is just for test purpose...
-	srand(time(0));
-	if( rand() % 2 == 0 )
-    	return true;
-    else
-    	return false;
+	// srand(time(0));
+	// if( rand() % 2 == 0 )
+	// 	return true;
+	// else
+	// 	return false;
+
+	return game_state == OVER;
 
 }

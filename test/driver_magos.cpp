@@ -19,7 +19,7 @@ int main( int argc, char* argv[] ){
 
 	if( mg.get_state() == Magos::States::ERROR ){
 
-		std::cout << "Something wrong..." << std::endl;
+		std::cout << "And error occurred!" << std::endl;
 
 		return EXIT_FAILURE;
 
@@ -29,13 +29,15 @@ int main( int argc, char* argv[] ){
 
 	}
 
-	while( not mg.game_over() ){
+	mg.update();
 
-		mg.process_events();
-		mg.update();
-		mg.renderize();
+	// while( not mg.game_over() ){
 
-	}
+	// 	mg.process_events();
+	// 	mg.update();
+	// 	mg.renderize();
+
+	// }
 
 	return EXIT_SUCCESS;
 	

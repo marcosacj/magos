@@ -34,7 +34,7 @@ public:
 		STARTING,
 		BUILDING,
 		SOLVING,
-		DONE,
+		OVER,
 		ERROR
 
 	};
@@ -57,6 +57,7 @@ public:
 	/// Process all input events from the user (none in this game).
 	void process_events( void );
 
+	/// Check the state of the game and do the proper action.
 	void update( void );
 
 	void renderize( void );
@@ -66,16 +67,16 @@ public:
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 
 		os 	<< "Magos = [" << std::endl
-			<< "  < " << std::setw(10) << std::left << "maze_wid"
+			<< "  < " << std::setw(10) << std::left << "m_wid"
 			<< ", " << std::setw(5) << std::right << mg.m->get_wid() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "maze_hei"
+			<< "  < " << std::setw(10) << std::left << "m_hei"
 			<< ", " << std::setw(5) << std::right << mg.m->get_hei() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "img_wid"
+			<< "  < " << std::setw(10) << std::left << "r_wid"
 			<< ", " << std::setw(5) << std::right << mg.r->get_wid() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "img_hei"
+			<< "  < " << std::setw(10) << std::left << "r_hei"
 			<< ", " << std::setw(5) << std::right << mg.r->get_hei() << " >" << std::endl
 
 			<< "]";
