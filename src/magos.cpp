@@ -1,14 +1,8 @@
 #include "magos.h"
 
-// Magos::Magos( Maze * param_m, Render * param_r, HashBuilder * param_b, Solver * param_s ){
 Magos::Magos( void ){
 
 	std::cout << "Constructing Magos Game..." << std::endl;
-
-	// m = param_m;
-	// r = param_r;
-	// b = param_b;
-	// s = param_s;
 
 }
 
@@ -34,7 +28,6 @@ void Magos::welcome( void ) const {
 	std::cout << "##     ## ##     ##  ######    #######   ######      ######   ##     ## ##     ## ########" << std::endl;
 
 }
-
 
 void Magos::initializer( int argc, char* argv[] ){
 
@@ -82,6 +75,10 @@ void Magos::initializer( int argc, char* argv[] ){
 
 			}
 
+			// creare builder and solver objects
+			b = new HashBuilder { m, r };
+			s = new Solver { m, r };
+
 		} catch ( std::invalid_argument & e ) {
 
 			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
@@ -104,16 +101,67 @@ void Magos::process_events( void ){
 
 void Magos::update( void ){
 
-	// std::cout << "Updating Magos..." << std::endl;
+	switch( game_state ){
 
-	// get state and go to apropriate action
+		case STARTING:
 
-	/* BUILDING */ {
-		// next step of builder
-	}
+			game_state = BUILDING;
+			img_idx = 0;
 
-	/* SOLVING */ {
-		// next step of solver
+			break;
+			
+		case BUILDING:
+			// std::cout << "building..." << std::endl;
+
+			b->build_step();
+
+			if( b->is_built() ){
+
+				game_state = BUILT;
+			}
+
+			break;
+
+		case BUILT:
+
+			game_state = SOLVING;
+
+			// mark initial posision as path (assume start point is always 0)
+			m->set_state( 0, Maze::States::Path );
+
+			img_idx = 0;
+
+			break;
+
+			
+		case SOLVING:
+			// std::cout << "solving..." << std::endl;
+
+			s->solve_step();
+
+			if( s->is_solved() ){
+
+				game_state = SOLVED;
+
+			}
+
+			break;
+			
+		case SOLVED:
+
+			game_state = OVER;
+			img_idx = 0;
+
+			break;
+			
+		case OVER:
+			break;
+			
+		case ERROR:
+			break;
+
+		default:
+			throw std::runtime_error( "An error occurred during game execution!" ) ;
 	}
 
 }
@@ -122,15 +170,52 @@ void Magos::renderize( void ){
 
 	// std::cout << "Renderizing..." << std::endl;
 
+	std::string solve_path { "./data/solving_" };
+	std::string build_path { "./data/building_" };
+
+	switch( game_state ){
+
+		case STARTING:
+			// r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
+			break;
+			
+		case BUILDING:
+			r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
+			break;
+
+		case BUILT:
+			r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );			
+			break;
+			
+		case SOLVING:
+			r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+			break;
+			
+		case SOLVED:
+			r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+			break;
+			
+		case OVER:
+			break;
+			
+		case ERROR:
+			break;
+
+		default:
+			throw std::runtime_error( "An error occurred during game execution!" ) ;
+	}
+
 }
 
 bool Magos::game_over( void ){
 
 	// this code is just for test purpose...
-	srand(time(0));
-	if( rand() % 2 == 0 )
-    	return true;
-    else
-    	return false;
+	// srand(time(0));
+	// if( rand() % 2 == 0 )
+	// 	return true;
+	// else
+	// 	return false;
+
+	return game_state == OVER;
 
 }

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include <math.h> // floor
+
 #include "common.h" // includes definition of a Cell and other useful types
 
 /// Models the maze of the project.
@@ -19,8 +21,9 @@ private:
 	  untested, visited, visited-path, visited-discarded. */
 	typedef std::bitset<8> Cell;
 
-	typedef std::size_t State; //!< State of cell.
-	typedef std::size_t Wall;  //!< Wall of a cell.
+	typedef std::size_t State;   //!< State of cell.
+	typedef std::size_t Wall;    //!< Wall of a cell.
+	typedef std::size_t index_t; //!< Index of a cell.
 
 	/// Dimensions of the matrix.
 	Nat width, height;
@@ -34,6 +37,18 @@ private:
 		@return Corresponding index of the coordinates.
 		@throw std::invalid_argument When the coordinates are outside the matrix. */
 	Nat to_index( const Coord & column, const Coord & line ) const;
+
+	/// Retrieves the column coordinate of a cell from its index.
+	/** This method suppose the index is valid (inside the maze) and does not check bounds.
+		@param index Index of the cell.
+		@return Corresponding column of the cell. */
+	inline Coord to_col( const index_t & index ) const { return index % width; };
+
+	/// Retrieves the line coordinate of a cell from its index.
+	/** This method suppose the index is valid (inside the maze) and does not check bounds.
+		@param index Index of the cell.
+		@return Corresponding line of the cell. */
+	inline Coord to_lin( const index_t & index ) const { return floor( index / width ); };
 
 	/// Checks if a coordinates pair points to inside the matrix.
 	/** @param width Width of the maze (number of columns).
@@ -97,7 +112,7 @@ public:
 		@throw std::invalid_argument When try to knock down a border wall. */
 	void knock_down( const Coord & column, const Coord & line, const Wall & targetWall );
 
-	/// Sets the state of a target cell.
+	/// Sets the state of a target cell, based on coordinates.
 	/** Receives the coordinates of a cell and a target State (that is, the corresponding State enumerator).
 		@param column Column of the target cell.
 		@param line Line of the targes cell.
@@ -105,6 +120,14 @@ public:
 		@throw std::invalid_argument When the coordinates are outside the matrix.
 		@throw std::invalid_argument When try to set an invalid state. */
 	void set_state( const Coord & column, const Coord & line, const State & targetState );
+
+	/// Sets the state of a target cell, based on index.
+	/** Receives the index of a cell and a target State (that is, the corresponding State enumerator).
+		@param index Index of the target cell.
+		@param targetState Target State to be set.
+		@throw std::invalid_argument When the index (converted into coordinates) is outside the matrix.
+		@throw std::invalid_argument When try to set an invalid state. */
+	void set_state( const index_t & index, const State & targetState );
 
 	/// Checks if a target wall is standing.
 	/** This method receives a target cell and a target wall to check if this one is standing.\n

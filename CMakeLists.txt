@@ -55,6 +55,8 @@ add_executable( magos
 	src/canvas.cpp
 	src/maze.cpp
 	src/render.cpp
+	src/builder.cpp
+	src/solver.cpp
 	src/magos.cpp
 	test/driver_magos.cpp
 )

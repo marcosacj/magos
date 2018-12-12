@@ -2,8 +2,6 @@
 #define MAGOS_H
 
 #include "common.h"
-// #include "maze.h"
-// #include "render.h"
 #include "builder.h"
 #include "solver.h"
 
@@ -26,6 +24,9 @@ private:
 	/// Flag to represent the state of the game.
 	Nat game_state;
 
+	/// counter to file names
+	Nat img_idx;
+
 public:
 
 	/// States of the game.
@@ -33,8 +34,10 @@ public:
 
 		STARTING,
 		BUILDING,
+		BUILT,
 		SOLVING,
-		DONE,
+		SOLVED,
+		OVER,
 		ERROR
 
 	};
@@ -43,12 +46,12 @@ public:
 	void welcome( void ) const;
 
 	/// Default constructor.
-	// Magos( Maze * param_m, Render * param_r, HashBuilder * param_b, Solver * param_s );
 	Magos( void );
 
 	/// Default destructor.
 	~Magos( void );
 
+	/// Returns the state of the game.
 	inline Nat get_state() const { return game_state; };
 
 	/// Process and validate input arguments
@@ -57,25 +60,29 @@ public:
 	/// Process all input events from the user (none in this game).
 	void process_events( void );
 
+	/// Check the state of the game and do the proper action (build or solve).
 	void update( void );
 
+	/// Check the state of the game and draw the image file.
 	void renderize( void );
 
+	/// Check if the game is over (built and solver).	
 	bool game_over( void );
 
+	/// Overload of ostream operator to show inforamtion about maze and render.
 	friend std::ostream & operator << ( std::ostream & os, const Magos & mg ){
 
 		os 	<< "Magos = [" << std::endl
-			<< "  < " << std::setw(10) << std::left << "maze_wid"
+			<< "  < " << std::setw(10) << std::left << "m_wid"
 			<< ", " << std::setw(5) << std::right << mg.m->get_wid() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "maze_hei"
+			<< "  < " << std::setw(10) << std::left << "m_hei"
 			<< ", " << std::setw(5) << std::right << mg.m->get_hei() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "img_wid"
+			<< "  < " << std::setw(10) << std::left << "r_wid"
 			<< ", " << std::setw(5) << std::right << mg.r->get_wid() << " >" << std::endl
 
-			<< "  < " << std::setw(10) << std::left << "img_hei"
+			<< "  < " << std::setw(10) << std::left << "r_hei"
 			<< ", " << std::setw(5) << std::right << mg.r->get_hei() << " >" << std::endl
 
 			<< "]";
