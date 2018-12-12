@@ -17,9 +17,11 @@ Maze::Maze( const Nat & w , const Nat & h ){
 }
 
 // Destructor
-Maze::~Maze(){
+Maze::~Maze( void ){
+
 	// std::cout << "\nDestroying maze..." << std::endl;
 	delete matrix;
+	
 }
 
 void Maze::knock_down( const Coord & column, const Coord & line, const Wall & targetWall ){

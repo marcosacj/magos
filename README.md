@@ -97,6 +97,7 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 	[ ] delete statement on destructor
 
 * On class `Solver`
+	[ ] comment with details
 
 * General
-	[ ] improve comments
+	[*] improve comments
