@@ -14,7 +14,7 @@ int main( int argc, char* argv[] ){
 
 	} else {
 
-		// Pointers to maze and render objects
+		// Pointers to maze, render and builder objects
 		Maze * m;
 		Render * r;
 		HashBuilder * b;
@@ -65,6 +65,6 @@ int main( int argc, char* argv[] ){
 
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 	
 }
