@@ -68,37 +68,95 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Coord start_column{ column * cell_width  + border_wid };
 	Coord start_line  { line   * cell_height + border_hei };
 
+	// adjustable percetual of border inside cell relative to colored box of state
+	float box_percentual { 0.20 };
+
+	// dimensions of borders between wall and colored box
+	Nat inside_border_wid { static_cast<Nat>( cell_width  * box_percentual ) };
+	Nat inside_border_hei { static_cast<Nat>( cell_height * box_percentual ) };
+
+	// coordinates of colored box of state information
+	Coord box_column{ static_cast<Coord>( start_column + inside_border_wid ) };
+	Coord box_line  { static_cast<Coord>( start_line   + inside_border_hei ) };
+
+	// dimensions of colored box
+	Nat box_width { static_cast<Nat>( cell_width  - 2*inside_border_wid ) };
+	Nat box_height{ static_cast<Nat>( cell_height - 2*inside_border_hei ) };
+
 	// top wall
 	if( ptr_maze->hasWall( column, line, Maze::Walls::Top ) )
 		img->hline( start_column , start_line , cell_width , BLACK );
+	else
+		if( not ptr_maze->isState( column, line , Maze::States::Untested )
+			and ptr_maze->isState( column, line - 1, Maze::States::Path ) ) {
+
+			img->box( box_column , box_line - 2*inside_border_hei , box_width , 2*inside_border_hei , LIGHT_BLUE );
+
+		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
+					and ptr_maze->isState( column, line - 1, Maze::States::Discarded ) ) {
+
+			img->box( box_column , box_line - 2*inside_border_hei , box_width, 2*inside_border_hei , DARK_GREEN );
+
+		}
 
 	// left wall
 	if( ptr_maze->hasWall( column, line, Maze::Walls::Left ) )
 		img->vline( start_column , start_line , cell_height , BLACK );
+	else
+		if( not ptr_maze->isState( column, line , Maze::States::Untested )
+			and ptr_maze->isState( column - 1, line , Maze::States::Path ) ) {
+
+			img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , LIGHT_BLUE );
+
+		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
+					and ptr_maze->isState( column - 1, line, Maze::States::Discarded ) ) {
+
+			img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , DARK_GREEN );
+
+		}
 
 	// bottom wall
 	if( ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) )
 		img->hline( start_column , start_line + cell_height , cell_width , BLACK );
+	else
+		if( not ptr_maze->isState( column, line , Maze::States::Untested )
+			and ptr_maze->isState( column, line + 1, Maze::States::Path ) ) {
+
+			img->box( box_column, box_line + cell_height , box_width, 2*inside_border_hei, LIGHT_BLUE );
+
+		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
+					and ptr_maze->isState( column, line + 1, Maze::States::Discarded ) ) {
+
+			img->box( box_column, box_line + cell_height , box_width, 2*inside_border_hei, DARK_GREEN );
+
+		}
 
 	// right wall
 	if( ptr_maze->hasWall( column, line, Maze::Walls::Right ) )
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
+	else
+		if( not ptr_maze->isState( column, line , Maze::States::Untested )
+			and ptr_maze->isState( column + 1, line , Maze::States::Path ) ) {
 
-	// coordinates of colored box of state information
-	Coord box_column{ start_column + cell_width /4 };
-	Coord box_line  { start_line   + cell_height/4 };
+			img->box( box_column + cell_width , box_line , 2*inside_border_wid , box_height , LIGHT_BLUE );
 
-	// dimensions of colored box
-	Nat box_width { cell_width /2 };
-	Nat box_height{ cell_height/2 };
+		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
+					and ptr_maze->isState( column + 1, line, Maze::States::Discarded ) ) {
 
-	if( ptr_maze->isState( column, line, Maze::States::Visited ) ) // Visited
+			img->box( box_column + cell_width , box_line , 2*inside_border_wid , box_height , DARK_GREEN );
+
+		}
+
+	// Visited state
+	if( ptr_maze->isState( column, line, Maze::States::Visited ) )
 		img->box( box_column, box_line, box_width, box_height, LIGHT_BLUE );
 
-	if( ptr_maze->isState( column, line, Maze::States::Path ) ) // Path
+	// Path state
+	if( ptr_maze->isState( column, line, Maze::States::Path ) )
 		img->box( box_column, box_line, box_width, box_height, RED );
 
-	if( ptr_maze->isState( column, line, Maze::States::Discarded ) ) // Discarded
+	// Discarded state
+	if( ptr_maze->isState( column, line, Maze::States::Discarded ) )
 		img->box( box_column, box_line, box_width, box_height, YELLOW );
 
 }

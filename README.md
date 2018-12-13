@@ -101,6 +101,6 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 
 * General/Missing
 	[*] improve comments
-	[ ] implement `delete` statements
+	[*] implement `delete` statements
 	[ ] update `draw_cell()`
 	[ ] comment Magos game class
