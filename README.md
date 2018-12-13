@@ -113,5 +113,5 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 	[*] improve comments
 	[*] implement `delete` statements
 	[*] update `draw_cell()`
-	[ ] number format in file names
+	[*] number format in file names
 	[ ] comment Magos game class

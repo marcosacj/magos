@@ -21,7 +21,7 @@ Maze::~Maze( void ){
 
 	std::cout << "Destroying Maze..." << std::endl;
 
-	delete matrix;
+	if( matrix != nullptr ) delete matrix;
 
 }
 

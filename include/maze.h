@@ -29,7 +29,7 @@ private:
 	Nat width, height;
 
 	/// Pointer to the matrix of cells, which represents the maze.
-	Cell * matrix{nullptr};
+	Cell * matrix { nullptr };
 
 	/// Converts coordinates to index in the matrix.
 	/** @param width Width of the maze (number of columns).

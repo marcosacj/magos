@@ -69,7 +69,7 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Coord start_line  { line   * cell_height + border_hei };
 
 	// adjustable percetual of border inside cell relative to colored box of state
-	float box_percentual { 0.10 };
+	float box_percentual { 0.30 };
 
 	// dimensions of borders between wall and colored box
 	Nat inside_border_wid { static_cast<Nat>( cell_width  * box_percentual ) };

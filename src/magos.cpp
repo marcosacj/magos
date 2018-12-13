@@ -12,10 +12,10 @@ Magos::~Magos( void ){
 
 	std::cout << "Destroying Magos Game..." << std::endl;
 
-	delete m;
-	delete r;
-	delete b;
-	delete s;
+	if( m != nullptr ) delete m;
+	if( r != nullptr ) delete r;
+	if( b != nullptr ) delete b;
+	if( s != nullptr ) delete s;
 
 }
 
@@ -85,6 +85,8 @@ void Magos::initializer( int argc, char* argv[] ){
 
 		} catch ( std::invalid_argument & e ) {
 
+			game_state = ERROR;
+
 			std::cout << "An error occurred while trying to get dimensions!" << std::endl;
 
 			std::cout 	<< "Try " << argv[0]
@@ -117,7 +119,7 @@ void Magos::update( void ){
 		case BUILDING:
 			// std::cout << "building..." << std::endl;
 
-			b->build_step();
+			while( not b->build_step() );
 
 			if( b->is_built() ){
 
