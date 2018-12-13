@@ -83,10 +83,10 @@ public:
 		type (that is, an eight bits set). */
 	enum Walls : Wall {
 
-		Top    = 8,   //!< Equivalent to 00001000
-		Right  = 4,   //!< Equivalent to 00000100
-		Bottom = 2,   //!< Equivalent to 00000010
-		Left   = 1    //!< Equivalent to 00000001
+		Top    = 1,   //!< Equivalent to 00000001
+		Right  = 2,   //!< Equivalent to 00000010
+		Bottom = 4,   //!< Equivalent to 00000100
+		Left   = 8    //!< Equivalent to 00001000
 
 	};
 
@@ -139,6 +139,9 @@ public:
 		@throw std::runtime_error When the coordinates are outside the maze. */
 	bool hasWall( const Coord & column, const Coord & line, const Wall & targetWall ) const;
 
+	/// Checks if a target wall is standing.
+	bool hasWall( const index_t & index, const Wall & targetWall ) const;
+
 	/// Checks the state of a target cell.
 	/** This method receives a target cell and a target state, and checks if that cell is set to
 		that state.\n
@@ -148,6 +151,9 @@ public:
 		@param line Line of the target cell.
 		@param targetState Code of the target state. Should be one from States public enum. */
 	bool isState( const Coord & column, const Coord & line, const State & targetState ) const;
+
+	/// Checks the state of a target cell.
+	bool isState( const index_t & index, const State & targetState ) const;
 
 	/// Overload of stream operator.
 	/** @param os The target std::ostream.

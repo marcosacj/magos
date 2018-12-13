@@ -29,7 +29,7 @@ void Maze::knock_down( const Coord & column, const Coord & line, const Wall & ta
 
 	// check if coordinates are inside the matrix
 	if( not valid_coord( column, line ) ){
-		throw std::invalid_argument("Coordinates should be inside the matrix!");
+		throw std::invalid_argument("Can't knock down! Coordinates should be inside the matrix!");
 	}
 
 	// check if target wall is correct and 
@@ -81,7 +81,7 @@ void Maze::set_state( const Coord & column, const Coord & line, const State & ta
 
 	// check if coordinates are inside the matrix
 	if( not valid_coord( column, line ) ){
-		throw std::invalid_argument("Coordinates should be inside the matrix!");
+		throw std::invalid_argument("Can't set state! Coordinates should be inside the matrix!");
 	}
 
 	// reset state bits
@@ -124,7 +124,7 @@ Nat Maze::to_index( const Coord & column, const Coord & line ) const {
 	if( valid_coord( column, line ) ){
 		return width*line + column;
 	} else {
-		throw std::invalid_argument("Coordinates should be inside the matrix!");
+		throw std::invalid_argument("Can't convert to index! Coordinates should be inside the matrix!");
 	}
 
 }
@@ -143,6 +143,12 @@ bool Maze::hasWall( const Coord & column, const Coord & line, const Wall & targe
 
 }
 
+bool Maze::hasWall( const index_t & index, const Wall & targetWall ) const {
+
+	return hasWall( to_col( index ), to_lin( index ), targetWall );
+
+}
+
 bool Maze::isState( const Coord & column, const Coord & line, const State & targetState ) const {
 
 	// yes, it is correct to assign a state to a cell type!
@@ -154,5 +160,11 @@ bool Maze::isState( const Coord & column, const Coord & line, const State & targ
 	} else {
 		return false;
 	}
+
+}
+
+bool Maze::isState( const index_t & index, const State & targetState ) const {
+
+	return isState( to_col( index ), to_lin( index ), targetState );
 
 }

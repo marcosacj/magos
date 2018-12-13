@@ -51,6 +51,15 @@ add_executable( solver
 	test/driver_solver.cpp
 )
 
+add_executable( wallfollower
+	src/maze.cpp
+	src/canvas.cpp
+	src/render.cpp
+	src/builder.cpp
+	src/wallf.cpp
+	test/driver_wallf.cpp
+)
+
 add_executable( magos
 	src/canvas.cpp
 	src/maze.cpp
