@@ -127,7 +127,7 @@ std::vector<Nat> Solver::check_directions( const index_t & index ) const {
 
 void Solver::solve_maze( void ){
 
-	std::cout << "Solving maze..." << std::endl;
+	std::cout << "Solving maze by Backtracking strategy..." << std::endl;
 
 	// counter to file names
 	Nat img_idx{ 0 };

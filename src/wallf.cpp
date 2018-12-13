@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <algorithm> // std::shuffle
 #include <random> // std::random_device, std::mt19937
@@ -98,20 +97,30 @@ void Wallf::solve_step( void ){
 
 void Wallf::solve_maze( void ){
 
+	std::cout << "Solving maze by Wall Follower strategy..." << std::endl;
+
+	// counter to file names
+	Nat img_idx{ 0 };
+
+	std::string solve_path { "./data/solving_" };
+
 	// set initial position as path
 	m->set_state( start_point, Maze::States::Path );
 
-	r->draw_image( "./data/img.png" );
-	// std::cin.ignore();
+	// draw initial version of maze
+	r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
 
 	while( not is_solved() ) {
 
+		// advance one step in solutio search
 		solve_step();
-		r->draw_image( "./data/img.png" );
-
-		// std::cin.ignore();
+		
+		// draw currente version of maze
+		r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
 		
 	}
+
+	std::cout << "Maze is solved..." << std::endl;
 
 }
 
