@@ -3,6 +3,11 @@
 This project implements the programming project MAGOS, which is composed of some subprojects:
 Canvas, Maze, Render, Builder, Solver.
 
+## Authorship
+
+Marcos Antonio Cavalcanti Junior
+marcos.acj@outlook.com
+
 ## Structure
 
 The folder and files structure is the following:
