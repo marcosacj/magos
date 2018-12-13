@@ -152,6 +152,9 @@ public:
 		@param targetState Code of the target state. Should be one from States public enum. */
 	bool isState( const Coord & column, const Coord & line, const State & targetState ) const;
 
+	/// Checks the state of a target cell.
+	bool isState( const index_t & index, const State & targetState ) const;
+
 	/// Overload of stream operator.
 	/** @param os The target std::ostream.
 		@param m The maze to be printed.

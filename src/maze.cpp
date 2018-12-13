@@ -162,3 +162,9 @@ bool Maze::isState( const Coord & column, const Coord & line, const State & targ
 	}
 
 }
+
+bool Maze::isState( const index_t & index, const State & targetState ) const {
+
+	return isState( to_col( index ), to_lin( index ), targetState );
+
+}
