@@ -77,14 +77,11 @@ private:
 
 	inline direction_t back_direction( void ) { return ( direction + 2 ) % 4; };
 
-	inline void turn_left( void ) { direction = left_direction();
-		std::cout << "new dir = " << direction << std::endl; };
+	inline void turn_left( void ) { direction = left_direction(); };
 
-	inline void turn_right( void ) { direction = right_direction();
-		std::cout << "new dir = " << direction << std::endl; };
+	inline void turn_right( void ) { direction = right_direction(); };
 
-	inline void turn_back( void ) { direction = back_direction();
-		std::cout << "new dir = " << direction << std::endl; };
+	inline void turn_back( void ) { direction = back_direction(); };
 
 public:
 

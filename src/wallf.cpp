@@ -45,7 +45,7 @@ bool Wallf::is_solved( void ){
 
 void Wallf::solve_step( void ){
 
-	std::cout << "pos = " << position << " dir = " << direction << std::endl;
+	// std::cout << "pos = " << position << " dir = " << direction << std::endl;
 
 	// check if the right wall is standing
 	if( m->hasWall( position, directions_v[ right_direction() ] ) ){
@@ -57,7 +57,7 @@ void Wallf::solve_step( void ){
 			if( m->hasWall( position, directions_v[ left_direction() ] ) ){
 
 				// case is END OF CORRIDOR
-				std::cout << "End of corridor" << std::endl;
+				// std::cout << "End of corridor" << std::endl;
 
 				// action is TURN BACK
 				turn_back();
@@ -65,7 +65,7 @@ void Wallf::solve_step( void ){
 			} else {
 
 				// case is LEFT CORRIDOR
-				std::cout << "Left corridor" << std::endl;
+				// std::cout << "Left corridor" << std::endl;
 
 				// action is TURN LEFT and GO AHEAD
 				turn_left();
@@ -76,7 +76,7 @@ void Wallf::solve_step( void ){
 		} else {
 
 			// case is FRONT CORRIDOR
-			std::cout << "Front corridor" << std::endl;
+			// std::cout << "Front corridor" << std::endl;
 
 			// action is GO AHEAD
 			go_ahead();
@@ -86,7 +86,7 @@ void Wallf::solve_step( void ){
 	} else {
 
 		// case is RIGHT CORRIDOR
-		std::cout << "Right corridor" << std::endl;
+		// std::cout << "Right corridor" << std::endl;
 
 		// action is TURN RIGHT and GO AHEAD
 		turn_right();
@@ -102,14 +102,14 @@ void Wallf::solve_maze( void ){
 	m->set_state( start_point, Maze::States::Path );
 
 	r->draw_image( "./data/img.png" );
-	std::cin.ignore();
+	// std::cin.ignore();
 
-	while( true ) {
+	while( not is_solved() ) {
 
 		solve_step();
 		r->draw_image( "./data/img.png" );
 
-		std::cin.ignore();
+		// std::cin.ignore();
 		
 	}
 
@@ -120,8 +120,9 @@ void Wallf::go_ahead( void ){
 	// get coordinates of current position
 	Coord col { to_col( position ) };
 	Coord lin { to_lin( position ) };
-	
-	m->set_state( position, Maze::States::Discarded );
+
+	// previous position
+	index_t previous { position };
 
 	switch( direction ) {
 
@@ -146,9 +147,11 @@ void Wallf::go_ahead( void ){
 
 	}
 
-	std::cout << "new pos = " << position << std::endl;
+	// std::cout << "new pos = " << position << std::endl;
 
-	// set new position as Path
-	m->set_state( position, Maze::States::Path );
+	if( m->isState( position, Maze::States::Path ) )
+		m->set_state( previous, Maze::States::Discarded );
+	else
+		m->set_state( position, Maze::States::Path );
 
 }
