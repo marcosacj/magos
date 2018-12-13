@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <algorithm> // std::shuffle
 #include <random> // std::random_device, std::mt19937
@@ -47,13 +48,13 @@ void Wallf::solve_step( void ){
 	std::cout << "pos = " << position << " dir = " << direction << std::endl;
 
 	// check if the right wall is standing
-	if( m->hasWall( position, direction + 1 ) ){
+	if( m->hasWall( position, directions_v[ right_direction() ] ) ){
 
 		// check if front wall is standing
-		if( m->hasWall( position, direction ) ){
+		if( m->hasWall( position, directions_v[ direction ] ) ){
 
 			// check if left wall is standing
-			if( m->hasWall( position, direction - 1 ) ){
+			if( m->hasWall( position, directions_v[ left_direction() ] ) ){
 
 				// case is END OF CORRIDOR
 				std::cout << "End of corridor" << std::endl;
@@ -97,14 +98,20 @@ void Wallf::solve_step( void ){
 
 void Wallf::solve_maze( void ){
 
-	solve_step();
+	// set initial position as path
+	m->set_state( start_point, Maze::States::Path );
+
 	r->draw_image( "./data/img.png" );
-	// solve_step();
-	// r->draw_image( "./data/img.png" );
-	// solve_step();
-	// r->draw_image( "./data/img.png" );
-	// solve_step();
-	// r->draw_image( "./data/img.png" );
+	std::cin.ignore();
+
+	while( true ) {
+
+		solve_step();
+		r->draw_image( "./data/img.png" );
+
+		std::cin.ignore();
+		
+	}
 
 }
 
@@ -113,9 +120,8 @@ void Wallf::go_ahead( void ){
 	// get coordinates of current position
 	Coord col { to_col( position ) };
 	Coord lin { to_lin( position ) };
-
-	// set current position as Path
-	m->set_state( position, Maze::States::Path );
+	
+	m->set_state( position, Maze::States::Discarded );
 
 	switch( direction ) {
 
@@ -141,5 +147,8 @@ void Wallf::go_ahead( void ){
 	}
 
 	std::cout << "new pos = " << position << std::endl;
+
+	// set new position as Path
+	m->set_state( position, Maze::States::Path );
 
 }

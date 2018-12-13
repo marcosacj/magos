@@ -27,15 +27,23 @@ private:
 	/// Current position of the agent.
 	index_t position;
 
-	/// Current direction of the agent.
+	/// Current index of direction of the agent.
 	direction_t direction;
 
 	/// Directions that can be taken from the current cell.
-	enum Directions : direction_t {
+	enum directions_e : direction_t {
 		Top    = 0,
 		Right  = 1,
 		Bottom = 2,
 		Left   = 3
+	};
+
+	/// Directions that can be taken from the current cell.
+	std::vector<direction_t> directions_v { 
+		Maze::Walls::Top, 
+		Maze::Walls::Right, 
+		Maze::Walls::Bottom, 
+		Maze::Walls::Left 
 	};
 
 	/// Converts the location of a cell from coordinates to index.
@@ -61,13 +69,21 @@ private:
 	/// Make the agente go ahead one cell relative to current direction and position.
 	void go_ahead( void );
 
-	inline void turn_left( void ) { direction = ( direction - 1 ) % 4;
+	// inline Nat dir2wall( const direction_t & dir ) { return pow( 2, dir ); };
+
+	inline direction_t left_direction( void ) { return ( direction - 1 ) % 4; };
+
+	inline direction_t right_direction( void ) { return ( direction + 1 ) % 4; };
+
+	inline direction_t back_direction( void ) { return ( direction + 2 ) % 4; };
+
+	inline void turn_left( void ) { direction = left_direction();
 		std::cout << "new dir = " << direction << std::endl; };
 
-	inline void turn_right( void ) { direction = ( direction + 1 ) % 4;
+	inline void turn_right( void ) { direction = right_direction();
 		std::cout << "new dir = " << direction << std::endl; };
 
-	inline void turn_back( void ) { direction = ( direction + 2 ) % 4;
+	inline void turn_back( void ) { direction = back_direction();
 		std::cout << "new dir = " << direction << std::endl; };
 
 public:
