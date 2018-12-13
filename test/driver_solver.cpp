@@ -66,7 +66,9 @@ int main( int argc, char* argv[] ){
 		s = new Solver { m, r };
 
 		// build and solve the maze
-		b->build_maze();
+		while( not b->is_built() )
+			b->build_step();
+
 		s->solve_maze();
 
 	}

@@ -69,7 +69,7 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Coord start_line  { line   * cell_height + border_hei };
 
 	// adjustable percetual of border inside cell relative to colored box of state
-	float box_percentual { 0.20 };
+	float box_percentual { 0.10 };
 
 	// dimensions of borders between wall and colored box
 	Nat inside_border_wid { static_cast<Nat>( cell_width  * box_percentual ) };
@@ -83,81 +83,218 @@ void Render::draw_cell( const Coord & column, const Coord & line ){
 	Nat box_width { static_cast<Nat>( cell_width  - 2*inside_border_wid ) };
 	Nat box_height{ static_cast<Nat>( cell_height - 2*inside_border_hei ) };
 
-	// top wall
-	if( ptr_maze->hasWall( column, line, Maze::Walls::Top ) )
-		img->hline( start_column , start_line , cell_width , BLACK );
-	else
-		if( not ptr_maze->isState( column, line , Maze::States::Untested )
-			and ptr_maze->isState( column, line - 1, Maze::States::Path ) ) {
-
-			img->box( box_column , box_line - 2*inside_border_hei , box_width , 2*inside_border_hei , LIGHT_BLUE );
-
-		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
-					and ptr_maze->isState( column, line - 1, Maze::States::Discarded ) ) {
-
-			img->box( box_column , box_line - 2*inside_border_hei , box_width, 2*inside_border_hei , DARK_GREEN );
-
-		}
-
-	// left wall
-	if( ptr_maze->hasWall( column, line, Maze::Walls::Left ) )
-		img->vline( start_column , start_line , cell_height , BLACK );
-	else
-		if( not ptr_maze->isState( column, line , Maze::States::Untested )
-			and ptr_maze->isState( column - 1, line , Maze::States::Path ) ) {
-
-			img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , LIGHT_BLUE );
-
-		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
-					and ptr_maze->isState( column - 1, line, Maze::States::Discarded ) ) {
-
-			img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , DARK_GREEN );
-
-		}
-
 	// bottom wall
-	if( ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) ){
+
 		img->hline( start_column , start_line + cell_height , cell_width , BLACK );
-	else
-		if( not ptr_maze->isState( column, line , Maze::States::Untested )
-			and ptr_maze->isState( column, line + 1, Maze::States::Path ) ) {
 
-			img->box( box_column, box_line + cell_height , box_width, 2*inside_border_hei, LIGHT_BLUE );
+	} else {
 
-		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
-					and ptr_maze->isState( column, line + 1, Maze::States::Discarded ) ) {
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested ) ){
 
-			img->box( box_column, box_line + cell_height , box_width, 2*inside_border_hei, DARK_GREEN );
+		// 	if( ptr_maze->isState( column, line + 1, Maze::States::Path ) ){
 
-		}
+		// 		img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, RED );
+
+		// 	}
+
+		// 	if( ptr_maze->isState( column, line + 1, Maze::States::Discarded ) ){
+				
+		// 		img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, YELLOW );
+
+		// 	}
+
+		// }
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column, line + 1, Maze::States::Path ) ) {
+
+		// 	img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, RED );
+
+		// }
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column, line + 1, Maze::States::Discarded ) ) {
+
+		// 	img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, YELLOW );
+
+		// }
+	} 
 
 	// right wall
-	if( ptr_maze->hasWall( column, line, Maze::Walls::Right ) )
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Right ) ){
+
 		img->vline( start_column + cell_width , start_line , cell_height , BLACK );
-	else
-		if( not ptr_maze->isState( column, line , Maze::States::Untested )
-			and ptr_maze->isState( column + 1, line , Maze::States::Path ) ) {
 
-			img->box( box_column + cell_width , box_line , 2*inside_border_wid , box_height , LIGHT_BLUE );
+	} else {
 
-		} else if( 	not ptr_maze->isState( column, line , Maze::States::Untested )
-					and ptr_maze->isState( column + 1, line, Maze::States::Discarded ) ) {
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column + 1, line, Maze::States::Path ) ) {
 
-			img->box( box_column + cell_width , box_line , 2*inside_border_wid , box_height , DARK_GREEN );
+		// 	img->box( box_column + box_width , box_line , 2*inside_border_wid , box_height , RED );
 
-		}
+		// }
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column + 1, line , Maze::States::Discarded ) ) {
+
+		// 	img->box( box_column + box_width , box_line , 2*inside_border_wid , box_height , YELLOW );
+
+		// }
+
+	}
+
+	// top wall
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Top ) ){
+
+		img->hline( start_column , start_line , cell_width , BLACK );
+
+	} else {
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column, line - 1, Maze::States::Path ) ) {
+
+		// 	img->box( box_column , box_line - 2*inside_border_hei , box_width, 2*inside_border_hei , RED );
+
+		// }
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column, line - 1, Maze::States::Discarded ) ) {
+
+		// 	img->box( box_column , box_line - 2*inside_border_hei , box_width , 2*inside_border_hei , YELLOW );
+
+		// }
+
+	}
+
+	// left wall
+	if( ptr_maze->hasWall( column, line, Maze::Walls::Left ) ){
+
+		img->vline( start_column , start_line , cell_height , BLACK );
+
+	} else {
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column - 1, line, Maze::States::Path ) ) {
+
+		// 	img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , RED );
+
+		// }
+
+		// if( not ptr_maze->isState( column, line , Maze::States::Untested )
+		// 	and ptr_maze->isState( column - 1, line , Maze::States::Discarded ) ) {
+
+		// 	img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , YELLOW );
+
+		// }
+
+	}
 
 	// Visited state
 	if( ptr_maze->isState( column, line, Maze::States::Visited ) )
 		img->box( box_column, box_line, box_width, box_height, LIGHT_BLUE );
 
 	// Path state
-	if( ptr_maze->isState( column, line, Maze::States::Path ) )
-		img->box( box_column, box_line, box_width, box_height, RED );
+	// if( ptr_maze->isState( column, line, Maze::States::Path ) )
+	// 	img->box( box_column, box_line, box_width, box_height, RED );
 
 	// Discarded state
-	if( ptr_maze->isState( column, line, Maze::States::Discarded ) )
+	// if( ptr_maze->isState( column, line, Maze::States::Discarded ) )
+	// 	img->box( box_column, box_line, box_width, box_height, YELLOW );
+
+	/* trying link cells */
+	if( ptr_maze->isState( column, line, Maze::States::Path ) ){
+
+		img->box( box_column, box_line, box_width, box_height, RED );
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Top ) ){
+
+			if( ptr_maze->isState( column, line - 1, Maze::States::Path ) ){
+
+				img->box( box_column , box_line - 2*inside_border_hei , box_width , 2*inside_border_hei , RED );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Right ) ){
+
+			if( ptr_maze->isState( column + 1 , line , Maze::States::Path ) ){
+
+				img->box( box_column + box_width , box_line , 2*inside_border_wid , box_height , RED );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) ){
+
+			if( ptr_maze->isState( column , line + 1 , Maze::States::Path ) ){
+
+				img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, RED );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Left ) ){
+
+			if( ptr_maze->isState( column - 1 , line , Maze::States::Path ) ){
+
+				img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , RED );
+				
+			}
+
+		}
+
+	}
+
+	if( ptr_maze->isState( column, line, Maze::States::Discarded ) ){
+
 		img->box( box_column, box_line, box_width, box_height, YELLOW );
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Top ) ){
+
+			if( not ptr_maze->isState( column, line - 1, Maze::States::Untested ) ){
+
+				img->box( box_column , box_line - 2*inside_border_hei , box_width , 2*inside_border_hei , YELLOW );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Right ) ){
+
+			if( not ptr_maze->isState( column + 1 , line , Maze::States::Untested ) ){
+
+				img->box( box_column + box_width , box_line , 2*inside_border_wid , box_height , YELLOW );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Bottom ) ){
+
+			if( not ptr_maze->isState( column , line + 1 , Maze::States::Untested ) ){
+
+				img->box( box_column, box_line + box_height , box_width, 2*inside_border_hei, YELLOW );
+				
+			}
+
+		}
+
+		if( not ptr_maze->hasWall( column, line, Maze::Walls::Left ) ){
+
+			if( not ptr_maze->isState( column - 1 , line , Maze::States::Untested ) ){
+
+				img->box( box_column - 2*inside_border_wid , box_line , 2*inside_border_wid , box_height , YELLOW );
+				
+			}
+
+		}
+
+	}
+
 
 }
 
