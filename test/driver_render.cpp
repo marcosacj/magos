@@ -63,14 +63,15 @@ int main( int argc, char* argv[] ){
 		r->draw_image( "./data/img-clean.png" );
 
 		m->knock_down( m_wid * 0.5 , m_hei * 0.3 , Maze::Walls::Top );
-		m->knock_down( m_wid * 0.2 , m_hei * 0.5 , Maze::Walls::Right );
+		m->knock_down( m_wid * 0.2 , m_hei * 0.5 , Maze::Walls::Top );
 		m->knock_down( m_wid * 0.3 , m_hei * 0.4 , Maze::Walls::Right );
 		m->knock_down( m_wid * 0.9 , m_hei * 0.9 , Maze::Walls::Left );
 
 		r->draw_image( "./data/img-knock.png" );
 
-		m->set_state(  m_wid * 0.1 , m_hei * 0.5 , Maze::States::Visited );
-		m->set_state(  m_wid * 0.5 , m_hei * 0.9 , Maze::States::Path );
+		m->set_state(  m_wid * 0.2 , m_hei * 0.5 , Maze::States::Path );
+		m->set_state(  m_wid * 0.2 , m_hei * 0.3 , Maze::States::Path );
+		m->set_state(  m_wid * 0.5 , m_hei * 0.9 , Maze::States::Visited );
 		m->set_state(  m_wid * 0.9 , m_hei * 0.4 , Maze::States::Discarded );
 
 		r->draw_image( "./data/img-state.png" );

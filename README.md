@@ -74,7 +74,7 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 * On class `Render`
 	[*] refactor `draw_cell()` to use methods provided by Maze
 	[*] document with details
-	[ ] draw cell and path of solution
+	[*] draw cell and path of solution
 
 * On class `MagosGame`
 
@@ -101,6 +101,7 @@ Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY a
 
 * General/Missing
 	[*] improve comments
-	[ ] implement `delete` statements
-	[ ] update `draw_cell()`
+	[*] implement `delete` statements
+	[*] update `draw_cell()`
+	[ ] number format in file names
 	[ ] comment Magos game class
