@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm> // std::shuffle
 #include <random> // std::random_device, std::mt19937
+#include <sstream>
 
 #include "wallf.h"
 
@@ -102,21 +103,30 @@ void Wallf::solve_maze( void ){
 	// counter to file names
 	Nat img_idx{ 0 };
 
-	std::string solve_path { "./data/solving_" };
+	// ostream to create file names
+	std::ostringstream solve_path { "" , std::ios_base::ate };
 
 	// set initial position as path
 	m->set_state( start_point, Maze::States::Path );
 
+	// load file name to stream according to pattern
+	solve_path << "./data/solving_" << std::setw(6) << std::setfill('0') << std::to_string( img_idx++ ) << ".png" ;
+
 	// draw initial version of maze
-	r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+	r->draw_image( solve_path.str() );
+
+	// clear content of stream
+	solve_path.str( std::string() );
 
 	while( not is_solved() ) {
 
 		// advance one step in solutio search
 		solve_step();
-		
+
 		// draw currente version of maze
-		r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+		solve_path << "./data/solving_" << std::setw(6) << std::setfill('0') << std::to_string( img_idx++ ) << ".png" ;
+		r->draw_image( solve_path.str() );
+		solve_path.str( std::string() );
 		
 	}
 
