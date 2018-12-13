@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "magos.h"
 
 Magos::Magos( void ){
@@ -172,29 +174,33 @@ void Magos::renderize( void ){
 
 	// std::cout << "Renderizing..." << std::endl;
 
-	std::string solve_path { "./data/solving_" };
-	std::string build_path { "./data/building_" };
+	std::ostringstream solve_path { "./data/solving_" , std::ios_base::ate };
+	std::ostringstream build_path { "./data/building_", std::ios_base::ate };
+
+	solve_path << std::setw(6) << std::setfill('0') << std::to_string( img_idx ) << ".png" ;
+	build_path << std::setw(6) << std::setfill('0') << std::to_string( img_idx ) << ".png" ;
+
+	img_idx++;
 
 	switch( game_state ){
 
 		case STARTING:
-			// r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
 			break;
 			
 		case BUILDING:
-			r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );
+			r->draw_image( build_path.str() );
 			break;
 
 		case BUILT:
-			r->draw_image( build_path + std::to_string( img_idx++ ) + ".png" );			
+			r->draw_image( build_path.str() );
 			break;
 			
 		case SOLVING:
-			r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+			r->draw_image( solve_path.str() );
 			break;
 			
 		case SOLVED:
-			r->draw_image( solve_path + std::to_string( img_idx++ ) + ".png" );
+			r->draw_image( solve_path.str() );
 			break;
 			
 		case OVER:

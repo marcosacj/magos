@@ -61,6 +61,16 @@ $ doxygen -g [NAME]
 
 Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY and EXTRACT\_PRIVATE.
 
+## Video
+
+You can use `ffmpeg` to make video files of building and solving processes. For example:
+
+```
+ffmpeg -framerate 10 -i building_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" builder.mp4
+
+ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" solver.mp4
+```
+
 ## TODO
 
 * On class `Maze`
