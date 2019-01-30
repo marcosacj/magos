@@ -62,6 +62,12 @@ All executables will be placed in `run/` folder. So, you can run typing:
 $ ./run/[EXECUTABLE]
 ```
 
+These are the main executables:
+
+* `builder` builds a new maze using hash table strategy
+* `solver` solves a maze (currently, using the XXX strategy)
+* `magos` performs the game it self building and solving a maze
+
 ## Doxygen
 
 A configuration file is set in the root directory, `doxygen.cfg`.
@@ -105,6 +111,7 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 	[x] draw cell and path of solution
 
 * On class `MagosGame`
+	[ ] prevent executable to run without parameters
 
 * Implement `Builder` and `Solver` classes (each class name will refer to the method used)
 	[x] class `HashBuilder`
@@ -117,6 +124,7 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 	[x] create `step()` method
 	[ ] rename class `roulette` and port it to inside `HashBuilder`
 	[ ] implement Hash Table as a `std::vector` (internal class)
+	[ ] number format in file names
 
 * On class `HashTable`
 	[x] implement exceptions ( `key2index()`, `merge\_by\_key()` )
@@ -126,6 +134,7 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 
 * On class `Solver`
 	[x] comment with details
+	[ ] number format in file names
 
 * General/Missing
 	[x] improve comments
