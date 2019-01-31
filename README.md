@@ -1,11 +1,18 @@
 ## Introduction
 
-This project implements the programming project MAGOS, which is composed of some subprojects:
+This project implements the programming project MAGOS,
+which means Maze GeneratOr and Solver and is composed of some subprojects:
 Canvas, Maze, Render, Builder, Solver.
+
+The project is a perfect maze generator and solver.
+
+A perfect maze is a maze where each location (cell) is reachable from any other one,
+and where there is one, and only one, path connecting each pair of locations.
 
 ## Authorship
 
 Marcos Antonio Cavalcanti Junior
+
 marcos.acj@outlook.com
 
 ## Structure
@@ -56,15 +63,30 @@ All executables will be placed in `run/` folder. So, you can run typing:
 $ ./run/[EXECUTABLE]
 ```
 
+These are the main executables:
+
+* `builder` builds a new maze using Hash Table strategy
+* `solver` solves a maze (currently, using the Backtracking strategy)
+* `magos` performs the game it self building and solving a maze
+
+More details about each executables can be found at `CMakeLists.txt` file.
+
 ## Doxygen
 
-A configuration file is set in the root directory, `doxygen.cfg`. If you want to generate yours, you can type:
+A configuration file is set in the root directory, `doxygen.cfg`.
+If you want to generate yours, you can type:
 
 ```
 $ doxygen -g [NAME]
 ```
 
 Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY and EXTRACT\_PRIVATE.
+
+To generate the files containing the documentation, type:
+
+```
+$ doxygen doxygen.cfg
+```
 
 ## Video
 
@@ -79,44 +101,55 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 ## TODO
 
 * On class `Maze`
-	[*] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
-	[*] implement methods to get states of cells and walls
-	[*] refactor order of bits: four first to be walls states
-	[*] turn Cell type back to private
-	[*] refactor method to reset states in `set_state()`
-	[ ] refactor number of bits used, from 8 to 6
+
+	- [x] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
+	- [x] implement methods to get states of cells and walls
+	- [x] refactor order of bits: four first to be walls states
+	- [x] turn Cell type back to private
+	- [x] refactor method to reset states in `set_state()`
+	- [ ] refactor number of bits used, from 8 to 6
 
 * On class `Render`
-	[*] refactor `draw_cell()` to use methods provided by Maze
-	[*] document with details
-	[*] draw cell and path of solution
+
+	- [x] refactor `draw_cell()` to use methods provided by Maze
+	- [x] document with details
+	- [x] draw cell and path of solution
 
 * On class `MagosGame`
 
+	- [ ] prevent executable to run without parameters
+
 * Implement `Builder` and `Solver` classes (each class name will refer to the method used)
-	[*] class `HashBuilder`
-	[*] class `Solver`
+
+	- [x] class `HashBuilder`
+	- [x] class `Solver`
 
 * On class `HashBuilder`
-	[*] introduce render object
-	[*] save snapshots of maze
-	[*] remove internal render and receive it by parameter
-	[*] create `step()` method
-	[ ] rename class `roulette` and port it to inside `HashBuilder`
-	[ ] implement Hash Table as a `std::vector` (internal class)
+
+	- [x] introduce render object
+	- [x] save snapshots of maze
+	- [x] remove internal render and receive it by parameter
+	- [x] create `step()` method
+	- [ ] rename class `roulette` and port it to inside `HashBuilder`
+	- [ ] implement Hash Table as a `std::vector` (internal class)
+	- [ ] number format in file names
 
 * On class `HashTable`
-	[*] implement exceptions ( `key2index()`, `merge\_by\_key()` )
-	[*] document with details
-	[*] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
-	[ ] delete statement on destructor
+
+	- [x] implement exceptions ( `key2index()`, `merge\_by\_key()` )
+	- [x] document with details
+	- [x] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
+	- [ ] delete statement on destructor
 
 * On class `Solver`
-	[*] comment with details
+
+	- [x] comment with details
+	- [ ] number format in file names
 
 * General/Missing
-	[*] improve comments
-	[*] implement `delete` statements
-	[*] update `draw_cell()`
-	[*] number format in file names
-	[ ] comment Magos game class
+
+	- [x] improve comments
+	- [x] implement `delete` statements
+	- [x] update `draw_cell()`
+	- [x] number format in file names
+	- [ ] comment Magos Game class
