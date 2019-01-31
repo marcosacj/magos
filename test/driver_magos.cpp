@@ -12,7 +12,7 @@ int main( int argc, char* argv[] ){
 
 	if( mg.get_state() == Magos::States::ERROR ){
 
-		std::cout << "And error occurred!" << std::endl;
+		// std::cout << "And error occurred!" << std::endl;
 
 		return EXIT_FAILURE;
 

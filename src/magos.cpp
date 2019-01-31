@@ -6,6 +6,11 @@ Magos::Magos( void ){
 
 	std::cout << "Constructing Magos Game..." << std::endl;
 
+	m = nullptr;
+	r = nullptr;
+	b = nullptr;
+	s = nullptr;
+
 }
 
 Magos::~Magos( void ){
@@ -111,6 +116,8 @@ void Magos::update( void ){
 
 		case STARTING:
 
+			std::cout << "The Game is building the maze..." << std::endl;
+
 			game_state = BUILDING;
 			img_idx = 0;
 
@@ -129,6 +136,8 @@ void Magos::update( void ){
 			break;
 
 		case BUILT:
+
+			std::cout << "The Game is solving the maze..." << std::endl;
 
 			game_state = SOLVING;
 
@@ -154,6 +163,8 @@ void Magos::update( void ){
 			break;
 			
 		case SOLVED:
+
+			std::cout << "The Game has finished!" << std::endl;
 
 			game_state = OVER;
 			img_idx = 0;
