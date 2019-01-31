@@ -80,7 +80,7 @@ If you want to generate yours, you can type:
 $ doxygen -g [NAME]
 ```
 
-Its recommended to custom the following tags: PROJECT\_NAME, OUTPUT\_DIRECTORY and EXTRACT\_PRIVATE.
+Its recommended to custom the following tags: PROJECT_NAME, OUTPUT_DIRECTORY and EXTRACT_PRIVATE.
 
 To generate the files containing the documentation, type:
 
@@ -117,7 +117,7 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 
 * On class `MagosGame`
 
-	- [ ] prevent executable to run without parameters
+	- [x] prevent executable to run without parameters
 
 * Implement `Builder` and `Solver` classes (each class name will refer to the method used)
 
@@ -136,9 +136,9 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 
 * On class `HashTable`
 
-	- [x] implement exceptions ( `key2index()`, `merge\_by\_key()` )
+	- [x] implement exceptions ( `key2index()`, `merge_by_key()` )
 	- [x] document with details
-	- [x] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
+	- [x] separate `build_maze()` to `build_maze()` + `build_step()` (use class `Roulette`?)
 	- [ ] delete statement on destructor
 
 * On class `Solver`
