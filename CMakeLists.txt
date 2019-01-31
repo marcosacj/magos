@@ -9,20 +9,29 @@ include_directories( include helpers )
 
 # EXECUTABLES DEFINITION ==========================
 
+# Tests Canvas class
+# creates three test images
 add_executable( canvas
 	src/canvas.cpp
 	test/driver_canvas.cpp
 )
 
+# Tests Maze class
+# constructs and prints a maze
+# tests exceptions
 add_executable( maze
 	src/maze.cpp
 	test/driver_maze.cpp
 )
 
+# Tests Roullete class
 add_executable( roullete
 	test/driver_roullete.cpp
 )
 
+# Tests Builder class
+# this builder uses Hash Table strategy
+# produces images to data folder
 add_executable( builder
 	src/canvas.cpp
 	src/maze.cpp
@@ -31,6 +40,10 @@ add_executable( builder
 	test/driver_builder.cpp
 )
 
+# Testes Render class
+# produces three images to data folder
+# prints detailed informations about maze and render
+# testes knocked-down walls and colored cells
 add_executable( render
 	src/canvas.cpp
 	src/maze.cpp
@@ -38,10 +51,15 @@ add_executable( render
 	test/driver_render.cpp
 )
 
+# Tests helper HashTable class
+# prints the process of joining the keys
 add_executable( hash
 	test/driver_hash.cpp
 )
 
+# Tests Solver class
+# this solver uses Backtracking strategy
+# produces images to data folder
 add_executable( solver
 	src/maze.cpp
 	src/canvas.cpp
@@ -51,6 +69,8 @@ add_executable( solver
 	test/driver_solver.cpp
 )
 
+# Tests Wallfoller class
+# produces images to data folder
 add_executable( wallfollower
 	src/maze.cpp
 	src/canvas.cpp
@@ -60,6 +80,8 @@ add_executable( wallfollower
 	test/driver_wallf.cpp
 )
 
+# The de-facto game executable
+# uses the Backtracking solver
 add_executable( magos
 	src/canvas.cpp
 	src/maze.cpp

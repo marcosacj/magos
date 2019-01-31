@@ -64,9 +64,11 @@ $ ./run/[EXECUTABLE]
 
 These are the main executables:
 
-* `builder` builds a new maze using hash table strategy
-* `solver` solves a maze (currently, using the XXX strategy)
+* `builder` builds a new maze using Hash Table strategy
+* `solver` solves a maze (currently, using the Backtracking strategy)
 * `magos` performs the game it self building and solving a maze
+
+More details about each executables can be found at `CMakeLists.txt` file.
 
 ## Doxygen
 
