@@ -12,6 +12,7 @@ and where there is one, and only one, path connecting each pair of locations.
 ## Authorship
 
 Marcos Antonio Cavalcanti Junior
+
 marcos.acj@outlook.com
 
 ## Structure
@@ -100,47 +101,55 @@ ffmpeg -framerate 10 -i solving_%06d.png -c:v libx264 -r 30 -pix_fmt yuv420p  -v
 ## TODO
 
 * On class `Maze`
-	[x] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
-	[x] implement methods to get states of cells and walls
-	[x] refactor order of bits: four first to be walls states
-	[x] turn Cell type back to private
-	[x] refactor method to reset states in `set_state()`
-	[ ] refactor number of bits used, from 8 to 6
+
+	- [x] introduce `valid_coord()` in `to_index()` and `get_cell()`, and implement exceptions
+	- [x] implement methods to get states of cells and walls
+	- [x] refactor order of bits: four first to be walls states
+	- [x] turn Cell type back to private
+	- [x] refactor method to reset states in `set_state()`
+	- [ ] refactor number of bits used, from 8 to 6
 
 * On class `Render`
-	[x] refactor `draw_cell()` to use methods provided by Maze
-	[x] document with details
-	[x] draw cell and path of solution
+
+	- [x] refactor `draw_cell()` to use methods provided by Maze
+	- [x] document with details
+	- [x] draw cell and path of solution
 
 * On class `MagosGame`
-	[ ] prevent executable to run without parameters
+
+	- [ ] prevent executable to run without parameters
 
 * Implement `Builder` and `Solver` classes (each class name will refer to the method used)
-	[x] class `HashBuilder`
-	[x] class `Solver`
+
+	- [x] class `HashBuilder`
+	- [x] class `Solver`
 
 * On class `HashBuilder`
-	[x] introduce render object
-	[x] save snapshots of maze
-	[x] remove internal render and receive it by parameter
-	[x] create `step()` method
-	[ ] rename class `roulette` and port it to inside `HashBuilder`
-	[ ] implement Hash Table as a `std::vector` (internal class)
-	[ ] number format in file names
+
+	- [x] introduce render object
+	- [x] save snapshots of maze
+	- [x] remove internal render and receive it by parameter
+	- [x] create `step()` method
+	- [ ] rename class `roulette` and port it to inside `HashBuilder`
+	- [ ] implement Hash Table as a `std::vector` (internal class)
+	- [ ] number format in file names
 
 * On class `HashTable`
-	[x] implement exceptions ( `key2index()`, `merge\_by\_key()` )
-	[x] document with details
-	[x] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
-	[ ] delete statement on destructor
+
+	- [x] implement exceptions ( `key2index()`, `merge\_by\_key()` )
+	- [x] document with details
+	- [x] separate `build\_maze()` to `build\_maze()` + `build\_step()` (use class `Roulette`?)
+	- [ ] delete statement on destructor
 
 * On class `Solver`
-	[x] comment with details
-	[ ] number format in file names
+
+	- [x] comment with details
+	- [ ] number format in file names
 
 * General/Missing
-	[x] improve comments
-	[x] implement `delete` statements
-	[x] update `draw_cell()`
-	[x] number format in file names
-	[ ] comment Magos Game class
+
+	- [x] improve comments
+	- [x] implement `delete` statements
+	- [x] update `draw_cell()`
+	- [x] number format in file names
+	- [ ] comment Magos Game class
